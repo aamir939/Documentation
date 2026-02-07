@@ -1,0 +1,210 @@
+---
+sidebar_position: 11
+title: Support & SLA
+description: Support commitments and service level agreements for AI Cloud/dflare
+keywords: [support, SLA, service level agreement, availability, maintenance]
+---
+
+# Support & SLA
+
+## Service Commitments
+
+AI Cloud/dflare is designed for enterprise reliability with comprehensive support and operational commitments.
+
+| Area | Commitment |
+|------|------------|
+| **Platform Availability** | Designed for high availability across all control plane components (etcd quorum, HA load balancers, replicated databases) |
+| **Data Protection** | Automated backups every 6 hours to VAST S3 with configurable retention (12–24 months) |
+| **Monitoring** | 24/7 infrastructure monitoring with configurable alert thresholds |
+| **Incident Response** | Comprehensive audit logging with correlation ID tracking for rapid root-cause analysis |
+| **Security Updates** | Golden OS images with CIS benchmarks, vulnerability scanning per policy |
+
+:::note
+Specific SLA terms, response times, and support tiers are defined per customer engagement.
+:::
+
+## High Availability Design
+
+### Control Plane Components
+
+| Component | HA Strategy | Recovery |
+|-----------|-------------|----------|
+| **Portal** | Multiple replicas behind HAProxy | Automatic failover |
+| **Keycloak** | Clustered with session replication | Session preservation |
+| **PostgreSQL** | Primary-replica with automatic failover | < 30 second failover |
+| **etcd** | 3 or 5 node quorum | Quorum-based recovery |
+| **VictoriaMetrics** | HA cluster with replication | Data durability |
+| **MAAS** | Multiple controllers | Automatic failover |
+
+### Data Protection
+
+| Data Type | Backup Frequency | Retention | Storage |
+|-----------|------------------|-----------|---------|
+| **Platform configuration** | Every 6 hours | 12-24 months | VAST S3 |
+| **Metering data** | Every 6 hours | 12-24 months | VAST S3 |
+| **Audit logs** | Continuous | 12-24 months | VAST S3 |
+| **Metrics** | Replicated | 90 days hot, 12 months cold | VictoriaMetrics + S3 |
+
+## Monitoring & Alerting
+
+### Infrastructure Monitoring
+
+AI Cloud/dflare includes comprehensive infrastructure monitoring:
+
+- **13 exporters** covering every infrastructure layer
+- **24/7 automated monitoring** with alerting
+- **VictoriaMetrics** for long-term metrics storage
+- **Grafana dashboards** for visualization
+
+### Alert Thresholds
+
+| Metric | Threshold | Action |
+|--------|-----------|--------|
+| **GPU Temperature** | > 80°C for 10 minutes | Alert ops team |
+| **CPU Utilization** | > 75% cluster-wide | Capacity warning |
+| **Memory Utilization** | > 70% node-level | Capacity warning |
+| **Storage Latency** | > 15ms | Performance investigation |
+| **Slurm Job Queue** | > 100 pending jobs | Scheduling review |
+| **GPU Resource Allocation** | > 90% cluster-wide | Capacity planning |
+| **etcd Leader Changes** | > 3/hour | Stability investigation |
+
+### Tenant Monitoring
+
+Tenants have access to monitoring dashboards showing:
+
+- Real-time GPU utilization
+- Cluster overview and health
+- Slurm job queue (running/pending/completed)
+- Storage usage with quota visualization
+- Billing summary with projected costs
+- Historical trends (30/60/90 days)
+
+## Incident Management
+
+### Incident Classification
+
+| Severity | Definition | Example |
+|----------|------------|---------|
+| **Critical** | Platform-wide outage or data at risk | Control plane down, storage failure |
+| **High** | Major feature unavailable | Cluster creation failing, billing not recording |
+| **Medium** | Degraded performance or partial outage | Slow provisioning, monitoring gaps |
+| **Low** | Minor issue, workaround available | UI cosmetic issue, documentation error |
+
+### Incident Response
+
+| Phase | Activities |
+|-------|------------|
+| **Detection** | Automated monitoring alerts, user reports |
+| **Triage** | Severity classification, initial assessment |
+| **Investigation** | Root cause analysis using correlation IDs |
+| **Resolution** | Fix implementation, validation |
+| **Communication** | Status updates, post-incident report |
+| **Review** | Lessons learned, preventive measures |
+
+### Communication Channels
+
+| Channel | Purpose |
+|---------|---------|
+| **Status page** | Real-time platform status |
+| **Email notifications** | Incident alerts, maintenance notices |
+| **Portal announcements** | In-app notifications |
+| **Support tickets** | Issue tracking and resolution |
+
+## Maintenance Windows
+
+### Planned Maintenance
+
+| Type | Frequency | Notice | Impact |
+|------|-----------|--------|--------|
+| **Security patches** | As needed | 48-72 hours | Minimal |
+| **Platform updates** | Monthly | 1 week | Rolling, minimal |
+| **Major upgrades** | Quarterly | 2 weeks | Scheduled window |
+| **Hardware maintenance** | As needed | 1 week | Per-node |
+
+### Maintenance Practices
+
+- **Rolling updates** — Control plane updates with zero downtime
+- **Canary deployments** — New versions tested on subset first
+- **Rollback capability** — Automatic rollback on failure detection
+- **Maintenance windows** — Coordinated with tenant schedules when possible
+
+## Support Tiers
+
+### Standard Support
+
+| Feature | Included |
+|---------|----------|
+| **Documentation** | Full access |
+| **Portal support** | Ticket-based |
+| **Response time** | Next business day |
+| **Hours** | Business hours |
+
+### Enterprise Support
+
+| Feature | Included |
+|---------|----------|
+| **All Standard features** | ✓ |
+| **Priority response** | 4-hour response |
+| **24/7 availability** | Critical issues |
+| **Dedicated contact** | Named support engineer |
+| **Quarterly reviews** | Business and technical |
+
+### Premium Support
+
+| Feature | Included |
+|---------|----------|
+| **All Enterprise features** | ✓ |
+| **1-hour response** | Critical issues |
+| **Dedicated team** | Assigned support team |
+| **On-site support** | Available |
+| **Custom SLA** | Negotiated terms |
+
+## Getting Help
+
+### Self-Service Resources
+
+- **Documentation** — Comprehensive platform documentation
+- **Knowledge base** — Common issues and solutions
+- **API reference** — Complete API documentation
+- **Release notes** — Platform updates and changes
+
+### Contact Support
+
+- **Portal** — Submit and track support tickets
+- **Email** — support@aicloud-dflare.com
+- **Emergency** — 24/7 hotline for critical issues (Enterprise/Premium)
+
+### Escalation Path
+
+```
+┌─────────────────┐
+│   User Report   │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Support Ticket  │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐     ┌─────────────────┐
+│   L1 Support    │────►│   L2 Support    │
+│  (Initial)      │     │  (Technical)    │
+└─────────────────┘     └────────┬────────┘
+                                 │
+                                 ▼
+                        ┌─────────────────┐
+                        │   Engineering   │
+                        │  (Escalation)   │
+                        └────────┬────────┘
+                                 │
+                                 ▼
+                        ┌─────────────────┐
+                        │   Management    │
+                        │  (Critical)     │
+                        └─────────────────┘
+```
+
+---
+
+**Next**: Explore the [Glossary](./glossary) for technical terms and definitions.

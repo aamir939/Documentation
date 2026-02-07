@@ -1,0 +1,247 @@
+---
+sidebar_position: 2
+title: Kubernetes Cluster Orchestration
+description: Go from bare metal to a fully functional, GPU-enabled Kubernetes cluster through a simple portal form
+keywords: [Kubernetes, K8s, GPU, cluster, orchestration, container]
+---
+
+# Kubernetes Cluster Orchestration
+
+**Business Value:** Go from bare metal to a fully functional, GPU-enabled Kubernetes cluster — with networking, monitoring, and GPU operators pre-configured — through a simple portal form.
+
+## How It Works
+
+Users select their desired configuration through the portal:
+
+- Kubernetes version
+- CNI plugin (Calico or Cilium)
+- Node pools (control plane + GPU workers)
+- Host flavors
+- Labels and taints
+
+The platform handles everything else automatically.
+
+## Cluster Creation Flow
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                  Kubernetes Cluster Creation                    │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Step 1: Container Runtime Installation                         │
+│  ──────────────────────────────────────                         │
+│  containerd + Kubernetes binaries (kubelet, kubeadm, kubectl)   │
+│                          │                                      │
+│                          ▼                                      │
+│  Step 2: Control Plane Bootstrap                                │
+│  ───────────────────────────────                                │
+│  etcd in HA quorum (3 or 5 nodes)                               │
+│  API server, controller-manager, scheduler                      │
+│                          │                                      │
+│                          ▼                                      │
+│  Step 3: CNI Deployment                                         │
+│  ──────────────────────                                         │
+│  Calico (BGP/IP-in-IP) or Cilium (eBPF)                         │
+│                          │                                      │
+│                          ▼                                      │
+│  Step 4: GPU Worker Join                                        │
+│  ───────────────────────                                        │
+│  Workers join cluster, labels and taints applied                │
+│                          │                                      │
+│                          ▼                                      │
+│  Step 5: GPU Runtime Operators                                  │
+│  ────────────────────────────                                   │
+│  GPU drivers, device plugin, telemetry, feature discovery       │
+│                          │                                      │
+│                          ▼                                      │
+│  Step 6: Conformance Checks                                     │
+│  ─────────────────────────                                      │
+│  API server reachable, nodes Ready, CNI healthy, GPUs visible   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## Technical Highlights
+
+### Air-Gapped Deployment
+
+All container images are pulled from the platform's internal registry:
+
+- **Version-controlled** — Consistent deployments across environments
+- **Security scanned** — Images validated before inclusion
+- **No external dependencies** — Works in disconnected environments
+
+### Control Plane Components
+
+Static pods for self-bootstrapping without external dependencies:
+
+| Component | Type | Purpose |
+|-----------|------|---------|
+| **kube-apiserver** | Static Pod | API endpoint for all cluster operations |
+| **etcd** | Static Pod | Distributed state store |
+| **kube-controller-manager** | Static Pod | Reconciliation loops |
+| **kube-scheduler** | Static Pod | Pod placement decisions |
+
+### CNI Options
+
+| CNI | Technology | Best For |
+|-----|------------|----------|
+| **Calico** | BGP-based with IP-in-IP overlay | Traditional networking, network policies |
+| **Cilium** | eBPF-powered, kernel-level packet processing | High performance, advanced observability |
+
+### GPU Runtime Stack
+
+GPU runtime operators deploy as DaemonSets across all GPU workers:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     GPU Runtime Stack                           │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐ │
+│  │  Device Plugin  │  │    Telemetry    │  │    Feature      │ │
+│  │                 │  │    Exporter     │  │    Discovery    │ │
+│  │ Registers GPUs: │  │                 │  │                 │ │
+│  │ nvidia.com/gpu:8│  │ Per-GPU metrics │  │ Labels nodes    │ │
+│  │ amd.com/gpu:8   │  │ to Prometheus   │  │ with GPU props  │ │
+│  └─────────────────┘  └─────────────────┘  └─────────────────┘ │
+│           │                   │                   │             │
+│           └───────────────────┼───────────────────┘             │
+│                               │                                 │
+│                     ┌─────────▼─────────┐                       │
+│                     │    GPU Driver     │                       │
+│                     │ (NVIDIA/AMD/Intel)│                       │
+│                     └───────────────────┘                       │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Multi-vendor support:**
+- NVIDIA GPU Operator
+- AMD GPU Operator (ROCm)
+- Intel GPU plugins (extensible)
+
+## Cluster Configuration Options
+
+### Kubernetes Version
+
+Select from supported Kubernetes versions (platform maintains compatibility matrix).
+
+### Node Pools
+
+| Pool Type | Purpose | Configuration |
+|-----------|---------|---------------|
+| **Control Plane** | API server, etcd, controllers | 3 or 5 nodes for HA |
+| **GPU Workers** | Training/inference workloads | Variable, GPU-equipped |
+| **CPU Workers** | Non-GPU workloads (optional) | Variable |
+
+### Labels and Taints
+
+Apply custom labels and taints for workload affinity:
+
+```yaml
+# Example GPU node labels
+labels:
+  gpu-type: nvidia-h100
+  gpu-count: "8"
+  nvlink: "true"
+
+# Example taint for dedicated GPU nodes
+taints:
+  - key: nvidia.com/gpu
+    value: "true"
+    effect: NoSchedule
+```
+
+## Cluster Lifecycle Operations
+
+### Upscale
+
+Add nodes to an existing cluster:
+
+1. Select additional nodes from pool
+2. Platform provisions and joins nodes
+3. GPU operators automatically deploy
+4. Nodes become schedulable
+
+### Downscale
+
+Remove nodes safely:
+
+```
+Cordon → Drain → Remove → Return to Pool
+```
+
+- **Cordon** — Mark node unschedulable
+- **Drain** — Evict pods gracefully
+- **Remove** — Delete from cluster
+- **Return** — Node available for other use
+
+### Rolling Upgrades
+
+Zero-downtime Kubernetes version upgrades:
+
+1. Control plane upgraded first (one node at a time)
+2. Workers upgraded in rolling fashion
+3. Workloads migrated during drain
+4. Validation after each step
+
+### Deletion
+
+Clean cluster removal:
+
+1. Workloads terminated
+2. Persistent volumes handled per policy
+3. Nodes returned to pool
+4. Network resources released
+
+## Workload Agent
+
+A workload agent is injected into tenant clusters for secure portal-to-cluster communication:
+
+- **Secure channel** — mTLS to portal
+- **Status reporting** — Cluster health to portal
+- **Command execution** — Portal-initiated operations
+- **Metrics forwarding** — Tenant monitoring integration
+
+## Using Your Cluster
+
+### Accessing the Cluster
+
+After creation, access your cluster via:
+
+```bash
+# Download kubeconfig from portal
+export KUBECONFIG=/path/to/downloaded/kubeconfig
+
+# Verify connection
+kubectl cluster-info
+
+# Check nodes
+kubectl get nodes
+
+# Verify GPU resources
+kubectl describe nodes | grep -A 5 "Allocatable:"
+```
+
+### Deploying GPU Workloads
+
+Request GPU resources in your pod spec:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gpu-training-job
+spec:
+  containers:
+  - name: training
+    image: your-training-image:latest
+    resources:
+      limits:
+        nvidia.com/gpu: 4  # Request 4 GPUs
+```
+
+---
+
+**Next**: Learn about [Slurm (HPC) Cluster Orchestration](./slurm-orchestration).

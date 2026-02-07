@@ -1,0 +1,251 @@
+---
+sidebar_position: 10
+title: Deployment Model & Scalability
+description: Deployment configurations and scalability specifications for AI Cloud/dflare
+keywords: [deployment, scalability, tenant onboarding, capacity planning]
+---
+
+# Deployment Model & Scalability
+
+## Scalability Specifications
+
+AI Cloud/dflare is designed to scale from small departmental deployments to large enterprise and service provider installations.
+
+| Dimension | Capacity |
+|-----------|----------|
+| **GPU Nodes** | 1,250+ per deployment |
+| **Accelerators** | 10,000+ GPUs per deployment |
+| **GPU Vendors** | NVIDIA, AMD, Intel — multi-vendor support |
+| **Tenants** | Multi-tenant with dedicated Keycloak realms per tenant |
+| **Clusters per Tenant** | Configurable via quota system |
+| **Network Isolation** | Pool of 10+ tenant VRFs, 2 VLANs per VRF, expandable |
+
+## Deployment Configurations
+
+### Small Deployment
+
+Ideal for departmental AI teams or single-tenant research groups.
+
+| Component | Specification |
+|-----------|--------------|
+| **GPU Nodes** | 16-64 nodes |
+| **Total GPUs** | 128-512 accelerators |
+| **Network** | Single spine-leaf InfiniBand topology |
+| **Storage** | DDN AI400 entry configuration |
+| **Tenants** | 1-5 tenants |
+| **Use Case** | Departmental AI, research groups |
+
+### Medium Deployment
+
+Suitable for enterprise AI teams or regional service providers.
+
+| Component | Specification |
+|-----------|--------------|
+| **GPU Nodes** | 64-256 nodes |
+| **Total GPUs** | 512-2,048 accelerators |
+| **Network** | Multi-spine InfiniBand topology |
+| **Storage** | DDN AI400 mid-range configuration |
+| **Tenants** | 5-20 tenants |
+| **Use Case** | Enterprise AI, regional cloud |
+
+### Large Deployment
+
+Designed for sovereign AI programs, major cloud providers, and frontier AI research.
+
+| Component | Specification |
+|-----------|--------------|
+| **GPU Nodes** | 256-1,250+ nodes |
+| **Total GPUs** | 2,048-10,000+ accelerators |
+| **Network** | Fat-tree InfiniBand topology |
+| **Storage** | DDN AI400 enterprise configuration |
+| **Tenants** | 20+ tenants |
+| **Use Case** | Sovereign AI, CSP, frontier research |
+
+## Tenant Onboarding Flow
+
+The tenant onboarding process is automated and can be completed through the portal or API.
+
+### Step-by-Step Process
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   Tenant Onboarding Flow                    │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Step 1: Domain Creation                                    │
+│  ───────────────────────                                    │
+│  Platform Super Admin creates tenant with:                  │
+│  • Tenant name and metadata                                 │
+│  • Initial resource quotas                                  │
+│  • Network allocation from pool                             │
+│                          │                                  │
+│                          ▼                                  │
+│  Step 2: Identity Provisioning                              │
+│  ─────────────────────────────                              │
+│  Automatic Keycloak realm creation:                         │
+│  • Default roles configured                                 │
+│  • OAuth2 clients created                                   │
+│  • Authentication flows enabled                             │
+│                          │                                  │
+│                          ▼                                  │
+│  Step 3: First Admin User                                   │
+│  ────────────────────────                                   │
+│  Domain Admin account created:                              │
+│  • Full tenant-level permissions                            │
+│  • Initial password/SSO configured                          │
+│  • Welcome email sent                                       │
+│                          │                                  │
+│                          ▼                                  │
+│  Step 4: Network Allocation                                 │
+│  ─────────────────────────                                  │
+│  Network resources assigned:                                │
+│  • VRFs allocated (4 VLANs per tenant)                      │
+│  • InfiniBand PKey assigned                                 │
+│  • Resource quotas configured                               │
+│                          │                                  │
+│                          ▼                                  │
+│  Step 5: Organization & Project Setup                       │
+│  ────────────────────────────────────                       │
+│  Domain Admin configures structure:                         │
+│  • Creates organizations                                    │
+│  • Creates projects within orgs                             │
+│  • Sets per-project quotas                                  │
+│                          │                                  │
+│                          ▼                                  │
+│  Step 6: User Invitations                                   │
+│  ────────────────────────                                   │
+│  Users added to the tenant:                                 │
+│  • Role assignments per project                             │
+│  • SSO federation (optional)                                │
+│  • Access credentials distributed                           │
+│                          │                                  │
+│                          ▼                                  │
+│  Step 7: Ready                                              │
+│  ────────────                                               │
+│  Tenant fully operational:                                  │
+│  • Can provision bare metal                                 │
+│  • Can create clusters                                      │
+│  • Can deploy workloads                                     │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Onboarding Checklist
+
+| Step | Actor | Automated | Manual |
+|------|-------|-----------|--------|
+| Domain creation | Platform Super Admin | Keycloak realm | Name, quotas |
+| Network allocation | System | VRF/VLAN/PKey | None |
+| First admin user | Platform Super Admin | Account creation | Credentials |
+| Storage allocation | System | DDN directory, NodeMap | Quota limits |
+| Organization setup | Domain Admin | None | Structure design |
+| Project creation | Domain Admin | Namespace creation | Naming |
+| User invitations | Domain Admin | Invite emails | Role decisions |
+
+## Capacity Planning
+
+### GPU Capacity Planning
+
+When planning GPU capacity, consider:
+
+| Factor | Consideration |
+|--------|---------------|
+| **Workload mix** | Training vs inference vs HPC ratio |
+| **Job concurrency** | Number of simultaneous jobs |
+| **GPU utilization target** | Typically 70-85% for training |
+| **Burst capacity** | Peak demand periods |
+| **Growth projection** | 6-12 month scaling plan |
+
+### Storage Capacity Planning
+
+| Workload Type | Storage Requirement |
+|---------------|---------------------|
+| **Model training** | 10-100 TB per major project |
+| **Checkpoints** | 5-20% of model size × checkpoint frequency |
+| **Datasets** | Varies by domain (TB to PB) |
+| **Experiment logs** | 1-10 GB per experiment |
+
+### Network Capacity Planning
+
+| Consideration | Guidance |
+|---------------|----------|
+| **InfiniBand oversubscription** | 1:1 for training, 2:1 for inference |
+| **Ethernet bandwidth** | 25G per node minimum |
+| **Tenant isolation** | Plan VRF pool size for growth |
+| **PKey allocation** | Reserve for future tenants |
+
+## Quota Management
+
+### Quota Types
+
+| Quota Type | Scope | Description |
+|------------|-------|-------------|
+| **GPU nodes** | Per tenant/project | Maximum nodes that can be allocated |
+| **GPU hours** | Per tenant/project | Compute budget |
+| **Storage capacity** | Per tenant | Lustre directory quota |
+| **Cluster count** | Per tenant/project | Maximum concurrent clusters |
+| **Network resources** | Per tenant | VLANs, IP ranges |
+
+### Quota Enforcement
+
+Quotas are enforced in real-time:
+
+- If a tenant exceeds their quota, new resource creation is blocked
+- The portal dashboard shows quota usage with color-coded warnings:
+  - **Green**: < 80% utilization
+  - **Yellow**: 80-90% utilization
+  - **Red**: > 90% utilization
+
+### Quota Modification
+
+| Action | Actor | Process |
+|--------|-------|---------|
+| View quota | All users | Portal dashboard |
+| Request increase | Domain Admin | Support ticket / self-service |
+| Approve increase | Platform Super Admin | Portal or API |
+| Modify quota | Platform Super Admin | Immediate effect |
+
+## High Availability Configuration
+
+### Control Plane HA
+
+| Component | HA Configuration |
+|-----------|------------------|
+| **Portal** | 3+ replicas behind HAProxy |
+| **Keycloak** | 3+ replicas with session replication |
+| **PostgreSQL** | Primary + replica with automatic failover |
+| **etcd** | 3 or 5 node quorum |
+| **VictoriaMetrics** | HA cluster with replication |
+| **MAAS** | Multiple controllers |
+
+### Data Protection
+
+| Data Type | Protection |
+|-----------|------------|
+| **Platform config** | PostgreSQL replication + backups |
+| **Metrics** | VictoriaMetrics HA |
+| **Audit logs** | Immutable storage + S3 backup |
+| **Tenant data** | DDN Lustre redundancy |
+| **Backups** | Every 6 hours to VAST S3 |
+
+## Expansion Path
+
+### Adding Capacity
+
+| Expansion Type | Process |
+|----------------|---------|
+| **Add GPU nodes** | Rack, cable, register in MAAS, add to pool |
+| **Add storage** | Expand DDN OSTs, update quotas |
+| **Add network capacity** | Add spine switches, expand VLAN pools |
+| **Add tenants** | Allocate from existing pools |
+
+### Scaling Considerations
+
+- **Non-disruptive**: Capacity additions don't require downtime
+- **Incremental**: Scale in units appropriate to demand
+- **Automated**: New resources automatically discovered and configured
+- **Balanced**: Maintain fabric balance for optimal performance
+
+---
+
+**Next**: Review [Support & SLA](./support) commitments.

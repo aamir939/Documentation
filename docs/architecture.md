@@ -1,0 +1,215 @@
+---
+sidebar_position: 5
+title: Architecture & Technology Stack
+description: Technical architecture and component overview of AI Cloud/dflare
+keywords: [architecture, technology stack, microservices, components]
+---
+
+# Architecture & Technology Stack
+
+## Platform Component Map
+
+AI Cloud/dflare is built on a modern, microservices-based architecture designed for scalability, reliability, and security.
+
+| Layer | Components | Technology |
+|-------|------------|------------|
+| **Portal & API** | Orchestration UI, REST APIs, WebSocket status | React, Python, Go, PostgreSQL, MongoDB, Redis |
+| **Identity & Access** | Authentication, authorization, tenant management | Keycloak (OAuth2/OIDC), JWT, RBAC + ABAC |
+| **Compute Orchestration** | Cluster lifecycle, workload management | Kubernetes (kubeadm), Slurm (Slinky Operator) |
+| **Network Fabric** | Tenant isolation, VLAN/VRF management | Cisco NDFC, VXLAN/EVPN, NVIDIA UFM |
+| **Storage** | High-performance GPU storage + platform storage | DDN AI400 (Lustre/IB), VAST Data (CSI/S3) |
+| **GPU Runtime** | GPU access, telemetry, scheduling | Multi-vendor GPU Operators (NVIDIA, AMD ROCm, Intel) |
+| **Monitoring** | Metrics, alerting, dashboards | VictoriaMetrics, Prometheus, Grafana |
+| **Billing** | Usage tracking, quota enforcement, reporting | orbiter-metering, PostgreSQL |
+| **Container Runtime** | Container lifecycle on bare metal | containerd, runc, OCI-compliant |
+
+## High-Level Architecture
+
+```
+                            ┌─────────────────────────────────────┐
+                            │        Load Balancer (HAProxy)       │
+                            └──────────────────┬──────────────────┘
+                                               │
+                            ┌──────────────────▼──────────────────┐
+                            │       AI Cloud/dflare Portal         │
+                            │  ┌─────────┐  ┌─────────┐  ┌──────┐ │
+                            │  │   UI    │  │   API   │  │ Auth │ │
+                            │  │ (React) │  │(Python) │  │(Kclk)│ │
+                            │  └─────────┘  └─────────┘  └──────┘ │
+                            └──────────────────┬──────────────────┘
+                                               │
+        ┌──────────────────────────────────────┼──────────────────────────────────────┐
+        │                                      │                                      │
+        ▼                                      ▼                                      ▼
+┌───────────────┐                    ┌─────────────────┐                    ┌─────────────────┐
+│   Network     │                    │    Compute      │                    │    Storage      │
+│  Orchestrator │                    │  Orchestrator   │                    │  Orchestrator   │
+│               │                    │                 │                    │                 │
+│ • Cisco NDFC  │                    │ • K8s Clusters  │                    │ • DDN Lustre    │
+│ • NVIDIA UFM  │                    │ • Slurm Clusters│                    │ • VAST Data     │
+│ • VRF/VLAN    │                    │ • Bare Metal    │                    │ • NodeMaps      │
+│ • PKey Mgmt   │                    │ • MAAS          │                    │ • Quotas        │
+└───────────────┘                    └─────────────────┘                    └─────────────────┘
+        │                                      │                                      │
+        └──────────────────────────────────────┼──────────────────────────────────────┘
+                                               │
+                            ┌──────────────────▼──────────────────┐
+                            │     Bare Metal GPU Infrastructure    │
+                            │                                      │
+                            │  ┌────────┐ ┌────────┐ ┌────────┐   │
+                            │  │ GPU    │ │ GPU    │ │ GPU    │   │
+                            │  │ Node 1 │ │ Node 2 │ │ Node N │   │
+                            │  └────────┘ └────────┘ └────────┘   │
+                            │                                      │
+                            │     InfiniBand Fabric (400G)         │
+                            └─────────────────────────────────────┘
+```
+
+## Key Microservices
+
+### Core Services
+
+| Service | Responsibility |
+|---------|----------------|
+| **baremetal-manager** | Bare metal provisioning — translates portal requests into MAAS API calls |
+| **compass-orchestrator** | Workflow engine — handles provisioning logic, scheduling, and step sequencing |
+| **compass-cluster-manager** | Kubernetes and Slurm cluster lifecycle management |
+| **network-manager** | Interfaces with Cisco NDFC for VRF/VLAN operations |
+| **volume-service / Storage Plugin** | DDN Lustre provisioning — directories, NodeMaps, quotas |
+
+### Platform Services
+
+| Service | Responsibility |
+|---------|----------------|
+| **orbiter-auth** | Keycloak integration for multi-tenant RBAC/ABAC enforcement |
+| **orbiter-metering** | Usage aggregation, billing calculation, quota tracking |
+| **compass-metric-server** | Kubernetes metrics processing for tenant clusters |
+| **container-registry** | Internal image registry for air-gapped deployments |
+
+## Data Flow
+
+### Provisioning Flow
+
+```
+User Request → Portal API → compass-orchestrator
+                                    │
+                    ┌───────────────┼───────────────┐
+                    ▼               ▼               ▼
+            network-manager   baremetal-manager  volume-service
+                    │               │               │
+                    ▼               ▼               ▼
+              Cisco NDFC          MAAS         DDN Lustre
+```
+
+### Workload Execution Flow
+
+```
+Job Submission → Portal/CLI/API → Cluster (K8s or Slurm)
+                                        │
+                        ┌───────────────┼───────────────┐
+                        ▼               ▼               ▼
+                   GPU Runtime    Storage Mount    Network
+                        │               │               │
+                        ▼               ▼               ▼
+                    GPU Driver     Lustre Client   IB Fabric
+```
+
+## Network Architecture
+
+### Dual-Fabric Design
+
+AI Cloud/dflare uses a dual-fabric network architecture:
+
+| Fabric | Purpose | Speed | Protocol |
+|--------|---------|-------|----------|
+| **Ethernet** | Management, platform services | 25G | TCP/IP, VXLAN/EVPN |
+| **InfiniBand** | GPU-to-GPU, GPU-to-storage | 400G × N | RDMA, NCCL/RCCL |
+
+### Tenant Network Isolation
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    Network Isolation                     │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  Tenant A          Tenant B          Tenant C           │
+│  ┌─────────┐      ┌─────────┐      ┌─────────┐         │
+│  │ VRF-A   │      │ VRF-B   │      │ VRF-C   │         │
+│  │ VLAN 10 │      │ VLAN 20 │      │ VLAN 30 │         │
+│  │ PKey-A  │      │ PKey-B  │      │ PKey-C  │         │
+│  └─────────┘      └─────────┘      └─────────┘         │
+│       │                │                │               │
+│       └────────────────┼────────────────┘               │
+│                        │                                │
+│              ┌─────────▼─────────┐                      │
+│              │   Physical Fabric  │                      │
+│              │  (Isolated by VRF  │                      │
+│              │   and PKey)        │                      │
+│              └───────────────────┘                      │
+└─────────────────────────────────────────────────────────┘
+```
+
+## Storage Architecture
+
+### Two-Tier Storage System
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                      Storage Architecture                        │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌─────────────────────────┐    ┌─────────────────────────┐    │
+│  │     DDN AI400 Lustre    │    │       VAST Data          │    │
+│  │                         │    │                          │    │
+│  │  • Training datasets    │    │  • Platform services     │    │
+│  │  • Model checkpoints    │    │  • Databases, logs       │    │
+│  │  • Experiment results   │    │  • Container registry    │    │
+│  │                         │    │  • Backups               │    │
+│  │  Connection: InfiniBand │    │  Connection: Ethernet    │    │
+│  │  Speed: 400G × N        │    │  Speed: 25G              │    │
+│  └─────────────────────────┘    └─────────────────────────┘    │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## High Availability Design
+
+### Control Plane HA
+
+| Component | HA Strategy |
+|-----------|-------------|
+| Portal | Multiple replicas behind HAProxy |
+| Keycloak | Clustered with session replication |
+| PostgreSQL | Primary-replica with automatic failover |
+| etcd | 3 or 5 node quorum |
+| VictoriaMetrics | HA cluster with replication |
+
+### Data Protection
+
+- Automated backups every 6 hours to VAST S3
+- S3 lifecycle rules for archival (12–24 months retention)
+- VictoriaMetrics replication for metrics durability
+
+## Deployment Topology
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    Deployment Topology                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Management Plane              │    GPU Compute Plane           │
+│  ─────────────────             │    ─────────────────           │
+│  • Portal (3+ replicas)        │    • GPU Nodes (1,250+)        │
+│  • Keycloak (3+ replicas)      │    • InfiniBand Switches       │
+│  • PostgreSQL (primary+replica)│    • Lustre Clients            │
+│  • VictoriaMetrics (HA)        │    • GPU Agents                │
+│  • MAAS Controllers            │                                │
+│                                │                                │
+│        25G Ethernet            │        400G InfiniBand         │
+│                                │                                │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+**Next**: Review the [Infrastructure Specifications](./infrastructure) for detailed hardware requirements.

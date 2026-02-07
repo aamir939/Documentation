@@ -1,0 +1,193 @@
+---
+sidebar_position: 8
+title: Use Cases & Target Industries
+description: Primary use cases and target industries for AI Cloud/dflare
+keywords: [use cases, industries, AI training, LLM, HPC, inference, MLOps]
+---
+
+# Use Cases & Target Industries
+
+## Primary Use Cases
+
+### Large-Scale AI Model Training
+
+**Train frontier AI models across hundreds or thousands of GPUs.**
+
+AI Cloud/dflare provides the infrastructure foundation for training the largest AI models:
+
+- **InfiniBand-connected nodes** enable efficient multi-node distributed training with RDMA collective operations
+- **DDN Lustre** delivers the storage throughput to keep GPUs fed with training data
+- **Supports NVIDIA NCCL, AMD RCCL**, and other collective communication libraries
+- **Multi-vendor GPU support** allows organizations to choose the right accelerators for their workloads
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│               Distributed Training Architecture              │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   Node 1          Node 2          Node 3          Node N    │
+│   ┌─────┐        ┌─────┐        ┌─────┐        ┌─────┐     │
+│   │ GPU │◄──────►│ GPU │◄──────►│ GPU │◄──────►│ GPU │     │
+│   │  ×8 │  IB    │  ×8 │  IB    │  ×8 │  IB    │  ×8 │     │
+│   └──┬──┘        └──┬──┘        └──┬──┘        └──┬──┘     │
+│      │              │              │              │         │
+│      └──────────────┼──────────────┼──────────────┘         │
+│                     │              │                        │
+│                     ▼              ▼                        │
+│            ┌─────────────────────────────┐                  │
+│            │     DDN Lustre Storage       │                  │
+│            │    (Training Data @ 400G)    │                  │
+│            └─────────────────────────────┘                  │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### LLM Fine-Tuning & RLHF
+
+**Fine-tune large language models on proprietary datasets with enterprise security.**
+
+| Capability | Benefit |
+|------------|---------|
+| Dedicated GPU allocation | Predictable performance, no noisy neighbors |
+| Isolated storage | Proprietary datasets remain confidential |
+| Job-level accounting | Track costs per fine-tuning run |
+| Fair-share scheduling | Equitable access across research teams |
+| RLHF support | Human feedback pipelines on secure infrastructure |
+
+### AI Inference at Scale
+
+**Deploy inference services with GPU acceleration, auto-scaling, and monitoring.**
+
+- Deploy on **Kubernetes clusters** with GPU resource requests
+- **Auto-scaling** based on demand
+- **Load balancing** across inference replicas
+- Monitor **GPU utilization and latency** through integrated dashboards
+- Support for **model serving frameworks** (TensorFlow Serving, Triton, vLLM, etc.)
+
+### High-Performance Computing (HPC)
+
+**Run traditional HPC workloads with familiar Slurm tools on modern infrastructure.**
+
+Supported HPC workload types:
+
+- **Scientific simulation** — Physics, chemistry, materials science
+- **Computational fluid dynamics** — Aerospace, automotive
+- **Molecular dynamics** — Drug discovery, protein folding
+- **Climate modeling** — Weather prediction, climate research
+- **Financial modeling** — Risk analysis, quantitative research
+
+HPC users get familiar tools:
+
+```bash
+# Submit a batch job
+sbatch --gres=gpu:8 --nodes=4 training_job.sh
+
+# Monitor job queue
+squeue -u $USER
+
+# Run interactive session
+srun --gres=gpu:4 --pty bash
+
+# Check job accounting
+sacct -j <job_id> --format=JobID,Elapsed,MaxRSS,MaxVMSize
+```
+
+### MLOps & Experiment Management
+
+**Kubernetes-native workflows for ML pipelines, experiment tracking, and model serving.**
+
+| Capability | Description |
+|------------|-------------|
+| **ML Pipelines** | Kubeflow, Airflow, Argo Workflows |
+| **Experiment Tracking** | MLflow, Weights & Biases integration |
+| **Model Registry** | Version control for model artifacts |
+| **Feature Store** | Centralized feature management |
+| **Per-project quotas** | Prevent resource contention |
+
+## Target Industries
+
+### Cloud Service Providers
+
+**Offer GPU compute to customers with multi-tenant isolation and usage-based billing.**
+
+| Need | AI Cloud/dflare Solution |
+|------|-------------------------|
+| Multi-customer isolation | Hardware-enforced tenant boundaries |
+| Usage tracking | 15-second metering granularity |
+| Billing integration | CSV/PDF export, API access |
+| Self-service | Portal for tenant provisioning |
+| Scale | 10,000+ GPUs per deployment |
+
+### Sovereign AI Programs
+
+**Build national AI infrastructure with data sovereignty and compliance.**
+
+| Need | AI Cloud/dflare Solution |
+|------|-------------------------|
+| Data sovereignty | On-premises deployment, no data egress |
+| Air-gapped deployment | Internal registry, no external dependencies |
+| Compliance | NIST, ISO 27001, HIPAA alignment |
+| Security | Hardware-enforced isolation |
+| Scale | Support national AI initiatives |
+
+### AI Research Institutions
+
+**Enable large-scale model training and experimentation for research teams.**
+
+| Need | AI Cloud/dflare Solution |
+|------|-------------------------|
+| Flexible workloads | Kubernetes + Slurm on shared infrastructure |
+| Fair access | Fair-share scheduling across teams |
+| Job accounting | Per-researcher usage tracking |
+| Collaboration | Project-based resource sharing |
+| Scale | Frontier model training capability |
+
+### Enterprise AI Teams
+
+**Build and deploy production ML pipelines with enterprise governance.**
+
+| Need | AI Cloud/dflare Solution |
+|------|-------------------------|
+| MLOps workflows | Kubernetes-native, GitOps support |
+| Monitoring | Integrated Prometheus/Grafana |
+| Security | RBAC, SSO, audit logging |
+| Compliance | Enterprise security standards |
+| Cost control | Quotas and usage visibility |
+
+### Healthcare & Life Sciences
+
+**Accelerate drug discovery, genomics, and medical imaging AI with compliance.**
+
+| Need | AI Cloud/dflare Solution |
+|------|-------------------------|
+| HIPAA alignment | Audit controls, access logging |
+| Data isolation | Tenant-level storage isolation |
+| Privacy | No data shared across tenants |
+| Compliance | Security controls for regulated data |
+| Performance | GPU acceleration for imaging AI |
+
+### Financial Services
+
+**Power risk modeling, fraud detection, and algorithmic trading with secure infrastructure.**
+
+| Need | AI Cloud/dflare Solution |
+|------|-------------------------|
+| Security | Zero-trust architecture |
+| Compliance | Audit trails, access controls |
+| Performance | Low-latency GPU compute |
+| Isolation | Hardware-enforced boundaries |
+| Billing | Granular cost tracking |
+
+## Success Metrics by Use Case
+
+| Use Case | Key Metrics |
+|----------|-------------|
+| **AI Training** | Time to first training run, GPU utilization, checkpoint frequency |
+| **LLM Fine-tuning** | Fine-tuning iterations per week, model quality metrics |
+| **Inference** | Latency p99, throughput (requests/sec), GPU utilization |
+| **HPC** | Job queue time, cluster utilization, job completion rate |
+| **MLOps** | Experiment velocity, model deployment frequency |
+
+---
+
+**Next**: Learn about [Competitive Differentiators](./differentiators).

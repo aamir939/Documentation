@@ -1,0 +1,229 @@
+---
+sidebar_position: 5
+title: Multi-Tenant Security & Access Control
+description: Serve multiple tenants with confidence that each tenant's data and workloads are completely isolated
+keywords: [security, multi-tenant, RBAC, ABAC, isolation, Keycloak, zero-trust]
+---
+
+# Multi-Tenant Security & Access Control
+
+**Business Value:** Serve multiple tenants — internal teams or external customers — from shared infrastructure with confidence that each tenant's data, workloads, and resources are completely isolated.
+
+## Zero-Trust Principles
+
+AI Cloud/dflare implements zero-trust security:
+
+- **No action is trusted by default**
+- Every request is authenticated
+- Every request is authorized
+- Authorization happens at multiple levels
+
+## Hybrid RBAC + ABAC Model
+
+AI Cloud/dflare implements a hybrid access control model powered by **Keycloak** as the central Identity Provider:
+
+### RBAC (Role-Based Access Control)
+
+Users are assigned roles with predefined permission sets:
+
+| Role | Scope | Key Permissions |
+|------|-------|-----------------|
+| **Platform Super Admin** | Global | Full control over all tenants and infrastructure |
+| **Domain Admin** | Tenant | Manage all resources within their tenant |
+| **Organization Admin** | Organization | Manage projects and users in their org |
+| **Project Admin** | Project | Create clusters, provision nodes, manage workloads |
+| **Member** | Project | Deploy workloads, submit jobs, view monitoring |
+| **Viewer** | Project | Read-only access to status and dashboards |
+
+### ABAC (Attribute-Based Access Control)
+
+Every action is validated against user attributes:
+
+- **Tenant (Domain)** — Which tenant does the user belong to?
+- **Organization** — Which organization within the tenant?
+- **Project** — Which project is the user accessing?
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    Authorization Flow                            │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  User Request: "Create cluster in Project-X"                    │
+│                          │                                      │
+│                          ▼                                      │
+│              ┌─────────────────────┐                            │
+│              │   RBAC Check        │                            │
+│              │   Role: Project Admin│                           │
+│              │   Permission: ✓     │                            │
+│              └──────────┬──────────┘                            │
+│                         │                                       │
+│                         ▼                                       │
+│              ┌─────────────────────┐                            │
+│              │   ABAC Check        │                            │
+│              │   Tenant: Tenant-A  │                            │
+│              │   Project: Project-X│                            │
+│              │   User in Project: ✓│                            │
+│              └──────────┬──────────┘                            │
+│                         │                                       │
+│                         ▼                                       │
+│                  ✓ Access Granted                               │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+:::warning Key Principle
+An Admin in **Project A** cannot touch resources in **Project B** — even with the same role.
+:::
+
+## Tenant Isolation — Every Layer
+
+Isolation is enforced at every layer of the stack:
+
+| Layer | Mechanism | What It Isolates |
+|-------|-----------|------------------|
+| **Identity** | Dedicated Keycloak realm per tenant | Users, roles, sessions, authentication flows |
+| **Network (Ethernet)** | VRF + VLAN per tenant (Cisco NDFC) | All Ethernet traffic between tenants |
+| **Network (InfiniBand)** | UFM PKey per tenant | GPU-to-GPU and GPU-to-storage traffic at IB switch hardware level |
+| **Storage** | DDN NodeMap per tenant | Lustre directory access restricted to tenant's IB IPs |
+| **Compute** | Kubernetes namespaces + Slurm accounts | Workload and resource isolation |
+| **Billing** | Scoped metering per tenant/project/user | Usage data and billing records |
+
+### Isolation Visualization
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        Tenant A                                  │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │ Keycloak Realm A                                         │    │
+│  │  • Users: alice, bob                                     │    │
+│  │  • Roles: Domain Admin, Member                           │    │
+│  └─────────────────────────────────────────────────────────┘    │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │ Network: VRF-A, VLAN-10, PKey-0x1001                     │    │
+│  └─────────────────────────────────────────────────────────┘    │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │ Storage: /lustre/tenants/tenant_a/ (NodeMap-A)          │    │
+│  └─────────────────────────────────────────────────────────┘    │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │ Compute: Nodes 001-016, namespace tenant-a              │    │
+│  └─────────────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────────┘
+
+         ▲                                    ▲
+         │          COMPLETE ISOLATION        │
+         ▼                                    ▼
+
+┌─────────────────────────────────────────────────────────────────┐
+│                        Tenant B                                  │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │ Keycloak Realm B                                         │    │
+│  │  • Users: charlie, diana                                 │    │
+│  │  • Roles: Domain Admin, Viewer                           │    │
+│  └─────────────────────────────────────────────────────────┘    │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │ Network: VRF-B, VLAN-20, PKey-0x1002                     │    │
+│  └─────────────────────────────────────────────────────────┘    │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │ Storage: /lustre/tenants/tenant_b/ (NodeMap-B)          │    │
+│  └─────────────────────────────────────────────────────────┘    │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │ Compute: Nodes 017-032, namespace tenant-b              │    │
+│  └─────────────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## Authentication & Token Security
+
+### OAuth2/OpenID Connect
+
+All authentication uses industry-standard protocols:
+
+- **JWT tokens** signed using RS256 (asymmetric)
+- **Short token TTL** (5–15 minutes) to minimize exposure
+- **Refresh tokens** for seamless renewal
+- **Token introspection** for server-side validation
+
+### Multi-Factor Authentication
+
+Supported MFA methods:
+
+| Method | Description |
+|--------|-------------|
+| **TOTP** | Time-based one-time passwords (Google Authenticator, etc.) |
+| **SMS** | Text message verification codes |
+| **Email** | Email-based verification |
+| **Hardware keys** | FIDO2/WebAuthn security keys |
+
+### Enterprise SSO
+
+Integrate with existing identity systems:
+
+- **LDAP/Active Directory** federation
+- **SAML 2.0** identity providers
+- **OAuth2/OIDC** external providers
+- **Custom identity brokers**
+
+### Transport Security
+
+| Layer | Protection |
+|-------|------------|
+| **External traffic** | TLS 1.2+ with strong cipher suites |
+| **Internal services** | mTLS (mutual TLS) |
+| **Web traffic** | HSTS headers enforced |
+| **API calls** | Bearer token authentication |
+
+## Session Management
+
+### Session Controls
+
+- **Session timeout** — Configurable inactivity timeout
+- **Concurrent session limit** — Limit active sessions per user
+- **Admin force-logout** — Immediately terminate user sessions
+- **Session monitoring** — View active sessions in admin console
+
+### Token Lifecycle
+
+```
+User Login
+    │
+    ▼
+┌─────────────────┐
+│ Access Token    │ ← Short-lived (5-15 min)
+│ + Refresh Token │ ← Longer-lived
+└────────┬────────┘
+         │
+         ▼ (On expiry)
+┌─────────────────┐
+│ Refresh Request │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ New Access Token│
+└─────────────────┘
+```
+
+## Audit Logging
+
+Every action generates an audit record:
+
+| Field | Description |
+|-------|-------------|
+| **Correlation ID** | Unique request identifier for tracing |
+| **Timestamp** | When the action occurred (UTC) |
+| **User** | Authenticated principal |
+| **Action** | What operation was performed |
+| **Resource** | Target of the operation |
+| **Outcome** | Success or failure |
+| **Context** | Tenant, organization, project |
+
+### Log Protection
+
+- **Immutable storage** — Logs cannot be modified
+- **Backup** — S3 backup every 6 hours
+- **Retention** — Configurable (12–24 months typical)
+- **Access control** — Platform admin only
+
+---
+
+**Next**: Learn about [Usage Metering & Billing](./billing-metering).

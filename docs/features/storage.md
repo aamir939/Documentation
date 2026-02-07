@@ -1,0 +1,251 @@
+---
+sidebar_position: 4
+title: High-Performance Storage
+description: Storage throughput that keeps up with the most demanding training jobs
+keywords: [storage, DDN, Lustre, VAST, InfiniBand, parallel filesystem]
+---
+
+# High-Performance Storage
+
+**Business Value:** GPU workloads are only as fast as their data pipeline. AI Cloud/dflare delivers storage throughput that keeps up with the most demanding training jobs — leveraging the full bandwidth of the InfiniBand fabric.
+
+## Two Storage Systems, Optimized for Purpose
+
+| System | Technology | Connection | Purpose |
+|--------|------------|------------|---------|
+| **DDN AI400** | Lustre parallel filesystem | InfiniBand (400G × multiple links per node) | Training datasets, model checkpoints, experiment results |
+| **VAST Data** | Unified file/object storage | Ethernet (25G) | Platform services (databases, backups, logs, container registry) |
+
+## DDN Lustre — The Fast Storage
+
+When a tenant is onboarded, the platform automatically provisions dedicated storage with multi-layer access control.
+
+### Automated Provisioning
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                DDN Lustre Tenant Provisioning                    │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Step 1: Create Tenant Directory                                │
+│  ───────────────────────────────                                │
+│  /lustre/tenants/{tenant_id}/                                   │
+│                          │                                      │
+│                          ▼                                      │
+│  Step 2: Create DDN NodeMap                                     │
+│  ──────────────────────────                                     │
+│  Access control list of allowed InfiniBand IP addresses         │
+│                          │                                      │
+│                          ▼                                      │
+│  Step 3: Assign Node IPs to NodeMap                             │
+│  ──────────────────────────────────                             │
+│  Only tenant's GPU node IB IPs are added                        │
+│                          │                                      │
+│                          ▼                                      │
+│  Step 4: Set Capacity Quotas                                    │
+│  ───────────────────────────                                    │
+│  Based on tenant's subscription                                 │
+│                          │                                      │
+│                          ▼                                      │
+│  Step 5: Configure Striping                                     │
+│  ──────────────────────────                                     │
+│  Data striped across multiple OSTs for parallel I/O             │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Parallel I/O Architecture
+
+Lustre stripes data across multiple Object Storage Targets (OSTs):
+
+```
+                        ┌─────────────┐
+                        │  Training   │
+                        │    File     │
+                        │   (100TB)   │
+                        └──────┬──────┘
+                               │
+           ┌───────────────────┼───────────────────┐
+           │                   │                   │
+           ▼                   ▼                   ▼
+    ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+    │    OST 1    │     │    OST 2    │     │    OST N    │
+    │  Stripe 1   │     │  Stripe 2   │     │  Stripe N   │
+    │   ~33TB     │     │   ~33TB     │     │   ~33TB     │
+    └─────────────┘     └─────────────┘     └─────────────┘
+
+    Aggregate throughput = Sum of all OST throughputs
+```
+
+**This is what delivers massive aggregate throughput** — hundreds of GB/s across the cluster.
+
+### Performance Characteristics
+
+| Metric | Capability |
+|--------|------------|
+| **Aggregate throughput** | Hundreds of GB/s across cluster |
+| **Per-node bandwidth** | 100+ GB/s (multiple 400G IB links) |
+| **Latency** | Sub-millisecond for metadata |
+| **Concurrent clients** | Thousands of GPU nodes |
+
+## VAST Data — The Platform Storage
+
+Platform microservices use VAST for reliable, scalable storage:
+
+### Platform Services on VAST
+
+| Service | Storage Type |
+|---------|--------------|
+| **PostgreSQL** | Persistent volumes via CSI |
+| **MongoDB** | Persistent volumes via CSI |
+| **etcd** | Persistent volumes via CSI |
+| **Grafana** | Persistent volumes via CSI |
+| **Container registry** | S3-compatible object storage |
+
+### Backup Strategy
+
+```
+Platform Databases
+        │
+        ▼ (Every 6 hours)
+┌─────────────────┐
+│   VAST S3       │
+│   Backup Bucket │
+└─────────────────┘
+        │
+        ▼ (Lifecycle policy)
+┌─────────────────┐
+│  Archive Tier   │
+│  (12-24 months) │
+└─────────────────┘
+```
+
+## Storage Security — Double Isolation
+
+Tenant storage isolation is enforced at **two independent layers** simultaneously:
+
+### Layer 1: InfiniBand Level (UFM PKey)
+
+```
+GPU Node (Tenant A)              GPU Node (Tenant B)
+       │                                │
+       │ PKey-A                         │ PKey-B
+       │                                │
+       ▼                                ▼
+┌─────────────────────────────────────────────────────┐
+│              InfiniBand Switch Fabric               │
+│                                                     │
+│  PKey-A traffic ←──────X──────→ PKey-B traffic     │
+│      isolated         blocked       isolated        │
+└─────────────────────────────────────────────────────┘
+```
+
+Only the tenant's GPU ports can communicate on the tenant's IB partition.
+
+### Layer 2: DDN Lustre Level (NodeMap)
+
+```
+Mount Request: /lustre/tenants/tenant_a/
+        │
+        ▼
+┌─────────────────────────────────────────────────────┐
+│              DDN NodeMap Check                       │
+│                                                     │
+│  Request IP: 10.20.30.40                            │
+│  NodeMap for tenant_a: [10.20.30.40, 10.20.30.41]  │
+│                                                     │
+│  ✓ IP in NodeMap → Access Granted                   │
+│  ✗ IP not in NodeMap → Access Denied                │
+└─────────────────────────────────────────────────────┘
+```
+
+Only the tenant's IB IP addresses can mount the tenant's directory.
+
+### Defense in Depth
+
+:::tip Security Guarantee
+Even if one layer were compromised, the other would still block unauthorized access.
+:::
+
+## Using Storage
+
+### Kubernetes Workloads
+
+Storage is automatically mounted in pods:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: training-job
+spec:
+  containers:
+  - name: trainer
+    image: training-image:latest
+    volumeMounts:
+    - name: training-data
+      mountPath: /data
+    - name: checkpoints
+      mountPath: /checkpoints
+  volumes:
+  - name: training-data
+    persistentVolumeClaim:
+      claimName: training-data-pvc
+  - name: checkpoints
+    persistentVolumeClaim:
+      claimName: checkpoints-pvc
+```
+
+### Slurm Workloads
+
+Lustre is mounted on all compute nodes:
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=training
+#SBATCH --gres=gpu:8
+
+# Training data available at mounted path
+python train.py \
+  --data /lustre/tenants/$TENANT/datasets/imagenet \
+  --checkpoint-dir /lustre/tenants/$TENANT/checkpoints/$SLURM_JOB_ID
+```
+
+## Storage Best Practices
+
+### Training Data Organization
+
+```
+/lustre/tenants/{tenant}/
+├── datasets/
+│   ├── imagenet/
+│   ├── custom_data_v1/
+│   └── custom_data_v2/
+├── checkpoints/
+│   ├── experiment_001/
+│   └── experiment_002/
+├── models/
+│   ├── trained_model_v1/
+│   └── trained_model_v2/
+└── logs/
+    └── tensorboard/
+```
+
+### Checkpoint Strategy
+
+| Frequency | Purpose |
+|-----------|---------|
+| Every N steps | Resume from recent state |
+| Best validation | Keep best performing model |
+| End of epoch | Regular milestone |
+
+### Data Loading Optimization
+
+- Use **multiple data loader workers** to saturate I/O
+- **Prefetch data** to overlap compute and I/O
+- Consider **caching** for repeatedly accessed data
+- Use **appropriate batch sizes** for efficient reads
+
+---
+
+**Next**: Learn about [Multi-Tenant Security & Access Control](./security-access-control).

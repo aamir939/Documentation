@@ -1,0 +1,112 @@
+---
+sidebar_position: 2
+title: Market Context & Problem Statement
+description: Understanding the AI infrastructure challenges that AI Cloud/dflare addresses
+keywords: [AI infrastructure, GPU compute, multi-tenancy, HPC, challenges]
+---
+
+# Market Context & Problem Statement
+
+## The AI Infrastructure Challenge
+
+The explosive growth of AI — particularly large language models, generative AI, and deep learning — has created unprecedented demand for GPU compute. The scale of modern AI workloads presents unique infrastructure challenges:
+
+- **Training a single frontier model** can require thousands of GPUs running continuously for weeks
+- **Inference at scale** demands low-latency, high-throughput GPU clusters
+- **Research teams** need flexible, on-demand access to high-performance computing resources
+
+Yet building and operating GPU infrastructure at this scale is extraordinarily complex.
+
+## Key Challenges
+
+### Hardware Complexity
+
+Modern GPU servers are not commodity hardware. Each node can contain:
+
+| Component | Specification |
+|-----------|--------------|
+| GPUs | Multiple high-end accelerators per node |
+| Interconnect | High-bandwidth GPU-to-GPU links (NVLink, Infinity Fabric) |
+| Network | Multiple InfiniBand connections at 400Gbps each |
+| Cooling | Specialized thermal management systems |
+| Power | Requirements exceeding 10kW per node |
+
+Provisioning, configuring, and maintaining hundreds of these systems requires deep hardware expertise.
+
+### Multi-Tenancy is Hard
+
+Serving multiple teams or customers from shared GPU infrastructure demands rigorous isolation at multiple levels:
+
+- **Network level** — Prevent cross-tenant traffic
+- **Storage level** — Isolate training data and model artifacts
+- **Identity level** — Enforce proper authentication and authorization
+- **Compute level** — Ensure resource boundaries are respected
+
+:::warning Risk
+A misconfigured tenant boundary can expose sensitive training data or allow one tenant's workloads to interfere with another's.
+:::
+
+### Two Worlds: Containers & HPC
+
+AI workloads span two operational paradigms:
+
+| Paradigm | Users | Tools | Preferences |
+|----------|-------|-------|-------------|
+| **Containers** | Data engineers, MLOps teams | Kubernetes | Containerized training pipelines, GitOps workflows |
+| **HPC** | Research scientists, HPC users | Slurm | Batch job scheduling, familiar CLI tools |
+
+Most platforms force a choice between these paradigms. Supporting both on the same infrastructure, with the same security and billing model, is a significant engineering challenge.
+
+### Storage Performance
+
+AI training workloads are data-hungry:
+
+- A single training run can read **terabytes of data**
+- Storage systems must deliver **hundreds of gigabytes per second** of aggregate throughput
+- Standard NAS or SAN solutions cannot keep pace with GPU compute capabilities
+
+This requires purpose-built parallel filesystems connected over high-speed fabrics.
+
+### Operational Overhead
+
+Even after the infrastructure is built, the ongoing operational burden is substantial:
+
+- **Monitoring** GPU health and utilization
+- **Managing** firmware updates and driver versions
+- **Enforcing** quotas and resource allocation policies
+- **Tracking** resource consumption for billing
+- **Maintaining** security compliance and audit trails
+- **Handling** tenant lifecycle management
+
+## What AI Cloud/dflare Solves
+
+AI Cloud/dflare eliminates these challenges by delivering a fully integrated, automated platform that handles the entire lifecycle — from bare metal provisioning to workload execution — through a single pane of glass.
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    AI Cloud/dflare Platform                  │
+├─────────────────────────────────────────────────────────────┤
+│  ✓ Automated bare metal provisioning                        │
+│  ✓ Hardware-enforced multi-tenant isolation                 │
+│  ✓ Unified Kubernetes + Slurm orchestration                 │
+│  ✓ High-performance parallel storage                        │
+│  ✓ Transparent usage-based billing                          │
+│  ✓ Enterprise monitoring and alerting                       │
+└─────────────────────────────────────────────────────────────┘
+```
+
+Organizations get the **performance of dedicated GPU hardware** with the **operational model of a managed service**.
+
+## The Value Proposition
+
+| Challenge | AI Cloud/dflare Solution |
+|-----------|-------------------------|
+| Hardware complexity | Automated provisioning with pre-tuned golden images |
+| Multi-tenancy | Hardware-enforced isolation at network, storage, and compute layers |
+| Container vs HPC divide | Unified Kubernetes + Slurm on shared infrastructure |
+| Storage bottlenecks | DDN Lustre over InfiniBand with parallel I/O |
+| Operational burden | Single pane of glass for all management tasks |
+
+---
+
+**Next**: Learn about the [Product Overview](./product-overview) to understand how AI Cloud/dflare works.

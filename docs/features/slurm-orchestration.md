@@ -1,0 +1,230 @@
+---
+sidebar_position: 3
+title: Slurm (HPC) Cluster Orchestration
+description: Give HPC and research teams the Slurm experience they know on modern Kubernetes-managed infrastructure
+keywords: [Slurm, HPC, batch scheduling, sbatch, squeue, Slinky]
+---
+
+# Slurm (HPC) Cluster Orchestration
+
+**Business Value:** Give HPC and research teams the Slurm experience they know — `sbatch`, `squeue`, `srun` — running on modern, Kubernetes-managed infrastructure with enterprise security and billing.
+
+## How It Works
+
+AI Cloud/dflare runs Slurm on top of Kubernetes using the **Slinky Operator**. The platform first builds a complete Kubernetes cluster (identical to the K8s flow), then layers Slurm on top as Kubernetes-native objects.
+
+### Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    Slurm on Kubernetes                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│                      Slurm Control Plane                        │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐        │
+│  │ slurmctld│  │ slurmdbd │  │slurmrestd│  │  MUNGE   │        │
+│  │Controller│  │Accounting│  │ REST API │  │  Auth    │        │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘        │
+│       │              │             │             │              │
+│       └──────────────┼─────────────┼─────────────┘              │
+│                      │             │                            │
+│                      ▼             ▼                            │
+│               ┌─────────────────────────┐                       │
+│               │   Kubernetes Cluster    │                       │
+│               │   (Slinky Operator)     │                       │
+│               └─────────────────────────┘                       │
+│                      │                                          │
+│       ┌──────────────┼──────────────┐                          │
+│       ▼              ▼              ▼                          │
+│  ┌─────────┐    ┌─────────┐    ┌─────────┐                     │
+│  │ slurmd  │    │ slurmd  │    │ slurmd  │   GPU Worker Nodes  │
+│  │ Node 1  │    │ Node 2  │    │ Node N  │                     │
+│  │ (8 GPUs)│    │ (8 GPUs)│    │ (8 GPUs)│                     │
+│  └─────────┘    └─────────┘    └─────────┘                     │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## Slinky Operator Deployment
+
+The Slinky Operator deploys all Slurm daemons as Kubernetes-native objects:
+
+| Component | Type | Purpose |
+|-----------|------|---------|
+| **slurmctld** | Deployment | Central controller for job scheduling |
+| **slurmd** | DaemonSet | Compute daemon on every GPU node |
+| **slurmdbd** | StatefulSet | Accounting database daemon |
+| **slurmrestd** | Deployment | REST API for programmatic access |
+| **MUNGE** | DaemonSet | Authentication service |
+| **MariaDB** | StatefulSet | Job accounting database |
+
+### Configuration Management
+
+Slurm configuration files are auto-generated and distributed as Kubernetes ConfigMaps:
+
+- `slurm.conf` — Main configuration
+- `gres.conf` — GPU resource definitions
+- `cgroup.conf` — Resource isolation settings
+
+## GPU-Aware Scheduling
+
+Slurm understands GPU topology for optimal job placement:
+
+### GRES Plugin
+
+The **Generic RESource (GRES)** plugin manages GPU resources:
+
+```bash
+# Request specific GPU count
+sbatch --gres=gpu:4 training.sh
+
+# Request specific GPU type
+sbatch --gres=gpu:h100:8 large_training.sh
+
+# Interactive session with GPUs
+srun --gres=gpu:2 --pty bash
+```
+
+### Scheduling Considerations
+
+| Factor | How Slurm Handles It |
+|--------|----------------------|
+| **GPU count** | Matches nodes with available GPUs |
+| **GPU type** | Filters by configured GRES types |
+| **NUMA affinity** | Places jobs for optimal memory access |
+| **Inter-GPU connectivity** | Considers NVLink/PCIe topology |
+
+## Job Submission Methods
+
+### Command Line (sbatch)
+
+Traditional batch job submission:
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=training
+#SBATCH --nodes=4
+#SBATCH --gres=gpu:8
+#SBATCH --time=24:00:00
+#SBATCH --output=training_%j.log
+
+srun python train.py --distributed
+```
+
+### Portal UI
+
+Submit jobs through the web interface:
+- Visual job builder
+- Template library
+- Real-time queue monitoring
+
+### REST API (slurmrestd)
+
+Programmatic job submission:
+
+```bash
+curl -X POST https://cluster/slurm/v0.0.38/job/submit \
+  -H "X-SLURM-USER-TOKEN: $TOKEN" \
+  -d @job_spec.json
+```
+
+## Resource Isolation
+
+### Linux cgroups v2
+
+Each job is confined to its allocated resources:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                      Job Resource Isolation                     │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Job 12345                          Job 12346                   │
+│  ┌─────────────────────┐            ┌─────────────────────┐    │
+│  │ cgroup: job_12345   │            │ cgroup: job_12346   │    │
+│  │                     │            │                     │    │
+│  │ CPUs: 0-31          │            │ CPUs: 32-63         │    │
+│  │ Memory: 256GB       │            │ Memory: 256GB       │    │
+│  │ GPUs: 0-3           │            │ GPUs: 4-7           │    │
+│  └─────────────────────┘            └─────────────────────┘    │
+│                                                                 │
+│  No resource leakage between jobs                              │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## Fair-Share Scheduling
+
+Ensure equitable resource distribution across teams:
+
+- Tenants who have used **less** than their allocation get **higher** job priority
+- Prevents any single user from monopolizing the cluster
+- Configurable shares per tenant/account
+
+## Job Accounting
+
+Every completed job generates a detailed record:
+
+| Field | Description |
+|-------|-------------|
+| **Job ID** | Unique identifier |
+| **User** | Submitting user |
+| **Account** | Billing account (tenant/project) |
+| **GPU-hours** | Total GPU time consumed |
+| **CPU-hours** | Total CPU time consumed |
+| **Elapsed time** | Wall clock duration |
+| **Memory (max)** | Peak memory usage |
+| **Exit code** | Job completion status |
+
+### Viewing Accounting Data
+
+```bash
+# View recent job history
+sacct -u $USER --format=JobID,JobName,Elapsed,MaxRSS,ExitCode
+
+# Detailed job info
+sacct -j 12345 --format=JobID,User,Account,Elapsed,TotalCPU,MaxRSS,MaxVMSize
+```
+
+All accounting data feeds directly into the billing pipeline.
+
+## Common Slurm Commands
+
+| Command | Purpose |
+|---------|---------|
+| `sbatch script.sh` | Submit batch job |
+| `squeue` | View job queue |
+| `squeue -u $USER` | View your jobs |
+| `scancel <jobid>` | Cancel a job |
+| `srun --pty bash` | Interactive session |
+| `sinfo` | View partition/node status |
+| `sacct` | View job accounting |
+| `scontrol show job <id>` | Detailed job info |
+
+## Integration with Kubernetes
+
+### Unified Infrastructure
+
+Slurm clusters share the same infrastructure as Kubernetes:
+
+- Same bare metal nodes
+- Same networking
+- Same storage
+- Same monitoring
+- Same billing
+
+### Workload Flexibility
+
+Choose the right tool for each workload:
+
+| Workload Type | Recommended |
+|---------------|-------------|
+| Batch training jobs | Slurm |
+| ML pipelines | Kubernetes |
+| Interactive research | Slurm |
+| Inference services | Kubernetes |
+| Traditional HPC | Slurm |
+
+---
+
+**Next**: Learn about [High-Performance Storage](./storage).
