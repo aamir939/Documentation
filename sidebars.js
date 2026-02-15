@@ -45,6 +45,7 @@ const sidebars = {
         'features/bare-metal-provisioning',
         'features/kubernetes-orchestration',
         'features/slurm-orchestration',
+        'features/network-vpc-orchestration',
         'features/storage',
         'features/security-access-control',
         'features/billing-metering',

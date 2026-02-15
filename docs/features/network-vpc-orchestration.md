@@ -1,0 +1,273 @@
+---
+sidebar_position: 8
+title: Network VPC & Subnet Orchestration
+description: Tenant-isolated virtual networking with automated VRF/VLAN provisioning
+keywords: [VPC, subnet, VRF, VLAN, VXLAN, EVPN, network isolation, NDFC, Cisco, InfiniBand]
+---
+
+# Network VPC & Subnet Orchestration
+
+**Business Value:** Multi-tenant GPU infrastructure requires bulletproof network isolation. AI Cloud/dflare automates VPC and subnet lifecycle through integration with Cisco NDFC, giving tenants isolated virtual networks while abstracting away the complexity of VRF/VLAN/VXLAN configuration.
+
+## What is VPC/Subnet Orchestration?
+
+In the GPUaaS platform, a **VPC (Virtual Private Cloud)** is a tenant-isolated virtual network built on top of physical switches using VRF (Virtual Routing and Forwarding) technology. Each VPC provides a completely isolated routing domain — traffic from one tenant's VPC cannot reach another tenant's VPC unless explicitly allowed.
+
+A **Subnet** is a segment within a VPC. Each subnet has a VLAN ID, a CIDR block (IP range), a gateway, and ACL rules. Subnets are where GPU nodes, control planes, load balancers, and worker nodes actually connect.
+
+The platform automates VPC and subnet lifecycle through the **network-manager** microservice, which talks to Cisco NDFC (Nexus Dashboard Fabric Controller) to program the physical switches. From the user's perspective, they create a VPC in the portal, add subnets, and assign them to projects — the underlying VXLAN/EVPN/VLAN configuration is handled entirely in the backend.
+
+:::info VPC = VRF, Subnet = VLAN (Simplified)
+In simple terms: a VPC maps to a VRF on the physical network (an isolated routing table on the switches), and a subnet maps to a VLAN/VXLAN segment within that VRF. The platform uses VXLAN with EVPN control plane for scalable L2/L3 overlay networking across the data center fabric.
+:::
+
+## Network Architecture
+
+### Frontend Fabric (Ethernet)
+
+The FE (Frontend) fabric is a Cisco-managed Ethernet fabric that carries all management, control plane, and tenant Ethernet traffic. It uses VXLAN/EVPN for overlay networking with BGP underlay. The fabric is managed by Cisco NDFC, which provides a centralized API for programmatic VRF/VLAN/subnet provisioning.
+
+### VRF Types (The Foundation of VPCs)
+
+The FE fabric has five categories of VRFs, each serving a distinct purpose:
+
+| VRF Type | Purpose | Who Uses It | How VPCs Relate |
+|----------|---------|-------------|-----------------|
+| **Admin VRF** | Hosts all management traffic for the orchestration portal (C1). Provides routed connectivity into tenant provisioning VRFs and tenant control plane VRFs. | Platform ops, orchestration portal, MAAS controller | Not tenant-visible. This is the platform's internal management network. |
+| **Provisioning VRF** | Dedicated to initial bootstrapping of GPU nodes. Provides DHCP relay/forwarding to the Metal Controller for PXE-based OS provisioning. | MAAS (C3), GPU nodes during PXE boot | Not tenant-visible. Used only during bare metal provisioning phase. |
+| **Tenant VRFs (Pool of 10)** | Dedicated per-tenant. Carries GPU worker registration, cluster control plane access, workload data plane, and DDN storage over Ethernet. Each tenant gets 4 VLANs per VRF. | Tenants, GPU worker nodes, K8s/Slurm clusters | **This IS the tenant's VPC.** When a user creates a VPC in the portal, it maps to one of these pre-created tenant VRFs. |
+| **Outside Infra VRF** | Connects IRIS DC to external infrastructure. Provides reachability for DNS, NTP, Syslog, LDAP/AD, and other shared services. | All nodes (shared services access) | Not tenant-visible. Provides shared service connectivity to all VRFs. |
+| **VRF Default (Infra)** | Underlay VRF for the FE fabric. Basic IP reachability between fabric switches, loopbacks, and underlay BGP routing. | Fabric switches only | Not tenant-visible. The physical transport that carries all overlay VRFs. |
+
+### Backend Fabric (InfiniBand)
+
+Separate from the Ethernet FE fabric, an **InfiniBand backend fabric** managed by NVIDIA UFM handles GPU-to-GPU communication. Tenant isolation on IB is achieved via **UFM PKeys (partition keys)** — each tenant gets a unique PKey, and only their GPU nodes' mlx GUIDs are added to that partition. This ensures GPU-to-GPU RDMA/NCCL traffic is completely isolated between tenants.
+
+## Portal Operations
+
+From the portal, users interact with VPCs and subnets as logical networking constructs. They don't see VRFs, VLANs, NDFC, or switches.
+
+| Action | What the User Does in Portal | What It Maps To (Backend) |
+|--------|------------------------------|---------------------------|
+| **Create VPC** | Names the VPC, selects project/org assignment | Allocates a pre-created tenant VRF from the pool. Links VRF ownership to tenant/org/project in orchestration DB. |
+| **Add Subnet to VPC** | Specifies subnet name, CIDR, gateway. Selects purpose (control plane, workers, LB, data) | Allocates a pre-created VLAN within the tenant VRF. Each tenant VRF has 4 VLANs available for: (1) control plane, (2) GPU workers, (3) load balancer, (4) data plane. |
+| **Allocate Existing Network** | Selects a pre-created network segment by ID/name | Links the existing NDFC network (VRF + VLAN + subnet) to the tenant's project. No new fabric config needed. |
+| **View VPC Details** | Sees: VPC name, subnets, CIDR ranges, gateway IPs, associated clusters | Reads from orchestration DB (MongoDB/PostgreSQL). Shows the logical view of the VRF + VLANs. |
+| **Assign VPC to Cluster** | During K8s/Slurm cluster creation, selects which VPC/subnet for CP, workers, LB | The selected VLANs are configured on the GPU nodes' switch ports. Cluster networking uses these VLANs. |
+| **Delete Subnet** | Removes a subnet from VPC (must have no active clusters) | Deallocates VLAN. Returns to pool. NDFC config may be retained or cleaned up depending on policy. |
+| **Delete VPC** | Removes entire VPC (all subnets must be empty) | Deallocates tenant VRF. Returns to pool. NDFC VRF unlinked from tenant. |
+
+## Backend Network Provisioning
+
+### Flow 1: Create New Network (Dynamic Provisioning)
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    Dynamic Network Provisioning Flow                     │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  1. User Request                                                        │
+│     └── Tenant requests new VPC/subnet via portal UI or API             │
+│                              │                                          │
+│                              ▼                                          │
+│  2. Portal → network-manager                                            │
+│     └── Portal (C1) sends request with: tenant ID, project ID,          │
+│         CIDR, gateway, VPC name                                         │
+│                              │                                          │
+│                              ▼                                          │
+│  3. network-manager → NDFC                                              │
+│     └── Calls Cisco NDFC REST API to:                                   │
+│         • Create VRF (VXLAN VNI assigned)                               │
+│         • Create VLAN/VXLAN segment                                     │
+│         • Allocate subnet/gateway                                       │
+│         • Apply routing rules + ACL rules                               │
+│                              │                                          │
+│                              ▼                                          │
+│  4. NDFC → Switches                                                     │
+│     └── Pushes configuration to physical leaf/spine switches            │
+│         VRF, VLAN, SVI (gateway), ACLs programmed on hardware           │
+│                              │                                          │
+│                              ▼                                          │
+│  5. Response                                                            │
+│     └── NDFC returns: VLAN ID, VXLAN VNI, subnet CIDR,                  │
+│         gateway IP, VRF name to network-manager                         │
+│                              │                                          │
+│                              ▼                                          │
+│  6. Store in DB                                                         │
+│     └── Portal stores VPC/subnet metadata in orchestration DB           │
+│         (MongoDB) and associates with tenant/project                    │
+│                              │                                          │
+│                              ▼                                          │
+│  7. Firewall (Manual)                                                   │
+│     └── Network admin configures Palo Alto firewall rules for           │
+│         the new network                                                 │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### Flow 2: Allocate Pre-Created Network
+
+In production, tenant networks are often pre-created by the fabric admin to ensure consistency and compliance:
+
+| Step | Action | Description |
+|------|--------|-------------|
+| 1 | **Admin Pre-Creates** | Fabric admin creates network segment in NDFC: VLAN/VXLAN ID, subnet, gateway, ACLs, routing policies, L3 out gateway towards firewall, default firewall rules for shared services. |
+| 2 | **User Requests** | Tenant requests VPC allocation via portal. Selects the pre-created network by reference ID/name. |
+| 3 | **Ownership Update** | Portal calls network-manager with action: Allocate VPC / Allocate Subnet + tenant/org/project ID + pre-created network reference. |
+| 4 | **Metadata Link** | network-manager updates ownership in orchestration DB. No NDFC API call needed — network already exists on switches. |
+| 5 | **Ready** | Tenant can now deploy clusters and workloads on the assigned network. |
+
+:::tip Pre-Created vs Dynamic
+In the current GPUaaS deployment, most tenant networks are **pre-created (Flow 2)** for tighter control. Dynamic creation (Flow 1) is available but requires additional firewall configuration post-creation. The platform supports both models.
+:::
+
+## VLAN Architecture
+
+### Admin VRF VLANs (Platform Infrastructure)
+
+| VLAN ID | Name | CIDR | Gateway | Usable IPs | Purpose |
+|---------|------|------|---------|------------|---------|
+| 900 | Admin/Tunnel | 172.26.4.0/24 | 172.26.4.1 | 172.26.4.5 – .254 | Administrative tunnel traffic between orchestration components |
+| 901 | Mgmt / Frontend UI (C1) | 172.26.7.0/24 | 172.26.7.1 | 172.26.7.5 – .254 | Portal → Metal Controller, Portal → agents, management API traffic |
+| 902 | Provider Tenant | 172.26.5.0/24 | 172.26.5.1 | 172.26.5.5 – .254 | DHCP relay from GPU nodes to Metal Controller (172.26.5.8) for PXE boot |
+| 903 | Storage | 172.26.6.0/24 | 172.26.6.1 | 172.26.6.5 – .254 | VAST Data platform storage connectivity (S3 endpoints) |
+
+### GPU Server Inband VLANs (Per Scalable Unit)
+
+Each Scalable Unit (SU) has a dedicated inband VLAN for GPU server OS provisioning and management:
+
+| VLAN ID | VRF | Network | Subnet Mask | Gateway | IP Range |
+|---------|-----|---------|-------------|---------|----------|
+| 23 | SU1-Inband | 172.21.160.0 | /26 | 172.21.160.1 | 172.21.160.1 – .62 |
+| 33 | SU2-Inband | 172.21.160.128 | /26 | 172.21.160.129 | 172.21.160.129 – .190 |
+| 43 | SU3-Inband | 172.21.161.0 | /26 | 172.21.161.1 | 172.21.161.1 – .62 |
+| 53 | SU4-Inband | 172.21.161.128 | /26 | 172.21.161.129 | 172.21.161.129 – .190 |
+| 63 | SU5-Inband | 172.21.162.0 | /26 | 172.21.162.1 | 172.21.162.1 – .62 |
+
+### Tenant VRF VLANs (Per-Tenant VPC Networks)
+
+Each tenant gets 4 VLANs from a pre-created pool. 10 tenant VRFs are provisioned with 4 VLANs each (40 VLANs total, VLANs 10–49):
+
+| Tenant | VLANs | Subnets | IP Pool | VLAN Purpose (4 per tenant) |
+|--------|-------|---------|---------|----------------------------|
+| Tenant 1 | 10, 11, 12, 13 | 172.26.8.0/24 – 172.26.11.0/24 | .5 to .254 each | VLAN 1: Control Plane / Login nodes \| VLAN 2: GPU Workers / data plane \| VLAN 3: Load Balancer \| VLAN 4: Additional / future use |
+| Tenant 2 | 14, 15, 16, 17 | 172.26.12.0/24 – 172.26.15.0/24 | .5 to .254 each | Same 4-VLAN structure per tenant |
+| Tenant 3 | 18, 19, 20, 21 | 172.26.16.0/24 – 172.26.19.0/24 | .5 to .254 each | Same 4-VLAN structure per tenant |
+| ... | ... | ... | ... | Pattern continues for Tenants 4–10 |
+| Tenant 10 | 46, 47, 48, 49 | 172.26.44.0/24 – 172.26.47.0/24 | .5 to .254 each | Same 4-VLAN structure per tenant |
+
+:::info 4 VLANs Per Tenant — Why?
+Each tenant needs isolated subnets for:
+1. **Control Plane** — where K8s API server / Slurm controller endpoints live
+2. **GPU Workers** — where bare metal GPU nodes connect for workload data plane traffic
+3. **Load Balancer** — isolated ingress/egress for external access to tenant services
+4. **Additional** — reserved for future use or specialized traffic
+
+This 4-VLAN model ensures no cross-tenant traffic leakage at the network level.
+:::
+
+## What NDFC Configures on Switches
+
+When network-manager calls NDFC, here is what NDFC programs on the physical Cisco Nexus leaf and spine switches:
+
+| Config Element | What It Is | What NDFC Creates on Switches |
+|----------------|------------|-------------------------------|
+| **VRF Instance** | Isolated routing table | `vrf context TENANT-1-VRF` with unique VNI (VXLAN Network Identifier). All routes for this tenant are isolated in this routing table. |
+| **VLAN** | Layer 2 broadcast domain | `vlan <id>` with name, mapped to VXLAN VNI. Each VLAN carries one subnet. |
+| **VXLAN Segment** | Overlay tunnel | VXLAN encapsulation for the VLAN. Allows the VLAN to span across multiple leaf switches without traditional L2 flooding. |
+| **SVI (Gateway)** | Layer 3 interface for subnet | `interface vlan <id>` with IP address (gateway), assigned to the tenant VRF. This is the default gateway for all devices on this subnet. |
+| **EVPN Configuration** | Control plane for VXLAN | BGP EVPN address family with route-target import/export for the VRF. Distributes MAC and IP routes across the fabric. |
+| **ACLs** | Access control lists | Permit/deny rules on the SVI or VRF: which subnets can talk to which, what shared services are reachable, firewall policy enforcement points. |
+| **L3 Out (External)** | External routing | L3 out gateway towards Palo Alto firewall. Enables routed traffic between tenant VRF and shared services or orchestration layer. |
+| **Switch Port Config** | Physical port assignment | When a GPU node is assigned to a tenant, its physical switch port is configured with the tenant's VLAN (trunk or access mode). |
+
+## VPC/Subnet in Platform Workflows
+
+### During Bare Metal Provisioning
+
+| Step | Network Action | VLANs Used |
+|------|----------------|------------|
+| PXE Boot | GPU node's NIC broadcasts DHCP Discover on its SU Inband VLAN | VLAN 23/33/43/53/63 (Inband per SU) |
+| DHCP Relay | DHCP request relayed to Metal Controller (172.26.5.8) | VLAN 902 (Provider Tenant) |
+| OS Install | Golden image downloaded from MAAS over SU Inband VLAN | VLAN 23/33/43/53/63 |
+| Agent Connect | Agent connects to portal over management network | VLAN 901 (Mgmt/Frontend) |
+
+### During Cluster Creation
+
+| Step | Network Action | VLANs Used |
+|------|----------------|------------|
+| VIP/LB Creation | Control plane VIP created on tenant CP subnet | Tenant VLAN 1 (Control Plane) |
+| Worker Join | GPU workers join K8s cluster over tenant network | Tenant VLAN 2 (GPU Workers) |
+| CNI Overlay | Calico/Cilium creates pod overlay network on top of tenant VLAN | Tenant VLAN 2 (IP-in-IP/eBPF overlay within) |
+| LB Assignment | External-facing LB IPs allocated from tenant LB subnet | Tenant VLAN 3 (Load Balancer) |
+| Agent Instructions | Portal sends bootstrap/deployment via agent gRPC | VLAN 901 (Mgmt) |
+
+### During Workload Execution
+
+| Traffic Type | Network Path | Protocol |
+|--------------|--------------|----------|
+| GPU-to-GPU (training) | InfiniBand backend fabric (UFM PKey isolated) | RDMA / NCCL (400G x10) |
+| GPU-to-Storage | InfiniBand → DDN AI400 Lustre | Lustre / RDMA |
+| Pod-to-Pod | Tenant VLAN via CNI overlay (Calico/Cilium) | Overlay (IP-in-IP / eBPF) |
+| External access | Tenant LB VLAN → Ingress Controller | HTTP/HTTPS |
+| Monitoring metrics | VLAN 901 (Mgmt) / internal cluster | HTTP (Prometheus endpoints) |
+
+## Firewall Rules & ACLs
+
+A Palo Alto firewall sits between the orchestration layer and GPU nodes. Three levels of ACLs are enforced:
+
+### Management Traffic ACLs
+
+- **PXE reachability:** Metal Controller (172.26.5.8) → GPU BMC nodes for OS provisioning and boot device control
+- **IPMI reachability:** Metal Controller → GPU BMC for power on/off, boot device setting
+- **Orchestrator IPMI access:** Portal default network access to IPMI interfaces for BM console access
+- **Shared services:** All nodes → Proxy, DNS, NTP, Syslog, SSH via Outside Infra VRF
+
+### Tenant Network ACLs
+
+- **CP → Worker:** Control plane (managed in IRIS) to GPU worker node communication over tenant network
+- **IP-in-IP overlay:** GPU-to-GPU overlay communication within IRIS for CNI (Calico/Cilium) pod networking
+- **Agent connectivity:** Connectivity agent communication for control plane connectivity between managed CP and GPU workers
+
+### Other Connectivity
+
+- **Shared storage:** GPU nodes to external storage platforms (DDN over IB, VAST over Ethernet)
+- **Multi-tenant isolation:** Additional fabric isolation requirements enforced per-VRF to prevent cross-tenant traffic
+
+:::warning Firewall Configuration
+Firewall rules for new tenant networks currently require manual admin action post-network creation. The platform creates the VRF/VLAN automatically, but the Palo Alto firewall rules must be configured by the network admin team to allow the required traffic paths.
+:::
+
+## Microservices & APIs
+
+### Key Microservices
+
+| Microservice | Role |
+|--------------|------|
+| **network-manager** | Core network service. Translates portal VPC/subnet requests into Cisco NDFC API calls. Handles all VRF/VLAN CRUD operations. |
+| **neutron-service** | Network abstraction layer. Provides OpenStack-compatible networking API for internal services that need network provisioning. |
+| **compass-orchestrator** | Workflow engine. Coordinates network creation as part of broader provisioning workflows (BM + network + storage + cluster). |
+| **orbiter-auth** | Enforces Keycloak RBAC on all network operations. Ensures tenants can only see/modify their own VPCs. |
+| **cloud-manager** | High-level cloud operations API. Routes network requests to network-manager. |
+
+### APIs
+
+| API ID | Endpoint | Purpose |
+|--------|----------|---------|
+| API-011 | `/api/network-manager` | Primary network CRUD: create/read/update/delete VPCs, subnets, VLANs. Calls NDFC internally. |
+| API-020 | `/api/v1/networks` | Virtual networks, LBaaS, DNS, and firewall configuration APIs. |
+| API-006 | `/api/orchestrator` | Triggers network provisioning as part of broader orchestration workflows. |
+| API-015 | `/api/quota` | Validates tenant network quota (max VPCs, max subnets) before creation. |
+| API-012 | `/api/tenant-management` | Tenant lifecycle. Networks are linked to tenant/org/project hierarchy. |
+
+## Network Security Model
+
+| Layer | Mechanism | Details |
+|-------|-----------|---------|
+| **Tenant Isolation** | VRF (separate routing table per tenant) | Each tenant VPC is a dedicated VRF on the physical switches. No route leakage between tenants. VXLAN/EVPN ensures overlay isolation. |
+| **Subnet Isolation** | VLAN + ACLs | Each subnet is a separate VLAN within the VRF. ACLs restrict inter-subnet communication to only what's required. |
+| **IB Isolation** | UFM PKey (partition key) | InfiniBand GPU-to-GPU traffic isolated per tenant. Only GPU mlx GUIDs belonging to the tenant are added to the PKey. |
+| **Firewall** | Palo Alto between orchestration and GPU nodes | Stateful firewall with per-tenant rules. L3 Out from each tenant VRF routes through firewall. |
+| **Authentication** | Keycloak OAuth2/JWT | All network API calls require valid JWT. Tenants can only manage their own VPCs. |
+| **Transport** | TLS 1.2+, mTLS, HSTS | All API communication encrypted. NDFC API calls from network-manager use TLS. |
+| **Audit** | Centralized logging, S3 backup every 6hrs | All network create/delete/modify operations logged with correlation ID. SIEM integration in progress. |
