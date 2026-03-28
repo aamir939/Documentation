@@ -5,6 +5,9 @@ description: Understanding the AI infrastructure challenges that AI Cloud/dflare
 keywords: [AI infrastructure, GPU compute, multi-tenancy, HPC, challenges]
 ---
 
+import Drawio from '@theme/Drawio'
+import platformFeatures from '!!raw-loader!./diagrams/platform-features.drawio';
+
 # Market Context & Problem Statement
 
 ## The AI Infrastructure Challenge
@@ -82,18 +85,7 @@ Even after the infrastructure is built, the ongoing operational burden is substa
 
 AI Cloud/dflare eliminates these challenges by delivering a fully integrated, automated platform that handles the entire lifecycle — from bare metal provisioning to workload execution — through a single pane of glass.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    AI Cloud/dflare Platform                  │
-├─────────────────────────────────────────────────────────────┤
-│  ✓ Automated bare metal provisioning                        │
-│  ✓ Hardware-enforced multi-tenant isolation                 │
-│  ✓ Unified Kubernetes + Slurm orchestration                 │
-│  ✓ High-performance parallel storage                        │
-│  ✓ Transparent usage-based billing                          │
-│  ✓ Enterprise monitoring and alerting                       │
-└─────────────────────────────────────────────────────────────┘
-```
+<Drawio content={platformFeatures} />
 
 Organizations get the **performance of dedicated GPU hardware** with the **operational model of a managed service**.
 

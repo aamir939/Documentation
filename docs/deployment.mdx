@@ -5,6 +5,9 @@ description: Deployment configurations and scalability specifications for AI Clo
 keywords: [deployment, scalability, tenant onboarding, capacity planning]
 ---
 
+import Drawio from '@theme/Drawio'
+import tenantOnboarding from '!!raw-loader!./diagrams/tenant-onboarding.drawio';
+
 # Deployment Model & Scalability
 
 ## Scalability Specifications
@@ -65,70 +68,7 @@ Designed for sovereign AI programs, major cloud providers, and frontier AI resea
 
 The tenant onboarding process is automated and can be completed through the portal or API.
 
-### Step-by-Step Process
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                   Tenant Onboarding Flow                    │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  Step 1: Domain Creation                                    │
-│  ───────────────────────                                    │
-│  Platform Super Admin creates tenant with:                  │
-│  • Tenant name and metadata                                 │
-│  • Initial resource quotas                                  │
-│  • Network allocation from pool                             │
-│                          │                                  │
-│                          ▼                                  │
-│  Step 2: Identity Provisioning                              │
-│  ─────────────────────────────                              │
-│  Automatic Keycloak realm creation:                         │
-│  • Default roles configured                                 │
-│  • OAuth2 clients created                                   │
-│  • Authentication flows enabled                             │
-│                          │                                  │
-│                          ▼                                  │
-│  Step 3: First Admin User                                   │
-│  ────────────────────────                                   │
-│  Domain Admin account created:                              │
-│  • Full tenant-level permissions                            │
-│  • Initial password/SSO configured                          │
-│  • Welcome email sent                                       │
-│                          │                                  │
-│                          ▼                                  │
-│  Step 4: Network Allocation                                 │
-│  ─────────────────────────                                  │
-│  Network resources assigned:                                │
-│  • VRFs allocated (4 VLANs per tenant)                      │
-│  • InfiniBand PKey assigned                                 │
-│  • Resource quotas configured                               │
-│                          │                                  │
-│                          ▼                                  │
-│  Step 5: Organization & Project Setup                       │
-│  ────────────────────────────────────                       │
-│  Domain Admin configures structure:                         │
-│  • Creates organizations                                    │
-│  • Creates projects within orgs                             │
-│  • Sets per-project quotas                                  │
-│                          │                                  │
-│                          ▼                                  │
-│  Step 6: User Invitations                                   │
-│  ────────────────────────                                   │
-│  Users added to the tenant:                                 │
-│  • Role assignments per project                             │
-│  • SSO federation (optional)                                │
-│  • Access credentials distributed                           │
-│                          │                                  │
-│                          ▼                                  │
-│  Step 7: Ready                                              │
-│  ────────────                                               │
-│  Tenant fully operational:                                  │
-│  • Can provision bare metal                                 │
-│  • Can create clusters                                      │
-│  • Can deploy workloads                                     │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
+<Drawio content={tenantOnboarding} />
 
 ### Onboarding Checklist
 

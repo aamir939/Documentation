@@ -1,0 +1,100 @@
+<mxfile host="app.diagrams.net" modified="2024-01-15T10:00:00.000Z" agent="Mozilla/5.0" version="22.1.0">
+  <diagram id="nodemap" name="DDN NodeMap Check">
+    <mxGraphModel dx="900" dy="500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Layer 2: DDN NodeMap Check" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#1a1a2e;" vertex="1" parent="1">
+          <mxGeometry x="275" y="20" width="300" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Mount Request -->
+        <mxCell id="request" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="70" width="250" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="req-title" value="Mount Request" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontStyle=1;fontSize=12;fontColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="65" y="75" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="req-path" value="/lustre/tenants/tenant_a/" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#424242;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="65" y="95" width="220" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow to NodeMap -->
+        <mxCell id="arr1" value="" style="shape=flexArrow;endArrow=classic;html=1;fillColor=#424242;strokeColor=none;width=8;endSize=5;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="100" as="sourcePoint" />
+            <mxPoint x="350" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- NodeMap Check Box -->
+        <mxCell id="nodemap" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#ef6c00;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="350" y="60" width="450" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="nm-title" value="DDN NodeMap Check" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;fontColor=#ef6c00;" vertex="1" parent="1">
+          <mxGeometry x="475" y="70" width="200" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Request IP -->
+        <mxCell id="nm-ip" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#ef6c00;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="375" y="105" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="nm-ip-lbl" value="Request IP: 10.20.30.40" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#424242;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="375" y="112" width="200" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- NodeMap list -->
+        <mxCell id="nm-list" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#ef6c00;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="375" y="155" width="400" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="nm-list-lbl" value="NodeMap for tenant_a: [10.20.30.40, 10.20.30.41]" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#424242;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="375" y="162" width="400" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Results -->
+        <mxCell id="result-granted" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="150" y="280" width="250" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="granted-txt" value="✓ IP in NodeMap → Access Granted" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="155" y="292" width="240" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="result-denied" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcdd2;strokeColor=#c62828;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="450" y="280" width="250" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="denied-txt" value="✗ IP not in NodeMap → Access Denied" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#c62828;" vertex="1" parent="1">
+          <mxGeometry x="455" y="292" width="240" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows to results -->
+        <mxCell id="arr2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2e7d32;entryX=0.5;entryY=0;" edge="1" parent="1" target="result-granted">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="240" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="475" y="260" />
+              <mxPoint x="275" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arr3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#c62828;entryX=0.5;entryY=0;" edge="1" parent="1" target="result-denied">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="675" y="240" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="675" y="260" />
+              <mxPoint x="575" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Summary -->
+        <mxCell id="summary" value="Only tenant's IB IP addresses can mount tenant's directory" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontColor=#424242;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="250" y="350" width="350" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

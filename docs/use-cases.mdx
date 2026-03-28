@@ -5,6 +5,9 @@ description: Primary use cases and target industries for AI Cloud/dflare
 keywords: [use cases, industries, AI training, LLM, HPC, inference, MLOps]
 ---
 
+import Drawio from '@theme/Drawio'
+import distributedTraining from '!!raw-loader!./diagrams/distributed-training.drawio';
+
 # Use Cases & Target Industries
 
 ## Primary Use Cases
@@ -20,27 +23,7 @@ AI Cloud/dflare provides the infrastructure foundation for training the largest 
 - **Supports NVIDIA NCCL, AMD RCCL**, and other collective communication libraries
 - **Multi-vendor GPU support** allows organizations to choose the right accelerators for their workloads
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│               Distributed Training Architecture              │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│   Node 1          Node 2          Node 3          Node N    │
-│   ┌─────┐        ┌─────┐        ┌─────┐        ┌─────┐     │
-│   │ GPU │◄──────►│ GPU │◄──────►│ GPU │◄──────►│ GPU │     │
-│   │  ×8 │  IB    │  ×8 │  IB    │  ×8 │  IB    │  ×8 │     │
-│   └──┬──┘        └──┬──┘        └──┬──┘        └──┬──┘     │
-│      │              │              │              │         │
-│      └──────────────┼──────────────┼──────────────┘         │
-│                     │              │                        │
-│                     ▼              ▼                        │
-│            ┌─────────────────────────────┐                  │
-│            │     DDN Lustre Storage       │                  │
-│            │    (Training Data @ 400G)    │                  │
-│            └─────────────────────────────┘                  │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
+<Drawio content={distributedTraining} />
 
 ### LLM Fine-Tuning & RLHF
 

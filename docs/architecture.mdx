@@ -9,6 +9,9 @@ import Drawio from '@theme/Drawio'
 import fullArchitecture from '!!raw-loader!./diagrams/full-architecture.drawio';
 import networkHierarchy from '!!raw-loader!./diagrams/network-hierarchy.drawio';
 import managementGpuPlane from '!!raw-loader!./diagrams/management-gpu-plane.drawio';
+import storageArchitecture from '!!raw-loader!./diagrams/storage-architecture.drawio';
+import provisioningFlow from '!!raw-loader!./diagrams/provisioning-flow.drawio';
+import workloadExecutionFlow from '!!raw-loader!./diagrams/workload-execution-flow.drawio';
 
 # Architecture & Technology Stack
 
@@ -57,29 +60,11 @@ AI Cloud/dflare is built on a modern, microservices-based architecture designed 
 
 ### Provisioning Flow
 
-```
-User Request → Portal API → compass-orchestrator
-                                    │
-                    ┌───────────────┼───────────────┐
-                    ▼               ▼               ▼
-            network-manager   baremetal-manager  volume-service
-                    │               │               │
-                    ▼               ▼               ▼
-              Cisco NDFC          MAAS         DDN Lustre
-```
+<Drawio content={provisioningFlow} />
 
 ### Workload Execution Flow
 
-```
-Job Submission → Portal/CLI/API → Cluster (K8s or Slurm)
-                                        │
-                        ┌───────────────┼───────────────┐
-                        ▼               ▼               ▼
-                   GPU Runtime    Storage Mount    Network
-                        │               │               │
-                        ▼               ▼               ▼
-                    GPU Driver     Lustre Client   IB Fabric
-```
+<Drawio content={workloadExecutionFlow} />
 
 ## Network Architecture
 
@@ -100,24 +85,7 @@ AI Cloud/dflare uses a dual-fabric network architecture:
 
 ### Two-Tier Storage System
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                      Storage Architecture                        │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌─────────────────────────┐    ┌─────────────────────────┐    │
-│  │     DDN AI400 Lustre    │    │       VAST Data          │    │
-│  │                         │    │                          │    │
-│  │  • Training datasets    │    │  • Platform services     │    │
-│  │  • Model checkpoints    │    │  • Databases, logs       │    │
-│  │  • Experiment results   │    │  • Container registry    │    │
-│  │                         │    │  • Backups               │    │
-│  │  Connection: InfiniBand │    │  Connection: Ethernet    │    │
-│  │  Speed: 400G × N        │    │  Speed: 25G              │    │
-│  └─────────────────────────┘    └─────────────────────────┘    │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+<Drawio content={storageArchitecture} />
 
 ## High Availability Design
 

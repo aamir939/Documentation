@@ -8,6 +8,9 @@ keywords: [storage, DDN, Lustre, VAST, InfiniBand, parallel filesystem]
 import Drawio from '@theme/Drawio'
 import storageStriping from '!!raw-loader!../diagrams/storage-striping.drawio';
 import backupFlow from '!!raw-loader!../diagrams/backup-flow.drawio';
+import lustreTenantProvisioning from '!!raw-loader!../diagrams/lustre-tenant-provisioning.drawio';
+import ibPkeyIsolation from '!!raw-loader!../diagrams/ib-pkey-isolation.drawio';
+import nodemapCheck from '!!raw-loader!../diagrams/nodemap-check.drawio';
 
 # High-Performance Storage
 
@@ -26,37 +29,7 @@ When a tenant is onboarded, the platform automatically provisions dedicated stor
 
 ### Automated Provisioning
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                DDN Lustre Tenant Provisioning                    │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  Step 1: Create Tenant Directory                                │
-│  ───────────────────────────────                                │
-│  /lustre/tenants/{tenant_id}/                                   │
-│                          │                                      │
-│                          ▼                                      │
-│  Step 2: Create DDN NodeMap                                     │
-│  ──────────────────────────                                     │
-│  Access control list of allowed InfiniBand IP addresses         │
-│                          │                                      │
-│                          ▼                                      │
-│  Step 3: Assign Node IPs to NodeMap                             │
-│  ──────────────────────────────────                             │
-│  Only tenant's GPU node IB IPs are added                        │
-│                          │                                      │
-│                          ▼                                      │
-│  Step 4: Set Capacity Quotas                                    │
-│  ───────────────────────────                                    │
-│  Based on tenant's subscription                                 │
-│                          │                                      │
-│                          ▼                                      │
-│  Step 5: Configure Striping                                     │
-│  ──────────────────────────                                     │
-│  Data striped across multiple OSTs for parallel I/O             │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+<Drawio content={lustreTenantProvisioning} />
 
 ### Parallel I/O Architecture
 
@@ -101,38 +74,13 @@ Tenant storage isolation is enforced at **two independent layers** simultaneousl
 
 ### Layer 1: InfiniBand Level (UFM PKey)
 
-```
-GPU Node (Tenant A)              GPU Node (Tenant B)
-       │                                │
-       │ PKey-A                         │ PKey-B
-       │                                │
-       ▼                                ▼
-┌─────────────────────────────────────────────────────┐
-│              InfiniBand Switch Fabric               │
-│                                                     │
-│  PKey-A traffic ←──────X──────→ PKey-B traffic     │
-│      isolated         blocked       isolated        │
-└─────────────────────────────────────────────────────┘
-```
+<Drawio content={ibPkeyIsolation} />
 
 Only the tenant's GPU ports can communicate on the tenant's IB partition.
 
 ### Layer 2: DDN Lustre Level (NodeMap)
 
-```
-Mount Request: /lustre/tenants/tenant_a/
-        │
-        ▼
-┌─────────────────────────────────────────────────────┐
-│              DDN NodeMap Check                       │
-│                                                     │
-│  Request IP: 10.20.30.40                            │
-│  NodeMap for tenant_a: [10.20.30.40, 10.20.30.41]  │
-│                                                     │
-│  ✓ IP in NodeMap → Access Granted                   │
-│  ✗ IP not in NodeMap → Access Denied                │
-└─────────────────────────────────────────────────────┘
-```
+<Drawio content={nodemapCheck} />
 
 Only the tenant's IB IP addresses can mount the tenant's directory.
 

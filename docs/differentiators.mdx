@@ -5,6 +5,10 @@ description: What makes AI Cloud/dflare unique in the GPU infrastructure market
 keywords: [differentiators, competitive advantages, unique features]
 ---
 
+import Drawio from '@theme/Drawio'
+import k8sSlurmUnified from '!!raw-loader!./diagrams/k8s-slurm-unified.drawio';
+import doubleIsolation from '!!raw-loader!./diagrams/double-isolation.drawio';
+
 # Competitive Differentiators
 
 ## What Sets AI Cloud/dflare Apart
@@ -17,38 +21,7 @@ AI Cloud/dflare delivers a unique combination of capabilities that differentiate
 
 **Most platforms force a choice between containers and HPC.** AI Cloud/dflare runs both Kubernetes and Slurm workloads on the same bare metal nodes, with unified networking, storage, security, and billing.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│            Traditional Approach (Choose One)                │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│   ┌──────────────┐              ┌──────────────┐           │
-│   │  Kubernetes  │      OR      │    Slurm     │           │
-│   │   Cluster    │              │   Cluster    │           │
-│   └──────────────┘              └──────────────┘           │
-│   Separate infra                Separate infra             │
-│   Separate billing              Separate billing           │
-│   Separate security             Separate security          │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────┐
-│              AI Cloud/dflare Approach (Both)                │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│   ┌─────────────────────────────────────────────────┐      │
-│   │          Shared Bare Metal Infrastructure        │      │
-│   │                                                  │      │
-│   │   ┌──────────────┐       ┌──────────────┐       │      │
-│   │   │  Kubernetes  │       │ Slurm (via   │       │      │
-│   │   │   Clusters   │       │   Slinky)    │       │      │
-│   │   └──────────────┘       └──────────────┘       │      │
-│   │                                                  │      │
-│   │   Unified networking, storage, security, billing │      │
-│   └─────────────────────────────────────────────────┘      │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
+<Drawio content={k8sSlurmUnified} />
 
 The **Slinky Operator** bridges both worlds seamlessly, allowing organizations to serve container-native MLOps teams and traditional HPC researchers from the same infrastructure.
 
@@ -93,24 +66,7 @@ The **Slinky Operator** bridges both worlds seamlessly, allowing organizations t
 
 **Double isolation on storage** ensures defense-in-depth:
 
-```
-Storage Access Request
-        │
-        ▼
-┌───────────────────┐
-│  Check 1: UFM PKey │ ← InfiniBand fabric level
-│  (IB switch HW)   │
-└─────────┬─────────┘
-          │ Pass
-          ▼
-┌───────────────────┐
-│  Check 2: NodeMap  │ ← Lustre filesystem level
-│  (DDN controller) │
-└─────────┬─────────┘
-          │ Pass
-          ▼
-    ✓ Access Granted
-```
+<Drawio content={doubleIsolation} />
 
 Even if one layer were compromised, the other would block unauthorized access.
 

@@ -5,6 +5,9 @@ description: Support commitments and service level agreements for AI Cloud/dflar
 keywords: [support, SLA, service level agreement, availability, maintenance]
 ---
 
+import Drawio from '@theme/Drawio'
+import escalationPath from '!!raw-loader!./diagrams/escalation-path.drawio';
+
 # Support & SLA
 
 ## Service Commitments
@@ -176,34 +179,7 @@ Tenants have access to monitoring dashboards showing:
 
 ### Escalation Path
 
-```
-┌─────────────────┐
-│   User Report   │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│ Support Ticket  │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐     ┌─────────────────┐
-│   L1 Support    │────►│   L2 Support    │
-│  (Initial)      │     │  (Technical)    │
-└─────────────────┘     └────────┬────────┘
-                                 │
-                                 ▼
-                        ┌─────────────────┐
-                        │   Engineering   │
-                        │  (Escalation)   │
-                        └────────┬────────┘
-                                 │
-                                 ▼
-                        ┌─────────────────┐
-                        │   Management    │
-                        │  (Critical)     │
-                        └─────────────────┘
-```
+<Drawio content={escalationPath} />
 
 ---
 

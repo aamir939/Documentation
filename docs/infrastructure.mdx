@@ -5,6 +5,9 @@ description: Hardware specifications and performance tuning for AI Cloud/dflare 
 keywords: [infrastructure, hardware, GPU, InfiniBand, storage, specifications]
 ---
 
+import Drawio from '@theme/Drawio'
+import networkIsolationStack from '!!raw-loader!./diagrams/network-isolation-stack.drawio';
+
 # Infrastructure Specifications
 
 ## Compute Infrastructure
@@ -43,25 +46,7 @@ keywords: [infrastructure, hardware, GPU, InfiniBand, storage, specifications]
 
 ### Network Isolation Mechanisms
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Network Isolation Stack                   │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  Layer 1: Ethernet Isolation                                │
-│  ─────────────────────────────                              │
-│  • VRF per tenant (VXLAN/EVPN)                              │
-│  • 2 VLANs per VRF                                          │
-│  • Managed by Cisco NDFC                                    │
-│                                                             │
-│  Layer 2: InfiniBand Isolation                              │
-│  ─────────────────────────────                              │
-│  • UFM PKey per tenant                                      │
-│  • Hardware-enforced at switch level                        │
-│  • Prevents cross-tenant IB traffic                         │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
+<Drawio content={networkIsolationStack} />
 
 ## Storage Infrastructure
 
@@ -114,24 +99,12 @@ The golden OS image includes pre-configured BIOS settings optimized for GPU work
 
 ### Why These Settings Matter
 
-```
-Standard Configuration          Optimized Configuration
-───────────────────────         ─────────────────────────
-
-CPU: Dynamic frequency          CPU: Locked to max
-     (saves power, adds              (maximum throughput,
-      latency)                        predictable performance)
-
-Memory: Standard pages          Memory: Huge pages
-        (4KB)                          (2MB/1GB)
-                                       (reduced TLB misses)
-
-PCIe: Power management          PCIe: ASPM disabled
-      enabled                         (zero latency transitions)
-
-NUMA: Auto-balancing            NUMA: Fixed alignment
-      (adds overhead)                 (optimal GPU-CPU affinity)
-```
+| Standard Configuration | Optimized Configuration |
+|------------------------|------------------------|
+| CPU: Dynamic frequency (saves power, adds latency) | CPU: Locked to max (maximum throughput, predictable performance) |
+| Memory: Standard 4KB pages | Memory: 2MB/1GB huge pages (reduced TLB misses) |
+| PCIe: Power management enabled | PCIe: ASPM disabled (zero latency transitions) |
+| NUMA: Auto-balancing (adds overhead) | NUMA: Fixed alignment (optimal GPU-CPU affinity) |
 
 ## Scale Specifications
 

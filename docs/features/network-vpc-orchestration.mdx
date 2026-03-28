@@ -7,6 +7,7 @@ keywords: [VPC, subnet, VRF, VLAN, VXLAN, EVPN, network isolation, NDFC, Cisco, 
 
 import Drawio from '@theme/Drawio'
 import networkHierarchy from '!!raw-loader!../diagrams/network-hierarchy.drawio';
+import dynamicNetworkProvisioning from '!!raw-loader!../diagrams/dynamic-network-provisioning.drawio';
 
 # Network VPC & Subnet Orchestration
 
@@ -68,49 +69,7 @@ From the portal, users interact with VPCs and subnets as logical networking cons
 
 ### Flow 1: Create New Network (Dynamic Provisioning)
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                    Dynamic Network Provisioning Flow                     │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  1. User Request                                                        │
-│     └── Tenant requests new VPC/subnet via portal UI or API             │
-│                              │                                          │
-│                              ▼                                          │
-│  2. Portal → network-manager                                            │
-│     └── Portal (C1) sends request with: tenant ID, project ID,          │
-│         CIDR, gateway, VPC name                                         │
-│                              │                                          │
-│                              ▼                                          │
-│  3. network-manager → NDFC                                              │
-│     └── Calls Cisco NDFC REST API to:                                   │
-│         • Create VRF (VXLAN VNI assigned)                               │
-│         • Create VLAN/VXLAN segment                                     │
-│         • Allocate subnet/gateway                                       │
-│         • Apply routing rules + ACL rules                               │
-│                              │                                          │
-│                              ▼                                          │
-│  4. NDFC → Switches                                                     │
-│     └── Pushes configuration to physical leaf/spine switches            │
-│         VRF, VLAN, SVI (gateway), ACLs programmed on hardware           │
-│                              │                                          │
-│                              ▼                                          │
-│  5. Response                                                            │
-│     └── NDFC returns: VLAN ID, VXLAN VNI, subnet CIDR,                  │
-│         gateway IP, VRF name to network-manager                         │
-│                              │                                          │
-│                              ▼                                          │
-│  6. Store in DB                                                         │
-│     └── Portal stores VPC/subnet metadata in orchestration DB           │
-│         (MongoDB) and associates with tenant/project                    │
-│                              │                                          │
-│                              ▼                                          │
-│  7. Firewall (Manual)                                                   │
-│     └── Network admin configures Palo Alto firewall rules for           │
-│         the new network                                                 │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
-```
+<Drawio content={dynamicNetworkProvisioning} />
 
 ### Flow 2: Allocate Pre-Created Network
 
