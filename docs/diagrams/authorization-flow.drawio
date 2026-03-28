@@ -6,12 +6,12 @@
         <mxCell id="1" parent="0" />
 
         <!-- Title -->
-        <mxCell id="title" value="RBAC + ABAC Authorization Flow" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#1a1a2e;" vertex="1" parent="1">
+        <mxCell id="title" value="RBAC + ABAC Authorization Flow" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#212121;" vertex="1" parent="1">
           <mxGeometry x="200" y="20" width="400" height="30" as="geometry" />
         </mxCell>
 
         <!-- User Request -->
-        <mxCell id="request" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="request" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="250" y="70" width="300" height="60" as="geometry" />
         </mxCell>
         <mxCell id="req-icon" value="👤" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=20;" vertex="1" parent="1">
@@ -22,34 +22,34 @@
         </mxCell>
 
         <!-- Arrow to RBAC -->
-        <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1565c0;endArrow=blockThin;endFill=1;" edge="1" parent="1" source="request" target="rbac">
+        <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1976d2;endArrow=blockThin;endFill=1;" edge="1" parent="1" source="request" target="rbac">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
         <!-- RBAC Check -->
-        <mxCell id="rbac" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="rbac" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="250" y="170" width="300" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="rbac-title" value="RBAC Check" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;fontColor=#2e7d32;" vertex="1" parent="1">
+        <mxCell id="rbac-title" value="RBAC Check" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;fontColor=#1565c0;" vertex="1" parent="1">
           <mxGeometry x="250" y="180" width="300" height="25" as="geometry" />
         </mxCell>
         <mxCell id="rbac-role" value="Role: Project Admin" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="250" y="205" width="300" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="rbac-perm" value="Permission: ✓ Create Cluster" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#2e7d32;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="rbac-perm" value="Permission: ✓ Create Cluster" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#1565c0;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="250" y="225" width="300" height="25" as="geometry" />
         </mxCell>
 
         <!-- Arrow to ABAC -->
-        <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2e7d32;endArrow=blockThin;endFill=1;" edge="1" parent="1" source="rbac" target="abac">
+        <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1976d2;endArrow=blockThin;endFill=1;" edge="1" parent="1" source="rbac" target="abac">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
         <!-- ABAC Check -->
-        <mxCell id="abac" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#ef6c00;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="abac" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="250" y="300" width="300" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="abac-title" value="ABAC Check" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;fontColor=#ef6c00;" vertex="1" parent="1">
+        <mxCell id="abac-title" value="ABAC Check" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;fontColor=#1565c0;" vertex="1" parent="1">
           <mxGeometry x="250" y="310" width="300" height="25" as="geometry" />
         </mxCell>
         <mxCell id="abac-tenant" value="Tenant: Tenant-A" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#424242;" vertex="1" parent="1">
@@ -58,25 +58,25 @@
         <mxCell id="abac-project" value="Project: Project-X" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="250" y="355" width="300" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="abac-check" value="User in Project: ✓" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#ef6c00;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="abac-check" value="User in Project: ✓" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#1565c0;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="250" y="378" width="300" height="25" as="geometry" />
         </mxCell>
 
         <!-- Arrow to Access Granted -->
-        <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#ef6c00;endArrow=blockThin;endFill=1;" edge="1" parent="1" source="abac" target="granted">
+        <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1976d2;endArrow=blockThin;endFill=1;" edge="1" parent="1" source="abac" target="granted">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
         <!-- Access Granted -->
-        <mxCell id="granted" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;strokeWidth=3;" vertex="1" parent="1">
+        <mxCell id="granted" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#43a047;strokeWidth=3;" vertex="1" parent="1">
           <mxGeometry x="300" y="450" width="200" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="granted-text" value="✓ Access Granted" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=16;fontColor=#1b5e20;" vertex="1" parent="1">
+        <mxCell id="granted-text" value="✓ Access Granted" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=16;fontColor=#2e7d32;" vertex="1" parent="1">
           <mxGeometry x="300" y="460" width="200" height="30" as="geometry" />
         </mxCell>
 
         <!-- Key Principle callout -->
-        <mxCell id="callout" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#f9a825;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="callout" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#ffa000;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="200" y="520" width="400" height="50" as="geometry" />
         </mxCell>
         <mxCell id="callout-text" value="⚠️ Key: Member in Project A cannot touch resources in Project B" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=#f57f17;" vertex="1" parent="1">
