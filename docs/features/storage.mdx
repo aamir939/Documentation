@@ -5,6 +5,10 @@ description: Storage throughput that keeps up with the most demanding training j
 keywords: [storage, DDN, Lustre, VAST, InfiniBand, parallel filesystem]
 ---
 
+import Drawio from '@theme/Drawio'
+import storageStriping from '!!raw-loader!../diagrams/storage-striping.drawio';
+import backupFlow from '!!raw-loader!../diagrams/backup-flow.drawio';
+
 # High-Performance Storage
 
 **Business Value:** GPU workloads are only as fast as their data pipeline. AI Cloud/dflare delivers storage throughput that keeps up with the most demanding training jobs — leveraging the full bandwidth of the InfiniBand fabric.
@@ -58,24 +62,9 @@ When a tenant is onboarded, the platform automatically provisions dedicated stor
 
 Lustre stripes data across multiple Object Storage Targets (OSTs):
 
-```
-                        ┌─────────────┐
-                        │  Training   │
-                        │    File     │
-                        │   (100TB)   │
-                        └──────┬──────┘
-                               │
-           ┌───────────────────┼───────────────────┐
-           │                   │                   │
-           ▼                   ▼                   ▼
-    ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-    │    OST 1    │     │    OST 2    │     │    OST N    │
-    │  Stripe 1   │     │  Stripe 2   │     │  Stripe N   │
-    │   ~33TB     │     │   ~33TB     │     │   ~33TB     │
-    └─────────────┘     └─────────────┘     └─────────────┘
+<Drawio content={storageStriping} />
 
-    Aggregate throughput = Sum of all OST throughputs
-```
+**This design delivers massive aggregate throughput** — data is distributed across OSTs for parallel access.
 
 **This is what delivers massive aggregate throughput** — hundreds of GB/s across the cluster.
 
@@ -104,21 +93,7 @@ Platform microservices use VAST for reliable, scalable storage:
 
 ### Backup Strategy
 
-```
-Platform Databases
-        │
-        ▼ (Every 6 hours)
-┌─────────────────┐
-│   VAST S3       │
-│   Backup Bucket │
-└─────────────────┘
-        │
-        ▼ (Lifecycle policy)
-┌─────────────────┐
-│  Archive Tier   │
-│  (12-24 months) │
-└─────────────────┘
-```
+<Drawio content={backupFlow} />
 
 ## Storage Security — Double Isolation
 

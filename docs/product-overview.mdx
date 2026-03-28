@@ -5,6 +5,9 @@ description: How AI Cloud/dflare automates GPU infrastructure management
 keywords: [product overview, automation, orchestration, provisioning]
 ---
 
+import Drawio from '@theme/Drawio'
+import platformArchitecture from '!!raw-loader!./diagrams/platform-architecture.drawio';
+
 # Product Overview
 
 ## What AI Cloud/dflare Does
@@ -37,24 +40,7 @@ All without manual intervention.
 
 ## Platform Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                      AI Cloud/dflare Portal                         │
-│               (Single Pane of Glass — Web UI + API)                 │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌────────┐ │
-│  │ Identity │  │ Compute  │  │ Network  │  │ Storage  │  │Monitor │ │
-│  │ Keycloak │  │ K8s/Slurm│  │ NDFC/UFM │  │ DDN/VAST │  │VM/Graf │ │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘  └────────┘ │
-│                                                                     │
-├─────────────────────────────────────────────────────────────────────┤
-│                    Bare Metal GPU Infrastructure                    │
-│                                                                     │
-│         Multi-Vendor GPU Support (NVIDIA, AMD, Intel & more)        │
-│         High-Speed InfiniBand | Up to 1,250+ Nodes/Deploy          │
-└─────────────────────────────────────────────────────────────────────┘
-```
+<Drawio content={platformArchitecture} />
 
 ## Supported Workload Types
 

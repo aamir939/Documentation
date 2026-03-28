@@ -5,6 +5,10 @@ description: Give HPC and research teams the Slurm experience they know on moder
 keywords: [Slurm, HPC, batch scheduling, sbatch, squeue, Slinky]
 ---
 
+import Drawio from '@theme/Drawio'
+import slurmKubernetes from '!!raw-loader!../diagrams/slurm-kubernetes.drawio';
+import cgroupIsolation from '!!raw-loader!../diagrams/cgroup-isolation.drawio';
+
 # Slurm (HPC) Cluster Orchestration
 
 **Business Value:** Give HPC and research teams the Slurm experience they know — `sbatch`, `squeue`, `srun` — running on modern, Kubernetes-managed infrastructure with enterprise security and billing.
@@ -15,35 +19,7 @@ AI Cloud/dflare runs Slurm on top of Kubernetes using the **Slinky Operator**. T
 
 ### Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    Slurm on Kubernetes                          │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│                      Slurm Control Plane                        │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐        │
-│  │ slurmctld│  │ slurmdbd │  │slurmrestd│  │  MUNGE   │        │
-│  │Controller│  │Accounting│  │ REST API │  │  Auth    │        │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘        │
-│       │              │             │             │              │
-│       └──────────────┼─────────────┼─────────────┘              │
-│                      │             │                            │
-│                      ▼             ▼                            │
-│               ┌─────────────────────────┐                       │
-│               │   Kubernetes Cluster    │                       │
-│               │   (Slinky Operator)     │                       │
-│               └─────────────────────────┘                       │
-│                      │                                          │
-│       ┌──────────────┼──────────────┐                          │
-│       ▼              ▼              ▼                          │
-│  ┌─────────┐    ┌─────────┐    ┌─────────┐                     │
-│  │ slurmd  │    │ slurmd  │    │ slurmd  │   GPU Worker Nodes  │
-│  │ Node 1  │    │ Node 2  │    │ Node N  │                     │
-│  │ (8 GPUs)│    │ (8 GPUs)│    │ (8 GPUs)│                     │
-│  └─────────┘    └─────────┘    └─────────┘                     │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+<Drawio content={slurmKubernetes} />
 
 ## Slinky Operator Deployment
 
@@ -134,24 +110,7 @@ curl -X POST https://cluster/slurm/v0.0.38/job/submit \
 
 Each job is confined to its allocated resources:
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                      Job Resource Isolation                     │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  Job 12345                          Job 12346                   │
-│  ┌─────────────────────┐            ┌─────────────────────┐    │
-│  │ cgroup: job_12345   │            │ cgroup: job_12346   │    │
-│  │                     │            │                     │    │
-│  │ CPUs: 0-31          │            │ CPUs: 32-63         │    │
-│  │ Memory: 256GB       │            │ Memory: 256GB       │    │
-│  │ GPUs: 0-3           │            │ GPUs: 4-7           │    │
-│  └─────────────────────┘            └─────────────────────┘    │
-│                                                                 │
-│  No resource leakage between jobs                              │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+<Drawio content={cgroupIsolation} />
 
 ## Fair-Share Scheduling
 

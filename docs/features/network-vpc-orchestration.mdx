@@ -5,6 +5,9 @@ description: Tenant-isolated virtual networking with automated VRF/VLAN provisio
 keywords: [VPC, subnet, VRF, VLAN, VXLAN, EVPN, network isolation, NDFC, Cisco, InfiniBand]
 ---
 
+import Drawio from '@theme/Drawio'
+import networkHierarchy from '!!raw-loader!../diagrams/network-hierarchy.drawio';
+
 # Network VPC & Subnet Orchestration
 
 **Business Value:** Multi-tenant GPU infrastructure requires bulletproof network isolation. AI Cloud/dflare automates VPC and subnet lifecycle through integration with Cisco NDFC, giving tenants isolated virtual networks while abstracting away the complexity of VRF/VLAN/VXLAN configuration.
@@ -14,6 +17,10 @@ keywords: [VPC, subnet, VRF, VLAN, VXLAN, EVPN, network isolation, NDFC, Cisco, 
 In the GPUaaS platform, a **VPC (Virtual Private Cloud)** is a tenant-isolated virtual network built on top of physical switches using VRF (Virtual Routing and Forwarding) technology. Each VPC provides a completely isolated routing domain — traffic from one tenant's VPC cannot reach another tenant's VPC unless explicitly allowed.
 
 A **Subnet** is a segment within a VPC. Each subnet has a VLAN ID, a CIDR block (IP range), a gateway, and ACL rules. Subnets are where GPU nodes, control planes, load balancers, and worker nodes actually connect.
+
+### Network Hierarchy Overview
+
+<Drawio content={networkHierarchy} />
 
 The platform automates VPC and subnet lifecycle through the **network-manager** microservice, which talks to Cisco NDFC (Nexus Dashboard Fabric Controller) to program the physical switches. From the user's perspective, they create a VPC in the portal, add subnets, and assign them to projects — the underlying VXLAN/EVPN/VLAN configuration is handled entirely in the backend.
 

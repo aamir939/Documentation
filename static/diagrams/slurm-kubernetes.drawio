@@ -1,0 +1,180 @@
+<mxfile host="app.diagrams.net" modified="2026-03-28T00:00:00.000Z" agent="Claude" version="21.0.0" type="device">
+  <diagram name="Slurm on Kubernetes" id="slurm-k8s">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="750" math="0" shadow="1">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Main Container -->
+        <mxCell id="main-container" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#475569;strokeWidth=3;arcSize=5;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="40" width="1000" height="660" as="geometry"/>
+        </mxCell>
+
+        <!-- Header -->
+        <mxCell id="header-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1e40af;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="50" y="40" width="1000" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="header-title" value="Slurm on Kubernetes Architecture" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="50" y="40" width="1000" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Slurm Control Plane Section -->
+        <mxCell id="control-plane-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#3b82f6;strokeWidth=2;dashed=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="80" y="110" width="940" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="control-plane-label" value="SLURM CONTROL PLANE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#1e40af;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="95" y="118" width="200" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- slurmctld -->
+        <mxCell id="slurmctld-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1e40af;strokeColor=#1e3a8a;strokeWidth=2;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="155" width="180" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="slurmctld-icon" value="🎛️" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;" vertex="1" parent="1">
+          <mxGeometry x="120" y="160" width="180" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="slurmctld-title" value="slurmctld" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="120" y="200" width="180" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="slurmctld-desc" value="Central Controller&lt;br&gt;Job Scheduling&lt;br&gt;Resource Management" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#bfdbfe;" vertex="1" parent="1">
+          <mxGeometry x="120" y="225" width="180" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- slurmdbd -->
+        <mxCell id="slurmdbd-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7c3aed;strokeColor=#6d28d9;strokeWidth=2;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="155" width="180" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="slurmdbd-icon" value="🗄️" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;" vertex="1" parent="1">
+          <mxGeometry x="330" y="160" width="180" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="slurmdbd-title" value="slurmdbd" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="330" y="200" width="180" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="slurmdbd-desc" value="Database Daemon&lt;br&gt;Job Accounting&lt;br&gt;Usage Tracking" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#e9d5ff;" vertex="1" parent="1">
+          <mxGeometry x="330" y="225" width="180" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- slurmrestd -->
+        <mxCell id="slurmrestd-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0891b2;strokeColor=#0e7490;strokeWidth=2;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="155" width="180" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="slurmrestd-icon" value="🔌" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;" vertex="1" parent="1">
+          <mxGeometry x="540" y="160" width="180" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="slurmrestd-title" value="slurmrestd" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="540" y="200" width="180" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="slurmrestd-desc" value="REST API Server&lt;br&gt;HTTP Interface&lt;br&gt;External Integration" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#cffafe;" vertex="1" parent="1">
+          <mxGeometry x="540" y="225" width="180" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- MUNGE -->
+        <mxCell id="munge-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dc2626;strokeColor=#b91c1c;strokeWidth=2;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="155" width="180" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="munge-icon" value="🔐" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;" vertex="1" parent="1">
+          <mxGeometry x="750" y="160" width="180" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="munge-title" value="MUNGE" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="750" y="200" width="180" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="munge-desc" value="Authentication&lt;br&gt;Credential Validation&lt;br&gt;Secure Communication" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#fecaca;" vertex="1" parent="1">
+          <mxGeometry x="750" y="225" width="180" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Kubernetes Cluster Section -->
+        <mxCell id="k8s-section-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#10b981;strokeWidth=2;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="300" y="340" width="500" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="k8s-icon" value="☸️" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=32;" vertex="1" parent="1">
+          <mxGeometry x="300" y="350" width="100" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="k8s-title" value="Kubernetes Cluster" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#047857;" vertex="1" parent="1">
+          <mxGeometry x="400" y="355" width="200" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="k8s-operator" value="Slinky Operator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#10b981;strokeColor=#059669;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="430" y="395" width="140" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="k8s-desc" value="Manages Slurm lifecycle on K8s" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#065f46;" vertex="1" parent="1">
+          <mxGeometry x="600" y="355" width="180" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Connectors -->
+        <mxCell id="conn-ctrl-k8s" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=3;strokeColor=#10b981;exitX=0.5;exitY=1;entryX=0.5;entryY=0;curved=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="310" as="sourcePoint"/>
+            <mxPoint x="550" y="340" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- GPU Worker Nodes Section -->
+        <mxCell id="workers-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;strokeWidth=2;dashed=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="80" y="470" width="940" height="210" as="geometry"/>
+        </mxCell>
+        <mxCell id="workers-label" value="GPU WORKER NODES (slurmd)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#b45309;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="95" y="478" width="250" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Worker Node 1 -->
+        <mxCell id="worker1-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f59e0b;strokeColor=#d97706;strokeWidth=2;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="510" width="250" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="worker1-title" value="slurmd - Node 1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="120" y="515" width="250" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="worker1-gpus" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#fcd34d;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="135" y="545" width="220" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="worker1-gpu-grid" value="🎮 GPU 0  🎮 GPU 1  🎮 GPU 2  🎮 GPU 3&lt;br&gt;&lt;br&gt;🎮 GPU 4  🎮 GPU 5  🎮 GPU 6  🎮 GPU 7" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#92400e;" vertex="1" parent="1">
+          <mxGeometry x="135" y="555" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="worker1-label" value="8 GPUs" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=1;fontColor=#78350f;" vertex="1" parent="1">
+          <mxGeometry x="135" y="625" width="220" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Worker Node 2 -->
+        <mxCell id="worker2-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f59e0b;strokeColor=#d97706;strokeWidth=2;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="510" width="250" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="worker2-title" value="slurmd - Node 2" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="420" y="515" width="250" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="worker2-gpus" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#fcd34d;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="435" y="545" width="220" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="worker2-gpu-grid" value="🎮 GPU 0  🎮 GPU 1  🎮 GPU 2  🎮 GPU 3&lt;br&gt;&lt;br&gt;🎮 GPU 4  🎮 GPU 5  🎮 GPU 6  🎮 GPU 7" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#92400e;" vertex="1" parent="1">
+          <mxGeometry x="435" y="555" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="worker2-label" value="8 GPUs" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=1;fontColor=#78350f;" vertex="1" parent="1">
+          <mxGeometry x="435" y="625" width="220" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Worker Node N -->
+        <mxCell id="workerN-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f59e0b;strokeColor=#d97706;strokeWidth=2;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="720" y="510" width="250" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="workerN-title" value="slurmd - Node N" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="720" y="515" width="250" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="workerN-gpus" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#fcd34d;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="735" y="545" width="220" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="workerN-gpu-grid" value="🎮 GPU 0  🎮 GPU 1  🎮 GPU 2  🎮 GPU 3&lt;br&gt;&lt;br&gt;🎮 GPU 4  🎮 GPU 5  🎮 GPU 6  🎮 GPU 7" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#92400e;" vertex="1" parent="1">
+          <mxGeometry x="735" y="555" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="workerN-label" value="8 GPUs" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=1;fontColor=#78350f;" vertex="1" parent="1">
+          <mxGeometry x="735" y="625" width="220" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Connection from K8s to Workers -->
+        <mxCell id="conn-k8s-workers" value="" style="endArrow=classic;html=1;strokeWidth=3;strokeColor=#f59e0b;exitX=0.5;exitY=1;entryX=0.5;entryY=0;curved=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="440" as="sourcePoint"/>
+            <mxPoint x="550" y="470" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
