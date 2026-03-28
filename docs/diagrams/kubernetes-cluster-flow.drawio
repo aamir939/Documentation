@@ -1,0 +1,137 @@
+<mxfile host="app.diagrams.net" modified="2024-01-15T10:00:00.000Z" agent="Mozilla/5.0" version="22.1.0" etag="k8s-cluster-flow">
+  <diagram id="k8s-cluster-flow" name="Kubernetes Cluster Creation Flow">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Kubernetes Cluster Creation Flow" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#1a1a2e;" vertex="1" parent="1">
+          <mxGeometry x="350" y="20" width="400" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Step 1: Container Runtime -->
+        <mxCell id="step1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="100" y="80" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="step1-num" value="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1565c0;strokeColor=#1565c0;fontColor=#ffffff;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="85" y="65" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step1-title" value="Container Runtime" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=13;fontColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="90" width="200" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="step1-desc" value="containerd + Kubernetes binaries&#xa;(kubelet, kubeadm, kubectl)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
+          <mxGeometry x="100" y="115" width="200" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow 1 to 2 -->
+        <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1565c0;endArrow=blockThin;endFill=1;" edge="1" parent="1" source="step1" target="step2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Step 2: Control Plane -->
+        <mxCell id="step2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="350" y="80" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="step2-num" value="2" style="ellipse;whiteSpace=wrap;html=1;fillColor=#2e7d32;strokeColor=#2e7d32;fontColor=#ffffff;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="335" y="65" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step2-title" value="Control Plane Bootstrap" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=13;fontColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="350" y="90" width="200" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="step2-desc" value="etcd HA quorum (3 or 5 nodes)&#xa;API server, controller-manager,&#xa;scheduler" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
+          <mxGeometry x="350" y="115" width="200" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow 2 to 3 -->
+        <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2e7d32;endArrow=blockThin;endFill=1;" edge="1" parent="1" source="step2" target="step3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Step 3: CNI Deployment -->
+        <mxCell id="step3" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#ef6c00;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="600" y="80" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="step3-num" value="3" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ef6c00;strokeColor=#ef6c00;fontColor=#ffffff;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="585" y="65" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step3-title" value="CNI Deployment" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=13;fontColor=#ef6c00;" vertex="1" parent="1">
+          <mxGeometry x="600" y="90" width="200" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="step3-desc" value="Calico (BGP/IP-in-IP)&#xa;or Cilium (eBPF)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
+          <mxGeometry x="600" y="115" width="200" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow 3 to 4 (going down) -->
+        <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#ef6c00;endArrow=blockThin;endFill=1;entryX=1;entryY=0.5;exitX=0.5;exitY=1;" edge="1" parent="1" source="step3" target="step4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Step 4: GPU Worker Join -->
+        <mxCell id="step4" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c2185b;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="350" y="220" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="step4-num" value="4" style="ellipse;whiteSpace=wrap;html=1;fillColor=#c2185b;strokeColor=#c2185b;fontColor=#ffffff;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="335" y="205" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step4-title" value="GPU Worker Join" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=13;fontColor=#c2185b;" vertex="1" parent="1">
+          <mxGeometry x="350" y="230" width="200" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="step4-desc" value="Workers join cluster&#xa;Labels and taints applied" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
+          <mxGeometry x="350" y="255" width="200" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow 4 to 5 -->
+        <mxCell id="arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#c2185b;endArrow=blockThin;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="step4" target="step5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Step 5: GPU Runtime Operators -->
+        <mxCell id="step5" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede7f6;strokeColor=#7b1fa2;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="350" y="360" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="step5-num" value="5" style="ellipse;whiteSpace=wrap;html=1;fillColor=#7b1fa2;strokeColor=#7b1fa2;fontColor=#ffffff;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="335" y="345" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step5-title" value="GPU Runtime Operators" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=13;fontColor=#7b1fa2;" vertex="1" parent="1">
+          <mxGeometry x="350" y="370" width="200" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="step5-desc" value="GPU drivers, device plugin,&#xa;telemetry, feature discovery" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
+          <mxGeometry x="350" y="395" width="200" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow 5 to 6 -->
+        <mxCell id="arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#7b1fa2;endArrow=blockThin;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="step5" target="step6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Step 6: Conformance Checks -->
+        <mxCell id="step6" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0f2f1;strokeColor=#00695c;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="350" y="500" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="step6-num" value="6" style="ellipse;whiteSpace=wrap;html=1;fillColor=#00695c;strokeColor=#00695c;fontColor=#ffffff;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="335" y="485" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="step6-title" value="Conformance Checks" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=13;fontColor=#00695c;" vertex="1" parent="1">
+          <mxGeometry x="350" y="510" width="200" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="step6-desc" value="API server reachable, nodes Ready,&#xa;CNI healthy, GPUs visible" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
+          <mxGeometry x="350" y="535" width="200" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Success indicator -->
+        <mxCell id="success" value="✓ Cluster Ready" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00695c;strokeColor=#004d40;fontColor=#ffffff;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="380" y="620" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#00695c;endArrow=blockThin;endFill=1;" edge="1" parent="1" source="step6" target="success">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
