@@ -1,18 +1,18 @@
 <mxfile host="app.diagrams.net" modified="2024-01-15T10:00:00.000Z" agent="Mozilla/5.0" version="22.1.0">
   <diagram id="platform-features" name="Platform Features">
-    <mxGraphModel dx="800" dy="500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="700" pageHeight="400" math="0" shadow="0">
+    <mxGraphModel dx="800" dy="500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="750" pageHeight="420" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
 
         <!-- Main container -->
         <mxCell id="container" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;strokeWidth=3;" vertex="1" parent="1">
-          <mxGeometry x="50" y="30" width="600" height="330" as="geometry" />
+          <mxGeometry x="50" y="30" width="650" height="340" as="geometry" />
         </mxCell>
 
         <!-- Title -->
         <mxCell id="title" value="Dflair AI Platform" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=18;fontColor=#1b5e20;" vertex="1" parent="1">
-          <mxGeometry x="200" y="45" width="300" height="30" as="geometry" />
+          <mxGeometry x="225" y="45" width="300" height="30" as="geometry" />
         </mxCell>
 
         <!-- Features -->
@@ -60,13 +60,13 @@
 
         <!-- Value proposition -->
         <mxCell id="value" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#f9a825;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry x="100" y="265" width="500" height="70" as="geometry" />
+          <mxGeometry x="125" y="265" width="450" height="80" as="geometry" />
         </mxCell>
         <mxCell id="value-text" value="🚀 Performance of dedicated GPU hardware" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=13;fontColor=#f57f17;" vertex="1" parent="1">
-          <mxGeometry x="100" y="275" width="500" height="25" as="geometry" />
+          <mxGeometry x="125" y="278" width="450" height="25" as="geometry" />
         </mxCell>
         <mxCell id="value-text2" value="with the operational model of a managed service" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#424242;" vertex="1" parent="1">
-          <mxGeometry x="100" y="300" width="500" height="25" as="geometry" />
+          <mxGeometry x="125" y="305" width="450" height="25" as="geometry" />
         </mxCell>
 
       </root>
