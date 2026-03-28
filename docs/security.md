@@ -32,7 +32,7 @@ Dflair AI implements a hybrid access control model powered by Keycloak as the ce
 
 - **RBAC (Role-Based)**: Users are assigned roles — Platform Super Admin, Domain Admin, Organization Admin, Project Admin, Member, or Viewer — each with predefined permission sets
 
-- **ABAC (Attribute-Based)**: Every action is further validated against the user's tenant (Domain), Organization, and Project context. An Admin in Project A cannot touch resources in Project B.
+- **ABAC (Attribute-Based)**: Every action is further validated against the user's tenant (Domain), Organization, and Project context. A Member in Project A cannot touch resources in Project B.
 
 :::warning Important
 Every request must pass **both** checks. No action is trusted by default.
