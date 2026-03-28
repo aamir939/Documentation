@@ -6,29 +6,26 @@
         <mxCell id="1" parent="0"/>
 
         <!-- Title -->
-        <mxCell id="title" value="Network VPC &amp; Subnet Orchestration" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=22;fontStyle=1;fontColor=#1e293b;" vertex="1" parent="1">
+        <mxCell id="title" value="Network VPC &amp; Subnet Orchestration" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=22;fontStyle=1;fontColor=#212121;" vertex="1" parent="1">
           <mxGeometry x="250" y="20" width="600" height="40" as="geometry"/>
         </mxCell>
-        <mxCell id="subtitle" value="Multi-tenant network isolation with VRF, VLAN, and InfiniBand PKey" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#64748b;" vertex="1" parent="1">
+        <mxCell id="subtitle" value="Multi-tenant network isolation with VRF, VLAN, and InfiniBand PKey" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="250" y="55" width="600" height="25" as="geometry"/>
         </mxCell>
 
         <!-- Platform Level -->
-        <mxCell id="platform-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1e3a8a;strokeColor=#1e40af;strokeWidth=3;shadow=1;" vertex="1" parent="1">
+        <mxCell id="platform-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;strokeWidth=3;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="400" y="100" width="300" height="80" as="geometry"/>
         </mxCell>
-        <mxCell id="platform-icon" value="🏢" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;" vertex="1" parent="1">
-          <mxGeometry x="410" y="110" width="60" height="60" as="geometry"/>
+        <mxCell id="platform-title" value="Dflair AI Platform" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="115" width="300" height="30" as="geometry"/>
         </mxCell>
-        <mxCell id="platform-title" value="Dflair AI Platform" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
-          <mxGeometry x="470" y="115" width="220" height="30" as="geometry"/>
-        </mxCell>
-        <mxCell id="platform-desc" value="Multi-Tenant Infrastructure" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#93c5fd;" vertex="1" parent="1">
-          <mxGeometry x="470" y="145" width="220" height="25" as="geometry"/>
+        <mxCell id="platform-desc" value="Multi-Tenant Infrastructure" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#424242;" vertex="1" parent="1">
+          <mxGeometry x="400" y="145" width="300" height="25" as="geometry"/>
         </mxCell>
 
         <!-- Connector to Tenants -->
-        <mxCell id="conn-platform-tenants" value="" style="endArrow=classic;html=1;strokeWidth=3;strokeColor=#475569;" edge="1" parent="1">
+        <mxCell id="conn-platform-tenants" value="" style="endArrow=classic;html=1;strokeWidth=3;strokeColor=#9e9e9e;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="550" y="180" as="sourcePoint"/>
             <mxPoint x="550" y="220" as="targetPoint"/>
@@ -36,69 +33,60 @@
         </mxCell>
 
         <!-- Tenant Level -->
-        <mxCell id="tenant-section" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f9ff;strokeColor=#0284c7;strokeWidth=2;dashed=1;" vertex="1" parent="1">
+        <mxCell id="tenant-section" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#1976d2;strokeWidth=2;dashed=1;" vertex="1" parent="1">
           <mxGeometry x="50" y="220" width="1000" height="140" as="geometry"/>
         </mxCell>
-        <mxCell id="tenant-label" value="TENANT LAYER (VRF Isolation)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#0284c7;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="tenant-label" value="TENANT LAYER (VRF Isolation)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#1565c0;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="65" y="228" width="250" height="20" as="geometry"/>
         </mxCell>
 
         <!-- Tenant A -->
-        <mxCell id="tenantA-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0891b2;strokeColor=#0e7490;strokeWidth=2;shadow=1;" vertex="1" parent="1">
+        <mxCell id="tenantA-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;strokeWidth=2;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="100" y="260" width="250" height="80" as="geometry"/>
         </mxCell>
-        <mxCell id="tenantA-icon" value="🏛️" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;" vertex="1" parent="1">
-          <mxGeometry x="110" y="265" width="50" height="50" as="geometry"/>
+        <mxCell id="tenantA-title" value="Tenant A" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="265" width="250" height="25" as="geometry"/>
         </mxCell>
-        <mxCell id="tenantA-title" value="Tenant A" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
-          <mxGeometry x="160" y="265" width="180" height="25" as="geometry"/>
-        </mxCell>
-        <mxCell id="tenantA-vrf" value="VRF: tenant-a-vrf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cffafe;strokeColor=#22d3ee;strokeWidth=1;fontSize=11;fontColor=#0e7490;" vertex="1" parent="1">
-          <mxGeometry x="160" y="295" width="170" height="25" as="geometry"/>
+        <mxCell id="tenantA-vrf" value="VRF: tenant-a-vrf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;strokeWidth=1;fontSize=11;fontColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="140" y="295" width="170" height="25" as="geometry"/>
         </mxCell>
 
         <!-- Tenant B -->
-        <mxCell id="tenantB-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7c3aed;strokeColor=#6d28d9;strokeWidth=2;shadow=1;" vertex="1" parent="1">
+        <mxCell id="tenantB-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#43a047;strokeWidth=2;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="425" y="260" width="250" height="80" as="geometry"/>
         </mxCell>
-        <mxCell id="tenantB-icon" value="🏛️" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;" vertex="1" parent="1">
-          <mxGeometry x="435" y="265" width="50" height="50" as="geometry"/>
+        <mxCell id="tenantB-title" value="Tenant B" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="425" y="265" width="250" height="25" as="geometry"/>
         </mxCell>
-        <mxCell id="tenantB-title" value="Tenant B" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
-          <mxGeometry x="485" y="265" width="180" height="25" as="geometry"/>
-        </mxCell>
-        <mxCell id="tenantB-vrf" value="VRF: tenant-b-vrf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e8ff;strokeColor=#c4b5fd;strokeWidth=1;fontSize=11;fontColor=#6d28d9;" vertex="1" parent="1">
-          <mxGeometry x="485" y="295" width="170" height="25" as="geometry"/>
+        <mxCell id="tenantB-vrf" value="VRF: tenant-b-vrf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#43a047;strokeWidth=1;fontSize=11;fontColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="465" y="295" width="170" height="25" as="geometry"/>
         </mxCell>
 
         <!-- Tenant C -->
-        <mxCell id="tenantC-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ea580c;strokeColor=#c2410c;strokeWidth=2;shadow=1;" vertex="1" parent="1">
+        <mxCell id="tenantC-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#ffa000;strokeWidth=2;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="750" y="260" width="250" height="80" as="geometry"/>
         </mxCell>
-        <mxCell id="tenantC-icon" value="🏛️" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;" vertex="1" parent="1">
-          <mxGeometry x="760" y="265" width="50" height="50" as="geometry"/>
+        <mxCell id="tenantC-title" value="Tenant C" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#f57f17;" vertex="1" parent="1">
+          <mxGeometry x="750" y="265" width="250" height="25" as="geometry"/>
         </mxCell>
-        <mxCell id="tenantC-title" value="Tenant C" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
-          <mxGeometry x="810" y="265" width="180" height="25" as="geometry"/>
-        </mxCell>
-        <mxCell id="tenantC-vrf" value="VRF: tenant-c-vrf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffedd5;strokeColor=#fdba74;strokeWidth=1;fontSize=11;fontColor=#c2410c;" vertex="1" parent="1">
-          <mxGeometry x="810" y="295" width="170" height="25" as="geometry"/>
+        <mxCell id="tenantC-vrf" value="VRF: tenant-c-vrf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#ffa000;strokeWidth=1;fontSize=11;fontColor=#f57f17;" vertex="1" parent="1">
+          <mxGeometry x="790" y="295" width="170" height="25" as="geometry"/>
         </mxCell>
 
         <!-- Connectors to Project Level -->
-        <mxCell id="conn-tenantA" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#0891b2;" edge="1" parent="1">
+        <mxCell id="conn-tenantA" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#1976d2;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="225" y="340" as="sourcePoint"/>
             <mxPoint x="225" y="400" as="targetPoint"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="conn-tenantB" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#7c3aed;" edge="1" parent="1">
+        <mxCell id="conn-tenantB" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#43a047;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="550" y="340" as="sourcePoint"/>
             <mxPoint x="550" y="400" as="targetPoint"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="conn-tenantC" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#ea580c;" edge="1" parent="1">
+        <mxCell id="conn-tenantC" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#ffa000;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="875" y="340" as="sourcePoint"/>
             <mxPoint x="875" y="400" as="targetPoint"/>
@@ -106,88 +94,88 @@
         </mxCell>
 
         <!-- Project Level -->
-        <mxCell id="project-section" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0fdf4;strokeColor=#22c55e;strokeWidth=2;dashed=1;" vertex="1" parent="1">
+        <mxCell id="project-section" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#43a047;strokeWidth=2;dashed=1;" vertex="1" parent="1">
           <mxGeometry x="50" y="400" width="1000" height="140" as="geometry"/>
         </mxCell>
-        <mxCell id="project-label" value="PROJECT LAYER (VLAN + InfiniBand PKey)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#16a34a;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="project-label" value="PROJECT LAYER (VLAN + InfiniBand PKey)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#2e7d32;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="65" y="408" width="300" height="20" as="geometry"/>
         </mxCell>
 
         <!-- Tenant A Projects -->
-        <mxCell id="projectA1-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#22d3ee;strokeColor=#06b6d4;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="projectA1-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="80" y="440" width="140" height="80" as="geometry"/>
         </mxCell>
-        <mxCell id="projectA1-title" value="Project A1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#0e7490;" vertex="1" parent="1">
+        <mxCell id="projectA1-title" value="Project A1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#1565c0;" vertex="1" parent="1">
           <mxGeometry x="80" y="445" width="140" height="20" as="geometry"/>
         </mxCell>
-        <mxCell id="projectA1-vlan" value="VLAN: 100" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#155e75;" vertex="1" parent="1">
+        <mxCell id="projectA1-vlan" value="VLAN: 100" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="80" y="465" width="140" height="20" as="geometry"/>
         </mxCell>
-        <mxCell id="projectA1-pkey" value="PKey: 0x8001" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#155e75;" vertex="1" parent="1">
+        <mxCell id="projectA1-pkey" value="PKey: 0x8001" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="80" y="485" width="140" height="20" as="geometry"/>
         </mxCell>
 
-        <mxCell id="projectA2-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#22d3ee;strokeColor=#06b6d4;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="projectA2-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="240" y="440" width="140" height="80" as="geometry"/>
         </mxCell>
-        <mxCell id="projectA2-title" value="Project A2" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#0e7490;" vertex="1" parent="1">
+        <mxCell id="projectA2-title" value="Project A2" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#1565c0;" vertex="1" parent="1">
           <mxGeometry x="240" y="445" width="140" height="20" as="geometry"/>
         </mxCell>
-        <mxCell id="projectA2-vlan" value="VLAN: 101" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#155e75;" vertex="1" parent="1">
+        <mxCell id="projectA2-vlan" value="VLAN: 101" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="240" y="465" width="140" height="20" as="geometry"/>
         </mxCell>
-        <mxCell id="projectA2-pkey" value="PKey: 0x8002" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#155e75;" vertex="1" parent="1">
+        <mxCell id="projectA2-pkey" value="PKey: 0x8002" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="240" y="485" width="140" height="20" as="geometry"/>
         </mxCell>
 
         <!-- Tenant B Projects -->
-        <mxCell id="projectB1-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a78bfa;strokeColor=#8b5cf6;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="projectB1-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#43a047;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="480" y="440" width="140" height="80" as="geometry"/>
         </mxCell>
-        <mxCell id="projectB1-title" value="Project B1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#5b21b6;" vertex="1" parent="1">
+        <mxCell id="projectB1-title" value="Project B1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#2e7d32;" vertex="1" parent="1">
           <mxGeometry x="480" y="445" width="140" height="20" as="geometry"/>
         </mxCell>
-        <mxCell id="projectB1-vlan" value="VLAN: 200" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#6d28d9;" vertex="1" parent="1">
+        <mxCell id="projectB1-vlan" value="VLAN: 200" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="480" y="465" width="140" height="20" as="geometry"/>
         </mxCell>
-        <mxCell id="projectB1-pkey" value="PKey: 0x8003" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#6d28d9;" vertex="1" parent="1">
+        <mxCell id="projectB1-pkey" value="PKey: 0x8003" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="480" y="485" width="140" height="20" as="geometry"/>
         </mxCell>
 
         <!-- Tenant C Projects -->
-        <mxCell id="projectC1-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fb923c;strokeColor=#f97316;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="projectC1-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#ffa000;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="805" y="440" width="140" height="80" as="geometry"/>
         </mxCell>
-        <mxCell id="projectC1-title" value="Project C1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#9a3412;" vertex="1" parent="1">
+        <mxCell id="projectC1-title" value="Project C1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#f57f17;" vertex="1" parent="1">
           <mxGeometry x="805" y="445" width="140" height="20" as="geometry"/>
         </mxCell>
-        <mxCell id="projectC1-vlan" value="VLAN: 300" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#c2410c;" vertex="1" parent="1">
+        <mxCell id="projectC1-vlan" value="VLAN: 300" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="805" y="465" width="140" height="20" as="geometry"/>
         </mxCell>
-        <mxCell id="projectC1-pkey" value="PKey: 0x8004" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#c2410c;" vertex="1" parent="1">
+        <mxCell id="projectC1-pkey" value="PKey: 0x8004" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="805" y="485" width="140" height="20" as="geometry"/>
         </mxCell>
 
         <!-- Connectors to Infrastructure -->
-        <mxCell id="conn-infra1" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#22d3ee;" edge="1" parent="1">
+        <mxCell id="conn-infra1" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#1976d2;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="150" y="520" as="sourcePoint"/>
             <mxPoint x="150" y="580" as="targetPoint"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="conn-infra2" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#22d3ee;" edge="1" parent="1">
+        <mxCell id="conn-infra2" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#1976d2;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="310" y="520" as="sourcePoint"/>
             <mxPoint x="310" y="580" as="targetPoint"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="conn-infra3" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#a78bfa;" edge="1" parent="1">
+        <mxCell id="conn-infra3" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#43a047;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="550" y="520" as="sourcePoint"/>
             <mxPoint x="550" y="580" as="targetPoint"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="conn-infra4" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#fb923c;" edge="1" parent="1">
+        <mxCell id="conn-infra4" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#ffa000;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="875" y="520" as="sourcePoint"/>
             <mxPoint x="875" y="580" as="targetPoint"/>
@@ -195,39 +183,33 @@
         </mxCell>
 
         <!-- Infrastructure Layer -->
-        <mxCell id="infra-section" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1e293b;strokeColor=#334155;strokeWidth=3;" vertex="1" parent="1">
+        <mxCell id="infra-section" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#9e9e9e;strokeWidth=3;" vertex="1" parent="1">
           <mxGeometry x="50" y="580" width="1000" height="140" as="geometry"/>
         </mxCell>
-        <mxCell id="infra-label" value="INFRASTRUCTURE LAYER" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#94a3b8;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="infra-label" value="INFRASTRUCTURE LAYER" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#424242;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="65" y="588" width="200" height="20" as="geometry"/>
         </mxCell>
 
         <!-- Ethernet Fabric -->
-        <mxCell id="eth-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3b82f6;strokeColor=#2563eb;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="eth-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="100" y="620" width="400" height="80" as="geometry"/>
         </mxCell>
-        <mxCell id="eth-icon" value="🔌" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;" vertex="1" parent="1">
-          <mxGeometry x="110" y="630" width="60" height="50" as="geometry"/>
+        <mxCell id="eth-title" value="Ethernet Fabric (Network Fabric Controller)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="635" width="400" height="25" as="geometry"/>
         </mxCell>
-        <mxCell id="eth-title" value="Ethernet Fabric (Network Fabric Controller)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
-          <mxGeometry x="170" y="630" width="320" height="25" as="geometry"/>
-        </mxCell>
-        <mxCell id="eth-desc" value="VRF &amp; VLAN Management | 25G/100G Links" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#bfdbfe;" vertex="1" parent="1">
-          <mxGeometry x="170" y="660" width="320" height="25" as="geometry"/>
+        <mxCell id="eth-desc" value="VRF &amp; VLAN Management | 25G/100G Links" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
+          <mxGeometry x="100" y="665" width="400" height="25" as="geometry"/>
         </mxCell>
 
         <!-- InfiniBand Fabric -->
-        <mxCell id="ib-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6366f1;strokeColor=#4f46e5;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="ib-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="550" y="620" width="450" height="80" as="geometry"/>
         </mxCell>
-        <mxCell id="ib-icon" value="🔗" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;" vertex="1" parent="1">
-          <mxGeometry x="560" y="630" width="60" height="50" as="geometry"/>
+        <mxCell id="ib-title" value="InfiniBand Fabric (IB Fabric Manager)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="550" y="635" width="450" height="25" as="geometry"/>
         </mxCell>
-        <mxCell id="ib-title" value="InfiniBand Fabric (IB Fabric Manager)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
-          <mxGeometry x="620" y="630" width="370" height="25" as="geometry"/>
-        </mxCell>
-        <mxCell id="ib-desc" value="PKey Isolation | 400G NDR/HDR | GPU-to-GPU RDMA" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#c7d2fe;" vertex="1" parent="1">
-          <mxGeometry x="620" y="660" width="370" height="25" as="geometry"/>
+        <mxCell id="ib-desc" value="PKey Isolation | 400G NDR/HDR | GPU-to-GPU RDMA" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
+          <mxGeometry x="550" y="665" width="450" height="25" as="geometry"/>
         </mxCell>
 
       </root>
