@@ -11,7 +11,7 @@
         </mxCell>
 
         <!-- Title -->
-        <mxCell id="title" value="AI Cloud/dflare Platform" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=18;fontColor=#1b5e20;" vertex="1" parent="1">
+        <mxCell id="title" value="Dflair AI Platform" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=18;fontColor=#1b5e20;" vertex="1" parent="1">
           <mxGeometry x="200" y="45" width="300" height="30" as="geometry" />
         </mxCell>
 

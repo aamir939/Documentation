@@ -1,7 +1,7 @@
 ---
 sidebar_position: 6
 title: Infrastructure Specifications
-description: Hardware specifications and performance tuning for AI Cloud/dflare deployments
+description: Hardware specifications and performance tuning for Dflair AI deployments
 keywords: [infrastructure, hardware, GPU, InfiniBand, storage, specifications]
 ---
 
@@ -39,10 +39,10 @@ import networkIsolationStack from '!!raw-loader!./diagrams/network-isolation-sta
 
 | Fabric | Technology | Speed | Purpose |
 |--------|------------|-------|---------|
-| **GPU-to-GPU (training)** | InfiniBand via RDMA/NCCL/RCCL | 400G × multiple links per node | Distributed training collective operations |
+| **GPU-to-GPU (training)** | InfiniBand via RDMA + GPU collective libraries | 400G × multiple links per node | Distributed training collective operations |
 | **GPU-to-Storage (data)** | InfiniBand via Lustre/RDMA | 400G × multiple links per node | Training data access at line rate |
-| **Platform Services** | Ethernet (VLAN 903) | 25G | Management, orchestration, monitoring |
-| **Tenant Isolation** | VRF (VXLAN/EVPN) + UFM PKey | Hardware-enforced | Network-level security boundary |
+| **Platform Services** | Ethernet (Admin VLAN) | 25G | Management, orchestration, monitoring |
+| **Tenant Isolation** | VRF (VXLAN/EVPN) + InfiniBand PKey | Hardware-enforced | Network-level security boundary |
 
 ### Network Isolation Mechanisms
 
@@ -54,10 +54,10 @@ import networkIsolationStack from '!!raw-loader!./diagrams/network-isolation-sta
 
 | System | Type | Connection | Use Case |
 |--------|------|------------|----------|
-| **DDN AI400** | Lustre parallel filesystem | InfiniBand | Training data, checkpoints, experiment results |
-| **VAST Data** | Unified file/object (NFS/S3) | Ethernet | Platform databases, backups, logs, registry |
+| **Parallel Filesystem** | Lustre parallel filesystem | InfiniBand | Training data, checkpoints, experiment results |
+| **Platform Object Storage** | Unified file/object (NFS/S3) | Ethernet | Platform databases, backups, logs, registry |
 
-### DDN Lustre Performance Characteristics
+### Lustre Performance Characteristics
 
 - **Parallel I/O**: Data striped across multiple Object Storage Targets (OSTs)
 - **Aggregate throughput**: Hundreds of GB/s across the cluster
@@ -70,8 +70,8 @@ Tenant storage isolation is enforced at two independent layers simultaneously:
 
 | Layer | Mechanism | Protection |
 |-------|-----------|------------|
-| **InfiniBand level** | UFM PKey | Only tenant's GPU ports can communicate on tenant's IB partition |
-| **DDN Lustre level** | NodeMap | Only tenant's IB IP addresses can mount tenant's directory |
+| **InfiniBand level** | InfiniBand PKey | Only tenant's GPU ports can communicate on tenant's IB partition |
+| **Lustre level** | NodeMap | Only tenant's IB IP addresses can mount tenant's directory |
 
 :::tip Defense in Depth
 Even if one layer were compromised, the other would still block unauthorized access.
@@ -126,7 +126,7 @@ The golden OS image includes pre-configured BIOS settings optimized for GPU work
 | GPU Nodes | 16-64 nodes |
 | Total GPUs | 128-512 accelerators |
 | InfiniBand | Single spine-leaf topology |
-| Storage | DDN AI400 entry configuration |
+| Storage | Parallel filesystem entry configuration |
 | Tenants | 1-5 tenants |
 
 ### Medium Deployment
@@ -136,7 +136,7 @@ The golden OS image includes pre-configured BIOS settings optimized for GPU work
 | GPU Nodes | 64-256 nodes |
 | Total GPUs | 512-2,048 accelerators |
 | InfiniBand | Multi-spine topology |
-| Storage | DDN AI400 mid-range configuration |
+| Storage | Parallel filesystem mid-range configuration |
 | Tenants | 5-20 tenants |
 
 ### Large Deployment
@@ -146,7 +146,7 @@ The golden OS image includes pre-configured BIOS settings optimized for GPU work
 | GPU Nodes | 256-1,250+ nodes |
 | Total GPUs | 2,048-10,000+ accelerators |
 | InfiniBand | Fat-tree topology |
-| Storage | DDN AI400 enterprise configuration |
+| Storage | Parallel filesystem enterprise configuration |
 | Tenants | 20+ tenants |
 
 ---

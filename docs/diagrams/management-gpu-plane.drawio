@@ -80,14 +80,14 @@
           <mxGeometry x="335" y="290" width="125" height="25" as="geometry"/>
         </mxCell>
 
-        <!-- MAAS -->
+        <!-- Provisioning Service -->
         <mxCell id="maas-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7c3aed;strokeColor=#6d28d9;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="80" y="350" width="180" height="70" as="geometry"/>
         </mxCell>
         <mxCell id="maas-icon" value="⚙️" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;" vertex="1" parent="1">
           <mxGeometry x="85" y="355" width="40" height="40" as="geometry"/>
         </mxCell>
-        <mxCell id="maas-text" value="MAAS Controllers" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+        <mxCell id="maas-text" value="Provisioning Service" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
           <mxGeometry x="125" y="355" width="125" height="25" as="geometry"/>
         </mxCell>
         <mxCell id="maas-replicas" value="Region + Rack" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#e9d5ff;" vertex="1" parent="1">

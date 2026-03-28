@@ -20,7 +20,7 @@
         <mxCell id="platform-icon" value="🏢" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;" vertex="1" parent="1">
           <mxGeometry x="410" y="110" width="60" height="60" as="geometry"/>
         </mxCell>
-        <mxCell id="platform-title" value="AI Cloud/dflare Platform" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+        <mxCell id="platform-title" value="Dflair AI Platform" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
           <mxGeometry x="470" y="115" width="220" height="30" as="geometry"/>
         </mxCell>
         <mxCell id="platform-desc" value="Multi-Tenant Infrastructure" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#93c5fd;" vertex="1" parent="1">
@@ -209,7 +209,7 @@
         <mxCell id="eth-icon" value="🔌" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;" vertex="1" parent="1">
           <mxGeometry x="110" y="630" width="60" height="50" as="geometry"/>
         </mxCell>
-        <mxCell id="eth-title" value="Ethernet Fabric (Cisco NDFC)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+        <mxCell id="eth-title" value="Ethernet Fabric (Network Fabric Controller)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
           <mxGeometry x="170" y="630" width="320" height="25" as="geometry"/>
         </mxCell>
         <mxCell id="eth-desc" value="VRF &amp; VLAN Management | 25G/100G Links" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#bfdbfe;" vertex="1" parent="1">
@@ -223,7 +223,7 @@
         <mxCell id="ib-icon" value="🔗" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;" vertex="1" parent="1">
           <mxGeometry x="560" y="630" width="60" height="50" as="geometry"/>
         </mxCell>
-        <mxCell id="ib-title" value="InfiniBand Fabric (NVIDIA UFM)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+        <mxCell id="ib-title" value="InfiniBand Fabric (IB Fabric Manager)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
           <mxGeometry x="620" y="630" width="370" height="25" as="geometry"/>
         </mxCell>
         <mxCell id="ib-desc" value="PKey Isolation | 400G NDR/HDR | GPU-to-GPU RDMA" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#c7d2fe;" vertex="1" parent="1">

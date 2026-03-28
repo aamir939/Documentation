@@ -1,17 +1,17 @@
 ---
 sidebar_position: 1
 title: Introduction
-description: AI Cloud/dflare - Enterprise GPU Infrastructure Platform for AI, ML, and HPC workloads
+description: Dflair AI - Enterprise GPU Infrastructure Platform for AI, ML, and HPC workloads
 keywords: [GPU, infrastructure, AI, machine learning, HPC, Kubernetes, Slurm]
 ---
 
-# AI Cloud/dflare
+# Dflair AI
 
 **Enterprise GPU Infrastructure Platform**
 
-AI Cloud/dflare is a fully managed, enterprise-grade GPU-as-a-Service (GPUaaS) platform purpose-built for organizations running large-scale artificial intelligence, machine learning, and high-performance computing workloads.
+Dflair AI is a fully managed, enterprise-grade GPU-as-a-Service (GPUaaS) platform purpose-built for organizations running large-scale artificial intelligence, machine learning, and high-performance computing workloads.
 
-## What is AI Cloud/dflare?
+## What is Dflair AI?
 
 The platform transforms bare metal GPU servers into production-ready, multi-tenant compute environments — delivering the raw power of dedicated hardware with the operational simplicity of a managed cloud service.
 
@@ -25,7 +25,7 @@ From a single unified portal, enterprises can:
 
 ## Multi-Vendor GPU Support
 
-Built to support multi-vendor GPU architectures — including **NVIDIA**, **AMD**, and **Intel** accelerators — and interconnected via high-speed InfiniBand fabric backed by DDN AI400 parallel storage.
+Built to support multi-vendor GPU architectures — including **NVIDIA**, **AMD**, and **Intel** accelerators — and interconnected via high-speed InfiniBand fabric backed by high-performance parallel storage.
 
 ## Key Capabilities
 
@@ -40,7 +40,7 @@ Built to support multi-vendor GPU architectures — including **NVIDIA**, **AMD*
 ## Who It's For
 
 :::info Target Audience
-AI Cloud/dflare is designed for:
+Dflair AI is designed for:
 
 - **Cloud service providers** offering GPU compute to customers
 - **Sovereign AI programs** requiring data sovereignty and compliance
@@ -51,7 +51,7 @@ AI Cloud/dflare is designed for:
 
 ## Performance at Scale
 
-AI Cloud/dflare delivers the performance density required for:
+Dflair AI delivers the performance density required for:
 
 - **Frontier AI training** — Train models across thousands of GPUs
 - **Large language model fine-tuning** — Fine-tune LLMs on proprietary datasets
@@ -60,9 +60,9 @@ AI Cloud/dflare delivers the performance density required for:
 
 ## Getting Started
 
-Ready to explore AI Cloud/dflare? Here's where to start:
+Ready to explore Dflair AI? Here's where to start:
 
-1. **[Market Context](./market-context)** — Understand the challenges AI Cloud/dflare solves
+1. **[Market Context](./market-context)** — Understand the challenges Dflair AI solves
 2. **[Product Overview](./product-overview)** — Learn how the platform works
 3. **[Key Features](./category/key-features)** — Explore platform capabilities in depth
 4. **[Architecture](./architecture)** — Understand the technology stack
@@ -70,7 +70,7 @@ Ready to explore AI Cloud/dflare? Here's where to start:
 ## Next Steps
 
 - **Request a Demo**: See the platform in action — from bare metal provisioning to workload execution
-- **Architecture Workshop**: Deep-dive into how AI Cloud/dflare fits your infrastructure requirements
+- **Architecture Workshop**: Deep-dive into how Dflair AI fits your infrastructure requirements
 - **Proof of Concept**: Validate performance with your workloads on dedicated GPU nodes
 
 ---
@@ -80,5 +80,5 @@ Ready to explore AI Cloud/dflare? Here's where to start:
 
 Version 1.0 | February 2026
 
-© 2026 AI Cloud/dflare. All rights reserved.
+© 2026 Dflair AI. All rights reserved.
 :::

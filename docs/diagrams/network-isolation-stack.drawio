@@ -29,7 +29,7 @@
         <mxCell id="l1-item2" value="• 2 VLANs per VRF" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="100" y="145" width="180" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="l1-item3" value="• Managed by Cisco NDFC" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
+        <mxCell id="l1-item3" value="• Managed by Network Fabric Controller" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="100" y="165" width="180" height="20" as="geometry" />
         </mxCell>
 
@@ -46,7 +46,7 @@
           <mxGeometry x="100" y="220" width="250" height="25" as="geometry" />
         </mxCell>
 
-        <mxCell id="l2-item1" value="• UFM PKey per tenant" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
+        <mxCell id="l2-item1" value="• IB PKey per tenant" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="100" y="250" width="220" height="20" as="geometry" />
         </mxCell>
         <mxCell id="l2-item2" value="• Hardware-enforced at switch level" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;fontColor=#424242;" vertex="1" parent="1">

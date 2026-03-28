@@ -20,7 +20,7 @@
         <mxCell id="step1-title" value="Network Preparation" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=13;fontColor=#1565c0;" vertex="1" parent="1">
           <mxGeometry x="50" y="80" width="280" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="step1-desc" value="Cisco NDFC prepares isolated&#xa;VRFs and VLANs for the tenant" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
+        <mxCell id="step1-desc" value="Network Fabric Controller prepares isolated&#xa;VRFs and VLANs for the tenant" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="50" y="105" width="280" height="45" as="geometry" />
         </mxCell>
 
@@ -39,7 +39,7 @@
         <mxCell id="step2-title" value="Server Power On" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=13;fontColor=#2e7d32;" vertex="1" parent="1">
           <mxGeometry x="360" y="80" width="280" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="step2-desc" value="MAAS powers on the&#xa;physical server via IPMI" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
+        <mxCell id="step2-desc" value="Provisioning service powers on the&#xa;physical server via IPMI" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="360" y="105" width="280" height="45" as="geometry" />
         </mxCell>
 
@@ -100,7 +100,7 @@
         <mxCell id="step5-title" value="Storage Setup" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=13;fontColor=#7b1fa2;" vertex="1" parent="1">
           <mxGeometry x="360" y="340" width="280" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="step5-desc" value="DDN Lustre directory created with&#xa;InfiniBand access control (NodeMap)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
+        <mxCell id="step5-desc" value="Parallel filesystem directory created with&#xa;InfiniBand access control (NodeMap)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="360" y="365" width="280" height="45" as="geometry" />
         </mxCell>
 

@@ -1,7 +1,7 @@
 ---
 sidebar_position: 8
 title: Use Cases & Target Industries
-description: Primary use cases and target industries for AI Cloud/dflare
+description: Primary use cases and target industries for Dflair AI
 keywords: [use cases, industries, AI training, LLM, HPC, inference, MLOps]
 ---
 
@@ -16,11 +16,11 @@ import distributedTraining from '!!raw-loader!./diagrams/distributed-training.dr
 
 **Train frontier AI models across hundreds or thousands of GPUs.**
 
-AI Cloud/dflare provides the infrastructure foundation for training the largest AI models:
+Dflair AI provides the infrastructure foundation for training the largest AI models:
 
 - **InfiniBand-connected nodes** enable efficient multi-node distributed training with RDMA collective operations
-- **DDN Lustre** delivers the storage throughput to keep GPUs fed with training data
-- **Supports NVIDIA NCCL, AMD RCCL**, and other collective communication libraries
+- **High-performance Lustre** delivers the storage throughput to keep GPUs fed with training data
+- **Supports GPU collective communication libraries** for efficient distributed training
 - **Multi-vendor GPU support** allows organizations to choose the right accelerators for their workloads
 
 <Drawio content={distributedTraining} />
@@ -93,7 +93,7 @@ sacct -j <job_id> --format=JobID,Elapsed,MaxRSS,MaxVMSize
 
 **Offer GPU compute to customers with multi-tenant isolation and usage-based billing.**
 
-| Need | AI Cloud/dflare Solution |
+| Need | Dflair AI Solution |
 |------|-------------------------|
 | Multi-customer isolation | Hardware-enforced tenant boundaries |
 | Usage tracking | 15-second metering granularity |
@@ -105,7 +105,7 @@ sacct -j <job_id> --format=JobID,Elapsed,MaxRSS,MaxVMSize
 
 **Build national AI infrastructure with data sovereignty and compliance.**
 
-| Need | AI Cloud/dflare Solution |
+| Need | Dflair AI Solution |
 |------|-------------------------|
 | Data sovereignty | On-premises deployment, no data egress |
 | Air-gapped deployment | Internal registry, no external dependencies |
@@ -117,7 +117,7 @@ sacct -j <job_id> --format=JobID,Elapsed,MaxRSS,MaxVMSize
 
 **Enable large-scale model training and experimentation for research teams.**
 
-| Need | AI Cloud/dflare Solution |
+| Need | Dflair AI Solution |
 |------|-------------------------|
 | Flexible workloads | Kubernetes + Slurm on shared infrastructure |
 | Fair access | Fair-share scheduling across teams |
@@ -129,7 +129,7 @@ sacct -j <job_id> --format=JobID,Elapsed,MaxRSS,MaxVMSize
 
 **Build and deploy production ML pipelines with enterprise governance.**
 
-| Need | AI Cloud/dflare Solution |
+| Need | Dflair AI Solution |
 |------|-------------------------|
 | MLOps workflows | Kubernetes-native, GitOps support |
 | Monitoring | Integrated Prometheus/Grafana |
@@ -141,7 +141,7 @@ sacct -j <job_id> --format=JobID,Elapsed,MaxRSS,MaxVMSize
 
 **Accelerate drug discovery, genomics, and medical imaging AI with compliance.**
 
-| Need | AI Cloud/dflare Solution |
+| Need | Dflair AI Solution |
 |------|-------------------------|
 | HIPAA alignment | Audit controls, access logging |
 | Data isolation | Tenant-level storage isolation |
@@ -153,7 +153,7 @@ sacct -j <job_id> --format=JobID,Elapsed,MaxRSS,MaxVMSize
 
 **Power risk modeling, fraud detection, and algorithmic trading with secure infrastructure.**
 
-| Need | AI Cloud/dflare Solution |
+| Need | Dflair AI Solution |
 |------|-------------------------|
 | Security | Zero-trust architecture |
 | Compliance | Audit trails, access controls |

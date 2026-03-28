@@ -9,18 +9,18 @@
         <mxCell id="title" value="Data Backup &amp; Archival Pipeline" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=22;fontStyle=1;fontColor=#1e293b;" vertex="1" parent="1">
           <mxGeometry x="200" y="20" width="500" height="40" as="geometry"/>
         </mxCell>
-        <mxCell id="subtitle" value="VAST S3 Tiered Storage Architecture" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#64748b;" vertex="1" parent="1">
+        <mxCell id="subtitle" value="Object Storage Tiered Architecture" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#64748b;" vertex="1" parent="1">
           <mxGeometry x="200" y="55" width="500" height="25" as="geometry"/>
         </mxCell>
 
-        <!-- Primary Storage (DDN Lustre) -->
+        <!-- Primary Storage (Parallel Filesystem) -->
         <mxCell id="lustre-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ea580c;strokeColor=#c2410c;strokeWidth=3;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="325" y="100" width="250" height="100" as="geometry"/>
         </mxCell>
         <mxCell id="lustre-icon" value="💿" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;" vertex="1" parent="1">
           <mxGeometry x="335" y="110" width="60" height="50" as="geometry"/>
         </mxCell>
-        <mxCell id="lustre-title" value="DDN Lustre" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+        <mxCell id="lustre-title" value="Parallel Filesystem" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
           <mxGeometry x="395" y="115" width="170" height="30" as="geometry"/>
         </mxCell>
         <mxCell id="lustre-desc" value="Primary Storage&lt;br&gt;Hot Data + Active Workloads" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#ffedd5;" vertex="1" parent="1">
@@ -41,14 +41,14 @@
           <mxGeometry x="470" y="215" width="140" height="40" as="geometry"/>
         </mxCell>
 
-        <!-- VAST S3 Backup -->
+        <!-- Object Storage Backup -->
         <mxCell id="vast-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0891b2;strokeColor=#0e7490;strokeWidth=3;shadow=1;" vertex="1" parent="1">
           <mxGeometry x="325" y="270" width="250" height="120" as="geometry"/>
         </mxCell>
         <mxCell id="vast-icon" value="☁️" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;" vertex="1" parent="1">
           <mxGeometry x="335" y="280" width="60" height="50" as="geometry"/>
         </mxCell>
-        <mxCell id="vast-title" value="VAST S3" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+        <mxCell id="vast-title" value="Object Storage" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
           <mxGeometry x="395" y="285" width="170" height="30" as="geometry"/>
         </mxCell>
         <mxCell id="vast-desc" value="Backup Bucket&lt;br&gt;Warm Data + Recovery" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#cffafe;" vertex="1" parent="1">

@@ -2,7 +2,7 @@
 sidebar_position: 4
 title: High-Performance Storage
 description: Storage throughput that keeps up with the most demanding training jobs
-keywords: [storage, DDN, Lustre, VAST, InfiniBand, parallel filesystem]
+keywords: [storage, Lustre, InfiniBand, parallel filesystem, object storage]
 ---
 
 import Drawio from '@theme/Drawio'
@@ -14,16 +14,16 @@ import nodemapCheck from '!!raw-loader!../diagrams/nodemap-check.drawio';
 
 # High-Performance Storage
 
-**Business Value:** GPU workloads are only as fast as their data pipeline. AI Cloud/dflare delivers storage throughput that keeps up with the most demanding training jobs — leveraging the full bandwidth of the InfiniBand fabric.
+**Business Value:** GPU workloads are only as fast as their data pipeline. Dflair AI delivers storage throughput that keeps up with the most demanding training jobs — leveraging the full bandwidth of the InfiniBand fabric.
 
 ## Two Storage Systems, Optimized for Purpose
 
 | System | Technology | Connection | Purpose |
 |--------|------------|------------|---------|
-| **DDN AI400** | Lustre parallel filesystem | InfiniBand (400G × multiple links per node) | Training datasets, model checkpoints, experiment results |
-| **VAST Data** | Unified file/object storage | Ethernet (25G) | Platform services (databases, backups, logs, container registry) |
+| **Parallel Filesystem** | Lustre parallel filesystem | InfiniBand (400G × multiple links per node) | Training datasets, model checkpoints, experiment results |
+| **Platform Object Storage** | Unified file/object storage | Ethernet (25G) | Platform services (databases, backups, logs, container registry) |
 
-## DDN Lustre — The Fast Storage
+## Parallel Filesystem — The Fast Storage
 
 When a tenant is onboarded, the platform automatically provisions dedicated storage with multi-layer access control.
 
@@ -50,11 +50,11 @@ Lustre stripes data across multiple Object Storage Targets (OSTs):
 | **Latency** | Sub-millisecond for metadata |
 | **Concurrent clients** | Thousands of GPU nodes |
 
-## VAST Data — The Platform Storage
+## Platform Object Storage — The Platform Storage
 
-Platform microservices use VAST for reliable, scalable storage:
+Platform microservices use object storage for reliable, scalable storage:
 
-### Platform Services on VAST
+### Platform Services on Object Storage
 
 | Service | Storage Type |
 |---------|--------------|
@@ -72,13 +72,13 @@ Platform microservices use VAST for reliable, scalable storage:
 
 Tenant storage isolation is enforced at **two independent layers** simultaneously:
 
-### Layer 1: InfiniBand Level (UFM PKey)
+### Layer 1: InfiniBand Level (PKey)
 
 <Drawio content={ibPkeyIsolation} />
 
 Only the tenant's GPU ports can communicate on the tenant's IB partition.
 
-### Layer 2: DDN Lustre Level (NodeMap)
+### Layer 2: Lustre Level (NodeMap)
 
 <Drawio content={nodemapCheck} />
 

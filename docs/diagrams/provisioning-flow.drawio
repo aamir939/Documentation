@@ -72,15 +72,15 @@
         </mxCell>
 
         <!-- Infrastructure row -->
-        <mxCell id="ndfc" value="Cisco NDFC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c2185b;strokeWidth=2;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="ndfc" value="Network Fabric Controller" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c2185b;strokeWidth=2;fontSize=12;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="200" y="300" width="130" height="40" as="geometry" />
         </mxCell>
 
-        <mxCell id="maas" value="MAAS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c2185b;strokeWidth=2;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="maas" value="Provisioning Service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c2185b;strokeWidth=2;fontSize=12;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="360" y="300" width="130" height="40" as="geometry" />
         </mxCell>
 
-        <mxCell id="lustre" value="DDN Lustre" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c2185b;strokeWidth=2;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="lustre" value="Parallel Filesystem" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c2185b;strokeWidth=2;fontSize=12;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="520" y="300" width="130" height="40" as="geometry" />
         </mxCell>
 

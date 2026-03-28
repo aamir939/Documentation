@@ -17,7 +17,7 @@
         <mxCell id="portal-icon" value="🖥️" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=40;" vertex="1" parent="1">
           <mxGeometry x="115" y="95" width="70" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="portal-title" value="AI Cloud/dflare&#xa;Portal" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;fontColor=#1565c0;" vertex="1" parent="1">
+        <mxCell id="portal-title" value="Dflair AI&#xa;Portal" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;fontColor=#1565c0;" vertex="1" parent="1">
           <mxGeometry x="50" y="150" width="200" height="40" as="geometry" />
         </mxCell>
         <mxCell id="portal-desc" value="Orchestration &amp; Management" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontColor=#424242;" vertex="1" parent="1">

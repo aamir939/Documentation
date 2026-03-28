@@ -1,7 +1,7 @@
 ---
 sidebar_position: 10
 title: Deployment Model & Scalability
-description: Deployment configurations and scalability specifications for AI Cloud/dflare
+description: Deployment configurations and scalability specifications for Dflair AI
 keywords: [deployment, scalability, tenant onboarding, capacity planning]
 ---
 
@@ -12,7 +12,7 @@ import tenantOnboarding from '!!raw-loader!./diagrams/tenant-onboarding.drawio';
 
 ## Scalability Specifications
 
-AI Cloud/dflare is designed to scale from small departmental deployments to large enterprise and service provider installations.
+Dflair AI is designed to scale from small departmental deployments to large enterprise and service provider installations.
 
 | Dimension | Capacity |
 |-----------|----------|
@@ -34,7 +34,7 @@ Ideal for departmental AI teams or single-tenant research groups.
 | **GPU Nodes** | 16-64 nodes |
 | **Total GPUs** | 128-512 accelerators |
 | **Network** | Single spine-leaf InfiniBand topology |
-| **Storage** | DDN AI400 entry configuration |
+| **Storage** | Parallel filesystem entry configuration |
 | **Tenants** | 1-5 tenants |
 | **Use Case** | Departmental AI, research groups |
 
@@ -47,7 +47,7 @@ Suitable for enterprise AI teams or regional service providers.
 | **GPU Nodes** | 64-256 nodes |
 | **Total GPUs** | 512-2,048 accelerators |
 | **Network** | Multi-spine InfiniBand topology |
-| **Storage** | DDN AI400 mid-range configuration |
+| **Storage** | Parallel filesystem mid-range configuration |
 | **Tenants** | 5-20 tenants |
 | **Use Case** | Enterprise AI, regional cloud |
 
@@ -60,7 +60,7 @@ Designed for sovereign AI programs, major cloud providers, and frontier AI resea
 | **GPU Nodes** | 256-1,250+ nodes |
 | **Total GPUs** | 2,048-10,000+ accelerators |
 | **Network** | Fat-tree InfiniBand topology |
-| **Storage** | DDN AI400 enterprise configuration |
+| **Storage** | Parallel filesystem enterprise configuration |
 | **Tenants** | 20+ tenants |
 | **Use Case** | Sovereign AI, CSP, frontier research |
 
@@ -77,7 +77,7 @@ The tenant onboarding process is automated and can be completed through the port
 | Domain creation | Platform Super Admin | Keycloak realm | Name, quotas |
 | Network allocation | System | VRF/VLAN/PKey | None |
 | First admin user | Platform Super Admin | Account creation | Credentials |
-| Storage allocation | System | DDN directory, NodeMap | Quota limits |
+| Storage allocation | System | Storage directory, NodeMap | Quota limits |
 | Organization setup | Domain Admin | None | Structure design |
 | Project creation | Domain Admin | Namespace creation | Naming |
 | User invitations | Domain Admin | Invite emails | Role decisions |
@@ -156,7 +156,7 @@ Quotas are enforced in real-time:
 | **PostgreSQL** | Primary + replica with automatic failover |
 | **etcd** | 3 or 5 node quorum |
 | **VictoriaMetrics** | HA cluster with replication |
-| **MAAS** | Multiple controllers |
+| **Provisioning Service** | Multiple controllers |
 
 ### Data Protection
 
@@ -165,8 +165,8 @@ Quotas are enforced in real-time:
 | **Platform config** | PostgreSQL replication + backups |
 | **Metrics** | VictoriaMetrics HA |
 | **Audit logs** | Immutable storage + S3 backup |
-| **Tenant data** | DDN Lustre redundancy |
-| **Backups** | Every 6 hours to VAST S3 |
+| **Tenant data** | Parallel filesystem redundancy |
+| **Backups** | Every 6 hours to platform object storage |
 
 ## Expansion Path
 
@@ -174,8 +174,8 @@ Quotas are enforced in real-time:
 
 | Expansion Type | Process |
 |----------------|---------|
-| **Add GPU nodes** | Rack, cable, register in MAAS, add to pool |
-| **Add storage** | Expand DDN OSTs, update quotas |
+| **Add GPU nodes** | Rack, cable, register in provisioning service, add to pool |
+| **Add storage** | Expand parallel filesystem OSTs, update quotas |
 | **Add network capacity** | Add spine switches, expand VLAN pools |
 | **Add tenants** | Allocate from existing pools |
 

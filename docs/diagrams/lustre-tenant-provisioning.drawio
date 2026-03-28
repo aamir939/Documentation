@@ -1,12 +1,12 @@
 <mxfile host="app.diagrams.net" modified="2024-01-15T10:00:00.000Z" agent="Mozilla/5.0" version="22.1.0">
-  <diagram id="lustre-provisioning" name="DDN Lustre Tenant Provisioning">
+  <diagram id="lustre-provisioning" name="Parallel FS Tenant Provisioning">
     <mxGraphModel dx="900" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="550" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
 
         <!-- Title -->
-        <mxCell id="title" value="DDN Lustre Tenant Provisioning" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#1a1a2e;" vertex="1" parent="1">
+        <mxCell id="title" value="Parallel FS Tenant Provisioning" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#1a1a2e;" vertex="1" parent="1">
           <mxGeometry x="275" y="20" width="300" height="30" as="geometry" />
         </mxCell>
 
@@ -31,7 +31,7 @@
         <mxCell id="s2-num" value="2" style="ellipse;whiteSpace=wrap;html=1;fillColor=#2e7d32;strokeColor=none;fontColor=#ffffff;fontSize=14;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="120" y="175" width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="s2-title" value="Create DDN NodeMap" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontStyle=1;fontSize=13;fontColor=#2e7d32;" vertex="1" parent="1">
+        <mxCell id="s2-title" value="Create NodeMap" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontStyle=1;fontSize=13;fontColor=#2e7d32;" vertex="1" parent="1">
           <mxGeometry x="165" y="170" width="200" height="25" as="geometry" />
         </mxCell>
         <mxCell id="s2-desc" value="Access control list of allowed InfiniBand IP addresses" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#424242;" vertex="1" parent="1">

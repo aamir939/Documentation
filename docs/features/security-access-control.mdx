@@ -15,7 +15,7 @@ import tenantIsolation from '!!raw-loader!../diagrams/tenant-isolation.drawio';
 
 ## Zero-Trust Principles
 
-AI Cloud/dflare implements zero-trust security:
+Dflair AI implements zero-trust security:
 
 - **No action is trusted by default**
 - Every request is authenticated
@@ -24,7 +24,7 @@ AI Cloud/dflare implements zero-trust security:
 
 ## Hybrid RBAC + ABAC Model
 
-AI Cloud/dflare implements a hybrid access control model powered by **Keycloak** as the central Identity Provider:
+Dflair AI implements a hybrid access control model powered by **Keycloak** as the central Identity Provider:
 
 ### RBAC (Role-Based Access Control)
 
@@ -62,9 +62,9 @@ Isolation is enforced at every layer of the stack:
 | Layer | Mechanism | What It Isolates |
 |-------|-----------|------------------|
 | **Identity** | Dedicated Keycloak realm per tenant | Users, roles, sessions, authentication flows |
-| **Network (Ethernet)** | VRF + VLAN per tenant (Cisco NDFC) | All Ethernet traffic between tenants |
-| **Network (InfiniBand)** | UFM PKey per tenant | GPU-to-GPU and GPU-to-storage traffic at IB switch hardware level |
-| **Storage** | DDN NodeMap per tenant | Lustre directory access restricted to tenant's IB IPs |
+| **Network (Ethernet)** | VRF + VLAN per tenant (Network Fabric Controller) | All Ethernet traffic between tenants |
+| **Network (InfiniBand)** | InfiniBand PKey per tenant | GPU-to-GPU and GPU-to-storage traffic at IB switch hardware level |
+| **Storage** | NodeMap per tenant | Lustre directory access restricted to tenant's IB IPs |
 | **Compute** | Kubernetes namespaces + Slurm accounts | Workload and resource isolation |
 | **Billing** | Scoped metering per tenant/project/user | Usage data and billing records |
 

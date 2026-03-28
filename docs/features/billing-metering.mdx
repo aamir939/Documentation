@@ -14,7 +14,7 @@ import meteringPipeline from '!!raw-loader!../diagrams/metering-pipeline.drawio'
 
 ## What Gets Metered
 
-AI Cloud/dflare tracks usage across all resource types:
+Dflair AI tracks usage across all resource types:
 
 | Resource | What's Measured | How | Granularity |
 |----------|-----------------|-----|-------------|
@@ -23,9 +23,9 @@ AI Cloud/dflare tracks usage across all resource types:
 | **Bare Metal Allocation** | Node-hours: allocation start → release | Orchestration DB timestamps | Per node, precise timestamps |
 | **K8s Cluster Runtime** | Cluster-hours: creation → deletion | Orchestration DB lifecycle events | Per cluster |
 | **Slurm Jobs** | Per-job GPU-hours, CPU-hours, elapsed time, memory, exit code | slurmdbd accounting daemon → MariaDB | Per job |
-| **Storage (DDN)** | Directory size, quota utilization, I/O throughput | DDN reporting + Storage Plugin | Per tenant directory |
-| **Storage (VAST)** | PVC usage, S3 bucket size, object count | VAST management + CSI metrics | Per PVC, per bucket |
-| **Network (InfiniBand)** | Bandwidth per tenant, RDMA throughput, packet drops | UFM telemetry + IB port counters | Per PKey (per tenant) |
+| **Storage (Parallel FS)** | Directory size, quota utilization, I/O throughput | Parallel filesystem reporting + Storage Plugin | Per tenant directory |
+| **Storage (Object)** | PVC usage, S3 bucket size, object count | Object storage management + CSI metrics | Per PVC, per bucket |
+| **Network (InfiniBand)** | Bandwidth per tenant, RDMA throughput, packet drops | InfiniBand fabric telemetry + IB port counters | Per PKey (per tenant) |
 
 ## Metering Pipeline
 
@@ -73,7 +73,7 @@ Billing reports include comprehensive usage details:
 | **Bare Metal Allocation** | Node allocation duration |
 | **Cluster Runtime** | Kubernetes/Slurm cluster hours |
 | **Slurm Jobs** | Per-job, per-user breakdown |
-| **Storage** | DDN and VAST consumption |
+| **Storage** | Parallel filesystem and object storage consumption |
 | **Network** | InfiniBand bandwidth usage |
 | **Quota Status** | Current utilization vs. limits |
 

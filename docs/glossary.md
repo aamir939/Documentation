@@ -1,13 +1,13 @@
 ---
 sidebar_position: 12
 title: Glossary
-description: Technical terms and definitions used in AI Cloud/dflare documentation
+description: Technical terms and definitions used in Dflair AI documentation
 keywords: [glossary, definitions, terminology, acronyms]
 ---
 
 # Glossary
 
-Technical terms and definitions used throughout the AI Cloud/dflare documentation.
+Technical terms and definitions used throughout the Dflair AI documentation.
 
 ## A
 
@@ -17,20 +17,20 @@ Technical terms and definitions used throughout the AI Cloud/dflare documentatio
 ## C
 
 ### CNI
-**Container Network Interface** — Plugin-based networking for Kubernetes. AI Cloud/dflare supports Calico (BGP-based) and Cilium (eBPF-powered).
+**Container Network Interface** — Plugin-based networking for Kubernetes. Dflair AI supports Calico (BGP-based) and Cilium (eBPF-powered).
 
 ## D
 
 ### DCGM
 **NVIDIA Data Center GPU Manager** — GPU telemetry and health monitoring tool for NVIDIA GPUs. Provides metrics for utilization, temperature, memory, and power draw.
 
-### DDN
-**DataDirect Networks** — High-performance storage vendor. AI Cloud/dflare uses DDN AI400 with Lustre parallel filesystem for GPU workload storage.
+### Parallel Filesystem
+High-performance distributed storage system designed for HPC and AI workloads. Dflair AI uses Lustre parallel filesystem for GPU workload storage with multi-path I/O.
 
 ## E
 
 ### etcd
-Distributed key-value store used by Kubernetes for cluster state. AI Cloud/dflare deploys etcd in HA quorum (3 or 5 nodes) for reliability.
+Distributed key-value store used by Kubernetes for cluster state. Dflair AI deploys etcd in HA quorum (3 or 5 nodes) for reliability.
 
 ## G
 
@@ -48,39 +48,39 @@ High-availability load balancer used for distributing traffic across portal repl
 ## I
 
 ### IB
-**InfiniBand** — High-speed, low-latency interconnect fabric used for GPU-to-GPU and GPU-to-storage communication. AI Cloud/dflare uses 400G InfiniBand.
+**InfiniBand** — High-speed, low-latency interconnect fabric used for GPU-to-GPU and GPU-to-storage communication. Dflair AI uses 400G InfiniBand.
 
 ### IPMI
-**Intelligent Platform Management Interface** — Hardware-level server management protocol. Used by MAAS for remote power control and hardware monitoring.
+**Intelligent Platform Management Interface** — Hardware-level server management protocol. Used by the provisioning service for remote power control and hardware monitoring.
 
 ## K
 
 ### Keycloak
-Open-source Identity and Access Management (IAM) solution. AI Cloud/dflare uses Keycloak for authentication, authorization, and tenant isolation.
+Open-source Identity and Access Management (IAM) solution. Dflair AI uses Keycloak for authentication, authorization, and tenant isolation.
 
 ## L
 
 ### Lustre
-Parallel distributed filesystem designed for high-performance computing. DDN AI400 uses Lustre for training data storage with multi-path parallel I/O.
+Parallel distributed filesystem designed for high-performance computing. Used for training data storage with multi-path parallel I/O.
 
 ## M
 
-### MAAS
-**Metal as a Service** — Canonical's bare metal provisioning tool. AI Cloud/dflare uses MAAS for automated server discovery, imaging, and deployment.
+### Bare Metal Provisioning Service
+Automated server provisioning tool. Dflair AI uses a bare metal provisioning service for automated server discovery, imaging, and deployment.
 
 ### mTLS
-**Mutual TLS** — Both client and server authenticate via certificates. Used for secure communication between internal AI Cloud/dflare services.
+**Mutual TLS** — Both client and server authenticate via certificates. Used for secure communication between internal Dflair AI services.
 
 ## N
 
 ### NCCL
 **NVIDIA Collective Communications Library** — Multi-GPU communication library for distributed training on NVIDIA GPUs. Optimized for NVLink and InfiniBand.
 
-### NDFC
-**Nexus Dashboard Fabric Controller** — Cisco's network automation platform. Used by AI Cloud/dflare for VRF/VLAN management and network orchestration.
+### Network Fabric Controller
+Network automation platform for data center fabric management. Used by Dflair AI for VRF/VLAN management and network orchestration.
 
 ### NodeMap
-DDN Lustre access control mechanism. Maps InfiniBand IP addresses to allowed directories, providing tenant-level storage isolation.
+Lustre access control mechanism. Maps InfiniBand IP addresses to allowed directories, providing tenant-level storage isolation.
 
 ### NVLink
 NVIDIA's high-bandwidth GPU-to-GPU interconnect for intra-node communication. Provides faster data transfer than PCIe for multi-GPU workloads.
@@ -96,7 +96,7 @@ NVIDIA's high-bandwidth GPU-to-GPU interconnect for intra-node communication. Pr
 **Partition Key** — InfiniBand isolation mechanism, similar to VLANs for Ethernet. Each tenant receives a dedicated PKey for hardware-enforced network isolation.
 
 ### PXE
-**Preboot Execution Environment** — Network-based OS boot protocol. Used by MAAS to boot bare metal servers and install the golden image.
+**Preboot Execution Environment** — Network-based OS boot protocol. Used by the provisioning service to boot bare metal servers and install the golden image.
 
 ## R
 
@@ -110,7 +110,7 @@ NVIDIA's high-bandwidth GPU-to-GPU interconnect for intra-node communication. Pr
 **Remote Direct Memory Access** — GPU-to-GPU data transfer bypassing CPU. Enables high-throughput, low-latency communication over InfiniBand.
 
 ### ROCm
-**Radeon Open Compute** — AMD's open-source GPU computing platform. AI Cloud/dflare supports ROCm for AMD Instinct accelerators.
+**Radeon Open Compute** — AMD's open-source GPU computing platform. Dflair AI supports ROCm for AMD Instinct accelerators.
 
 ## S
 
@@ -118,20 +118,20 @@ NVIDIA's high-bandwidth GPU-to-GPU interconnect for intra-node communication. Pr
 NVIDIA's Kubernetes Operator for running Slurm on Kubernetes. Enables traditional HPC batch scheduling on containerized infrastructure.
 
 ### Slurm
-**Simple Linux Utility for Resource Management** — HPC workload manager for batch job scheduling. AI Cloud/dflare deploys Slurm via the Slinky Operator.
+**Simple Linux Utility for Resource Management** — HPC workload manager for batch job scheduling. Dflair AI deploys Slurm via the Slinky Operator.
 
 ### slurmdbd
 Slurm accounting daemon. Records job accounting data (GPU-hours, CPU-hours, memory) to MariaDB for billing and reporting.
 
 ## U
 
-### UFM
-**NVIDIA Unified Fabric Manager** — InfiniBand fabric management tool. Manages PKey assignments for tenant isolation and provides fabric telemetry.
+### InfiniBand Fabric Manager
+InfiniBand fabric management tool. Manages PKey assignments for tenant isolation and provides fabric telemetry.
 
 ## V
 
-### VAST
-**VAST Data** — Unified storage platform for file, object, and block storage. Used by AI Cloud/dflare for platform services, backups, and container registry.
+### Platform Object Storage
+Unified storage platform for file, object, and block storage. Used by Dflair AI for platform services, backups, and container registry.
 
 ### VictoriaMetrics
 High-performance time-series database used for long-term metrics storage. Deployed in HA configuration for reliability.
@@ -149,14 +149,11 @@ High-performance time-series database used for long-term metrics storage. Deploy
 | ABAC | Attribute-Based Access Control | Security |
 | CNI | Container Network Interface | Networking |
 | DCGM | Data Center GPU Manager | Monitoring |
-| DDN | DataDirect Networks | Storage |
 | GRES | Generic RESource | Slurm |
 | IB | InfiniBand | Networking |
 | IPMI | Intelligent Platform Management Interface | Hardware |
-| MAAS | Metal as a Service | Provisioning |
 | mTLS | Mutual TLS | Security |
 | NCCL | NVIDIA Collective Communications Library | GPU |
-| NDFC | Nexus Dashboard Fabric Controller | Networking |
 | NVLink | NVIDIA High-Bandwidth Interconnect | GPU |
 | OST | Object Storage Target | Storage |
 | PKey | Partition Key | Networking |
@@ -165,7 +162,6 @@ High-performance time-series database used for long-term metrics storage. Deploy
 | RCCL | ROCm Communication Collectives Library | GPU |
 | RDMA | Remote Direct Memory Access | Networking |
 | ROCm | Radeon Open Compute | GPU |
-| UFM | Unified Fabric Manager | Networking |
 | VRF | Virtual Routing and Forwarding | Networking |
 | VXLAN | Virtual Extensible LAN | Networking |
 

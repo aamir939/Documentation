@@ -1,7 +1,7 @@
 ---
 sidebar_position: 7
 title: Security, Compliance & Governance
-description: Zero-trust security model, compliance alignment, and data protection in AI Cloud/dflare
+description: Zero-trust security model, compliance alignment, and data protection in Dflair AI
 keywords: [security, compliance, governance, RBAC, ABAC, zero-trust, HIPAA, ISO 27001]
 ---
 
@@ -9,26 +9,26 @@ keywords: [security, compliance, governance, RBAC, ABAC, zero-trust, HIPAA, ISO 
 
 ## Zero-Trust Security Model
 
-AI Cloud/dflare implements defense-in-depth with zero-trust principles — **no action is trusted by default**, every request is authenticated and authorized at multiple levels.
+Dflair AI implements defense-in-depth with zero-trust principles — **no action is trusted by default**, every request is authenticated and authorized at multiple levels.
 
 ### Security Layers
 
 | Security Layer | Mechanism | Protection |
 |----------------|-----------|------------|
 | **Authentication** | Keycloak OAuth2/JWT, RS256 signing, short TTL, MFA | Identity verification for every interaction |
-| **Authorization** | RBAC + ABAC via orbiter-auth | Role and context validation on every action |
+| **Authorization** | RBAC + ABAC via identity-service | Role and context validation on every action |
 | **Transport** | TLS 1.2+ everywhere, mTLS between services, HSTS | Encrypted communication, mutual authentication |
-| **Network Isolation** | VRF/VLAN (Ethernet), UFM PKey (InfiniBand) | Hardware-enforced tenant traffic separation |
-| **Storage Isolation** | DDN NodeMap + UFM PKey (double isolation) | Two independent layers protecting tenant data |
+| **Network Isolation** | VRF/VLAN (Ethernet), InfiniBand PKey | Hardware-enforced tenant traffic separation |
+| **Storage Isolation** | Lustre NodeMap + InfiniBand PKey (double isolation) | Two independent layers protecting tenant data |
 | **Compute Isolation** | K8s namespaces, Slurm cgroups v2 | Workload-level resource confinement |
 | **Audit** | Correlation ID tracking, immutable logs, S3 backup every 6 hours | Full traceability of every action |
-| **Firewall** | Palo Alto with ACLs between orchestration and GPU nodes | Strict access control at network perimeter |
+| **Firewall** | Enterprise firewall with ACLs between orchestration and GPU nodes | Strict access control at network perimeter |
 
 ## Access Control Model
 
 ### Hybrid RBAC + ABAC
 
-AI Cloud/dflare implements a hybrid access control model powered by Keycloak as the central Identity Provider:
+Dflair AI implements a hybrid access control model powered by Keycloak as the central Identity Provider:
 
 - **RBAC (Role-Based)**: Users are assigned roles — Platform Super Admin, Domain Admin, Organization Admin, Project Admin, Member, or Viewer — each with predefined permission sets
 
@@ -85,9 +85,9 @@ Every request must pass **both** checks. No action is trusted by default.
 | Layer | Mechanism | What It Isolates |
 |-------|-----------|-----------------|
 | **Identity** | Dedicated Keycloak realm per tenant | Users, roles, sessions, authentication flows |
-| **Network (Ethernet)** | VRF + VLAN per tenant (Cisco NDFC) | All Ethernet traffic between tenants |
-| **Network (InfiniBand)** | UFM PKey per tenant | GPU-to-GPU and GPU-to-storage traffic at IB switch hardware level |
-| **Storage** | DDN NodeMap per tenant | Lustre directory access restricted to tenant's IB IPs |
+| **Network (Ethernet)** | VRF + VLAN per tenant (Network Fabric Controller) | All Ethernet traffic between tenants |
+| **Network (InfiniBand)** | InfiniBand PKey per tenant | GPU-to-GPU and GPU-to-storage traffic at IB switch hardware level |
+| **Storage** | Lustre NodeMap per tenant | Lustre directory access restricted to tenant's IB IPs |
 | **Compute** | Kubernetes namespaces + Slurm accounts | Workload and resource isolation |
 | **Billing** | Scoped metering per tenant/project/user | Usage data and billing records |
 
@@ -146,7 +146,7 @@ Every request must pass **both** checks. No action is trusted by default.
 | Aspect | Implementation |
 |--------|----------------|
 | **Metering data** | Stored in platform-controlled PostgreSQL with no tenant write access |
-| **Backup frequency** | Every 6 hours to VAST S3 |
+| **Backup frequency** | Every 6 hours to platform object storage |
 | **Metrics storage** | VictoriaMetrics with HA replication |
 | **Data retention** | 12–24 months (configurable via S3 lifecycle) |
 | **Data anonymization** | Sensitive data anonymized where feasible |

@@ -138,13 +138,13 @@
         <mxCell id="leg1" value="🔐 Identity: Dedicated Keycloak realm" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="80" y="395" width="220" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="leg2" value="🌐 Ethernet: VRF + VLAN (Cisco NDFC)" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="leg2" value="🌐 Ethernet: VRF + VLAN (Network Fabric Controller)" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="80" y="418" width="220" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="leg3" value="⚡ InfiniBand: UFM PKey (switch ASIC)" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="leg3" value="⚡ InfiniBand: IB PKey (switch ASIC)" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="350" y="395" width="220" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="leg4" value="💾 Storage: DDN NodeMap (controller)" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="leg4" value="💾 Storage: Lustre NodeMap (controller)" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="350" y="418" width="220" height="20" as="geometry" />
         </mxCell>
         <mxCell id="leg5" value="🖥️ Compute: K8s namespaces + Slurm accounts" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;" vertex="1" parent="1">

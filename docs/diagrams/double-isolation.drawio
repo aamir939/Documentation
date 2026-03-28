@@ -20,11 +20,11 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <!-- Check 1: UFM PKey -->
+        <!-- Check 1: IB PKey -->
         <mxCell id="check1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#ef6c00;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="200" y="150" width="300" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="check1-title" value="Check 1: UFM PKey" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=13;fontColor=#ef6c00;" vertex="1" parent="1">
+        <mxCell id="check1-title" value="Check 1: IB PKey" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=13;fontColor=#ef6c00;" vertex="1" parent="1">
           <mxGeometry x="200" y="160" width="300" height="20" as="geometry" />
         </mxCell>
         <mxCell id="check1-desc" value="InfiniBand fabric level (IB switch HW)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
@@ -51,7 +51,7 @@
         <mxCell id="check2-title" value="Check 2: NodeMap" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=13;fontColor=#7b1fa2;" vertex="1" parent="1">
           <mxGeometry x="200" y="270" width="300" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="check2-desc" value="Lustre filesystem level (DDN controller)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
+        <mxCell id="check2-desc" value="Lustre filesystem level (filesystem controller)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="200" y="292" width="300" height="20" as="geometry" />
         </mxCell>
         <mxCell id="check2-icon" value="💾" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;" vertex="1" parent="1">

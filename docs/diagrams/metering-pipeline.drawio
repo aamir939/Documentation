@@ -24,10 +24,10 @@
         <mxCell id="exp2" value="Node&#xa;Exporter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1565c0;strokeWidth=1;fontSize=11;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="190" y="115" width="90" height="45" as="geometry" />
         </mxCell>
-        <mxCell id="exp3" value="UFM&#xa;Telemetry" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1565c0;strokeWidth=1;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="exp3" value="IB Fabric&#xa;Telemetry" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1565c0;strokeWidth=1;fontSize=11;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="300" y="115" width="90" height="45" as="geometry" />
         </mxCell>
-        <mxCell id="exp4" value="DDN&#xa;Reporting" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1565c0;strokeWidth=1;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="exp4" value="Storage&#xa;Reporting" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1565c0;strokeWidth=1;fontSize=11;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="410" y="115" width="90" height="45" as="geometry" />
         </mxCell>
 
@@ -84,7 +84,7 @@
         <mxCell id="stage4-title" value="Stage 4: Billing Aggregation" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontStyle=1;fontSize=13;fontColor=#7b1fa2;" vertex="1" parent="1">
           <mxGeometry x="320" y="405" width="250" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="orbiter" value="orbiter-metering" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#7b1fa2;strokeWidth=1;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="orbiter" value="metering-service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#7b1fa2;strokeWidth=1;fontSize=12;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="400" y="430" width="200" height="25" as="geometry" />
         </mxCell>
         <mxCell id="orbiter-desc" value="Aggregates by tenant / project / user" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
@@ -132,10 +132,10 @@
         <mxCell id="m5" value="• Per-job Slurm accounting" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;" vertex="1" parent="1">
           <mxGeometry x="755" y="185" width="180" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="m6" value="• Storage (DDN) quota" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;" vertex="1" parent="1">
+        <mxCell id="m6" value="• Parallel FS quota" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;" vertex="1" parent="1">
           <mxGeometry x="755" y="205" width="180" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="m7" value="• Storage (VAST) PVC/S3" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;" vertex="1" parent="1">
+        <mxCell id="m7" value="• Object Storage PVC/S3" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;" vertex="1" parent="1">
           <mxGeometry x="755" y="225" width="180" height="18" as="geometry" />
         </mxCell>
         <mxCell id="m8" value="• Network IB bandwidth" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;" vertex="1" parent="1">

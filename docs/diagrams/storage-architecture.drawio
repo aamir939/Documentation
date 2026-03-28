@@ -10,11 +10,11 @@
           <mxGeometry x="300" y="20" width="300" height="30" as="geometry" />
         </mxCell>
 
-        <!-- Tier 1: DDN Lustre -->
+        <!-- Tier 1: Parallel FS -->
         <mxCell id="tier1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;strokeWidth=3;" vertex="1" parent="1">
           <mxGeometry x="50" y="70" width="380" height="200" as="geometry" />
         </mxCell>
-        <mxCell id="tier1-title" value="Tier 1: DDN AI400 Lustre" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=15;fontColor=#1565c0;" vertex="1" parent="1">
+        <mxCell id="tier1-title" value="Tier 1: Parallel Filesystem" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=15;fontColor=#1565c0;" vertex="1" parent="1">
           <mxGeometry x="100" y="85" width="280" height="25" as="geometry" />
         </mxCell>
         <mxCell id="tier1-subtitle" value="High-Performance GPU Storage" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#424242;fontStyle=2;" vertex="1" parent="1">
@@ -48,11 +48,11 @@
           <mxGeometry x="435" y="145" width="30" height="50" as="geometry" />
         </mxCell>
 
-        <!-- Tier 2: VAST Data -->
+        <!-- Tier 2: Object Storage -->
         <mxCell id="tier2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;strokeWidth=3;" vertex="1" parent="1">
           <mxGeometry x="470" y="70" width="380" height="200" as="geometry" />
         </mxCell>
-        <mxCell id="tier2-title" value="Tier 2: VAST Data" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=15;fontColor=#2e7d32;" vertex="1" parent="1">
+        <mxCell id="tier2-title" value="Tier 2: Object Storage" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=15;fontColor=#2e7d32;" vertex="1" parent="1">
           <mxGeometry x="520" y="85" width="280" height="25" as="geometry" />
         </mxCell>
         <mxCell id="tier2-subtitle" value="Platform Storage (NFS/S3)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#424242;fontStyle=2;" vertex="1" parent="1">
@@ -88,7 +88,7 @@
         <mxCell id="prot-title" value="Data Protection" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=13;fontColor=#f57f17;" vertex="1" parent="1">
           <mxGeometry x="380" y="298" width="140" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="prot1" value="🔄 Automated backups every 6 hours to VAST S3" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
+        <mxCell id="prot1" value="🔄 Automated backups every 6 hours to object storage" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;fontColor=#424242;" vertex="1" parent="1">
           <mxGeometry x="100" y="325" width="300" height="20" as="geometry" />
         </mxCell>
         <mxCell id="prot2" value="📅 S3 lifecycle rules for archival (12-24 months)" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;fontColor=#424242;" vertex="1" parent="1">

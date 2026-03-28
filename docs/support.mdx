@@ -1,7 +1,7 @@
 ---
 sidebar_position: 11
 title: Support & SLA
-description: Support commitments and service level agreements for AI Cloud/dflare
+description: Support commitments and service level agreements for Dflair AI
 keywords: [support, SLA, service level agreement, availability, maintenance]
 ---
 
@@ -12,12 +12,12 @@ import escalationPath from '!!raw-loader!./diagrams/escalation-path.drawio';
 
 ## Service Commitments
 
-AI Cloud/dflare is designed for enterprise reliability with comprehensive support and operational commitments.
+Dflair AI is designed for enterprise reliability with comprehensive support and operational commitments.
 
 | Area | Commitment |
 |------|------------|
 | **Platform Availability** | Designed for high availability across all control plane components (etcd quorum, HA load balancers, replicated databases) |
-| **Data Protection** | Automated backups every 6 hours to VAST S3 with configurable retention (12–24 months) |
+| **Data Protection** | Automated backups every 6 hours to platform object storage with configurable retention (12–24 months) |
 | **Monitoring** | 24/7 infrastructure monitoring with configurable alert thresholds |
 | **Incident Response** | Comprehensive audit logging with correlation ID tracking for rapid root-cause analysis |
 | **Security Updates** | Golden OS images with CIS benchmarks, vulnerability scanning per policy |
@@ -37,22 +37,22 @@ Specific SLA terms, response times, and support tiers are defined per customer e
 | **PostgreSQL** | Primary-replica with automatic failover | < 30 second failover |
 | **etcd** | 3 or 5 node quorum | Quorum-based recovery |
 | **VictoriaMetrics** | HA cluster with replication | Data durability |
-| **MAAS** | Multiple controllers | Automatic failover |
+| **Provisioning Service** | Multiple controllers | Automatic failover |
 
 ### Data Protection
 
 | Data Type | Backup Frequency | Retention | Storage |
 |-----------|------------------|-----------|---------|
-| **Platform configuration** | Every 6 hours | 12-24 months | VAST S3 |
-| **Metering data** | Every 6 hours | 12-24 months | VAST S3 |
-| **Audit logs** | Continuous | 12-24 months | VAST S3 |
+| **Platform configuration** | Every 6 hours | 12-24 months | Platform object storage |
+| **Metering data** | Every 6 hours | 12-24 months | Platform object storage |
+| **Audit logs** | Continuous | 12-24 months | Platform object storage |
 | **Metrics** | Replicated | 90 days hot, 12 months cold | VictoriaMetrics + S3 |
 
 ## Monitoring & Alerting
 
 ### Infrastructure Monitoring
 
-AI Cloud/dflare includes comprehensive infrastructure monitoring:
+Dflair AI includes comprehensive infrastructure monitoring:
 
 - **13 exporters** covering every infrastructure layer
 - **24/7 automated monitoring** with alerting
@@ -174,7 +174,7 @@ Tenants have access to monitoring dashboards showing:
 ### Contact Support
 
 - **Portal** — Submit and track support tickets
-- **Email** — support@aicloud-dflare.com
+- **Email** — support@dflair.ai
 - **Emergency** — 24/7 hotline for critical issues (Enterprise/Premium)
 
 ### Escalation Path

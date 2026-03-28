@@ -2,7 +2,7 @@
 sidebar_position: 1
 title: Automated Bare Metal Provisioning
 description: Reduce GPU server provisioning from days to minutes with automated orchestration
-keywords: [bare metal, provisioning, automation, MAAS, PXE, GPU servers]
+keywords: [bare metal, provisioning, automation, PXE, GPU servers]
 ---
 
 import Drawio from '@theme/Drawio'
@@ -57,7 +57,7 @@ Every provisioned node runs a lightweight gRPC agent for secure, bidirectional c
 1. **User Request** — Tenant admin requests GPU nodes through portal
 2. **Pool Selection** — System identifies available nodes matching requirements
 3. **Network Setup** — VRFs/VLANs configured for tenant isolation
-4. **Provisioning** — MAAS coordinates boot and OS installation
+4. **Provisioning** — Provisioning service coordinates boot and OS installation
 5. **Configuration** — Cloud-init applies node-specific settings
 6. **Registration** — Agent confirms node ready for workloads
 

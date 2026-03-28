@@ -1,7 +1,7 @@
 ---
 sidebar_position: 9
 title: Competitive Differentiators
-description: What makes AI Cloud/dflare unique in the GPU infrastructure market
+description: What makes Dflair AI unique in the GPU infrastructure market
 keywords: [differentiators, competitive advantages, unique features]
 ---
 
@@ -11,15 +11,15 @@ import doubleIsolation from '!!raw-loader!./diagrams/double-isolation.drawio';
 
 # Competitive Differentiators
 
-## What Sets AI Cloud/dflare Apart
+## What Sets Dflair AI Apart
 
-AI Cloud/dflare delivers a unique combination of capabilities that differentiate it from alternatives in the GPU infrastructure market.
+Dflair AI delivers a unique combination of capabilities that differentiate it from alternatives in the GPU infrastructure market.
 
 ## Key Differentiators
 
 ### 1. Unified Kubernetes + Slurm on Shared Infrastructure
 
-**Most platforms force a choice between containers and HPC.** AI Cloud/dflare runs both Kubernetes and Slurm workloads on the same bare metal nodes, with unified networking, storage, security, and billing.
+**Most platforms force a choice between containers and HPC.** Dflair AI runs both Kubernetes and Slurm workloads on the same bare metal nodes, with unified networking, storage, security, and billing.
 
 <Drawio content={k8sSlurmUnified} />
 
@@ -29,7 +29,7 @@ The **Slinky Operator** bridges both worlds seamlessly, allowing organizations t
 
 **No hypervisor overhead. No virtualization layer.** GPUs are accessed directly by workloads with hardware-level BIOS and OS tuning pre-applied.
 
-| Virtualized GPU | AI Cloud/dflare Bare Metal |
+| Virtualized GPU | Dflair AI Bare Metal |
 |-----------------|---------------------------|
 | 5-15% overhead from hypervisor | Zero overhead |
 | Shared GPU memory (vGPU) | Full GPU memory access |
@@ -40,7 +40,7 @@ The **Slinky Operator** bridges both worlds seamlessly, allowing organizations t
 
 ### 3. Multi-Vendor GPU Support
 
-**Not locked into a single GPU vendor.** AI Cloud/dflare supports NVIDIA, AMD, and Intel accelerators — giving organizations flexibility.
+**Not locked into a single GPU vendor.** Dflair AI supports NVIDIA, AMD, and Intel accelerators — giving organizations flexibility.
 
 | Vendor | Supported Models | Operator |
 |--------|------------------|----------|
@@ -60,8 +60,8 @@ The **Slinky Operator** bridges both worlds seamlessly, allowing organizations t
 
 | Layer | Mechanism | Hardware Component |
 |-------|-----------|-------------------|
-| **InfiniBand** | UFM PKey | InfiniBand switch ASIC |
-| **Lustre** | DDN NodeMap | Storage controller |
+| **InfiniBand** | InfiniBand PKey | InfiniBand switch ASIC |
+| **Lustre** | NodeMap | Storage controller |
 | **Ethernet** | VRF/VXLAN | Network switch hardware |
 
 **Double isolation on storage** ensures defense-in-depth:
@@ -72,10 +72,10 @@ Even if one layer were compromised, the other would block unauthorized access.
 
 ### 5. High-Throughput Storage at Fabric Speed
 
-**DDN AI400 Lustre over multiple 400G InfiniBand links per node** delivers storage throughput that matches the compute appetite of modern GPUs.
+**High-performance Lustre over multiple 400G InfiniBand links per node** delivers storage throughput that matches the compute appetite of modern GPUs.
 
-| Typical Cloud Storage | AI Cloud/dflare DDN Lustre |
-|----------------------|---------------------------|
+| Typical Cloud Storage | Dflair AI Parallel Filesystem |
+|----------------------|-------------------------------|
 | 1-10 GB/s per node | 100+ GB/s per node |
 | Network-attached (NAS) | InfiniBand-attached |
 | TCP/IP overhead | RDMA direct access |
@@ -91,8 +91,8 @@ Even if one layer were compromised, the other would block unauthorized access.
 |--------|--------|-------------|
 | GPU utilization | GPU telemetry exporter | Per GPU, 15 seconds |
 | CPU usage | Node Exporter | Per node, 15 seconds |
-| Storage I/O | DDN + VAST metrics | Per directory/volume |
-| Network bandwidth | UFM telemetry | Per PKey (per tenant) |
+| Storage I/O | Parallel filesystem + object storage metrics | Per directory/volume |
+| Network bandwidth | InfiniBand fabric telemetry | Per PKey (per tenant) |
 
 Every GPU-hour, CPU-hour, and storage byte is:
 - Tracked at the source
@@ -104,7 +104,7 @@ Every GPU-hour, CPU-hour, and storage byte is:
 
 **From bare metal power-on to production-ready cluster — fully automated.**
 
-| Manual Approach | AI Cloud/dflare Approach |
+| Manual Approach | Dflair AI Approach |
 |-----------------|-------------------------|
 | SSH into servers | Portal-driven |
 | Manual OS install | PXE boot + golden image |
@@ -134,7 +134,7 @@ Every GPU-hour, CPU-hour, and storage byte is:
 
 ## Comparison Summary
 
-| Capability | Public Cloud | Colo + DIY | AI Cloud/dflare |
+| Capability | Public Cloud | Colo + DIY | Dflair AI |
 |------------|--------------|------------|-----------------|
 | Bare metal performance | ❌ Virtualized | ✅ | ✅ |
 | Multi-vendor GPUs | ❌ Single vendor | ✅ | ✅ |
