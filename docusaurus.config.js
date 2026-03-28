@@ -10,7 +10,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'AI Cloud/dflare',
+  title: 'Dflair AI',
   tagline: 'Enterprise GPU Infrastructure Platform',
   favicon: 'img/favicon.ico',
 
@@ -20,13 +20,13 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: 'https://docs.aicloud-dflare.com',
+  url: 'https://docs.dflair-ai.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
-  organizationName: 'aicloud-dflare',
+  organizationName: 'dflair-ai',
   projectName: 'documentation',
 
   onBrokenLinks: 'throw',
@@ -72,9 +72,9 @@ const config = {
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: 'AI Cloud/dflare',
+        title: 'Dflair AI',
         logo: {
-          alt: 'AI Cloud/dflare Logo',
+          alt: 'Dflair AI Logo',
           src: 'img/logo.svg',
         },
         items: [
@@ -100,12 +100,12 @@ const config = {
             position: 'left',
           },
           {
-            href: 'https://portal.aicloud-dflare.com',
+            href: 'https://portal.dflair-ai.com',
             label: 'Portal',
             position: 'right',
           },
           {
-            href: 'https://status.aicloud-dflare.com',
+            href: 'https://status.dflair-ai.com',
             label: 'Status',
             position: 'right',
           },
@@ -161,7 +161,7 @@ const config = {
               },
               {
                 label: 'Request Demo',
-                href: 'https://aicloud-dflare.com/demo',
+                href: 'https://dflair-ai.com/demo',
               },
             ],
           },
@@ -170,20 +170,20 @@ const config = {
             items: [
               {
                 label: 'Portal Login',
-                href: 'https://portal.aicloud-dflare.com',
+                href: 'https://portal.dflair-ai.com',
               },
               {
                 label: 'System Status',
-                href: 'https://status.aicloud-dflare.com',
+                href: 'https://status.dflair-ai.com',
               },
               {
                 label: 'Contact Sales',
-                href: 'https://aicloud-dflare.com/contact',
+                href: 'https://dflair-ai.com/contact',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} AI Cloud/dflare. All rights reserved. Confidential — For Authorized Distribution Only.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Dflair AI. All rights reserved. Confidential — For Authorized Distribution Only.`,
       },
       prism: {
         theme: prismThemes.github,
