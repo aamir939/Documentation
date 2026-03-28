@@ -16,12 +16,12 @@ Dflair AI is designed to scale from small departmental deployments to large ente
 
 | Dimension | Capacity |
 |-----------|----------|
-| **GPU Nodes** | 1,250+ per deployment |
-| **Accelerators** | 10,000+ GPUs per deployment |
+| **GPU Nodes** | Scales to deployment requirements |
+| **Accelerators** | Scales to deployment requirements |
 | **GPU Vendors** | NVIDIA, AMD, Intel — multi-vendor support |
 | **Tenants** | Multi-tenant with dedicated Keycloak realms per tenant |
 | **Clusters per Tenant** | Configurable via quota system |
-| **Network Isolation** | Pool of 10+ tenant VRFs, 2 VLANs per VRF, expandable |
+| **Network Isolation** | Tenant VRF pool with 2 VLANs per VRF, expandable |
 
 ## Deployment Configurations
 
@@ -31,11 +31,11 @@ Ideal for departmental AI teams or single-tenant research groups.
 
 | Component | Specification |
 |-----------|--------------|
-| **GPU Nodes** | 16-64 nodes |
-| **Total GPUs** | 128-512 accelerators |
+| **GPU Nodes** | Entry-level cluster |
+| **Total GPUs** | Entry-level accelerator count |
 | **Network** | Single spine-leaf InfiniBand topology |
 | **Storage** | Parallel filesystem entry configuration |
-| **Tenants** | 1-5 tenants |
+| **Tenants** | Single or few tenants |
 | **Use Case** | Departmental AI, research groups |
 
 ### Medium Deployment
@@ -44,11 +44,11 @@ Suitable for enterprise AI teams or regional service providers.
 
 | Component | Specification |
 |-----------|--------------|
-| **GPU Nodes** | 64-256 nodes |
-| **Total GPUs** | 512-2,048 accelerators |
+| **GPU Nodes** | Mid-range cluster |
+| **Total GPUs** | Mid-range accelerator count |
 | **Network** | Multi-spine InfiniBand topology |
 | **Storage** | Parallel filesystem mid-range configuration |
-| **Tenants** | 5-20 tenants |
+| **Tenants** | Multiple tenants |
 | **Use Case** | Enterprise AI, regional cloud |
 
 ### Large Deployment
@@ -57,11 +57,11 @@ Designed for sovereign AI programs, major cloud providers, and frontier AI resea
 
 | Component | Specification |
 |-----------|--------------|
-| **GPU Nodes** | 256-1,250+ nodes |
-| **Total GPUs** | 2,048-10,000+ accelerators |
+| **GPU Nodes** | Enterprise-scale cluster |
+| **Total GPUs** | Enterprise-scale accelerator count |
 | **Network** | Fat-tree InfiniBand topology |
 | **Storage** | Parallel filesystem enterprise configuration |
-| **Tenants** | 20+ tenants |
+| **Tenants** | Many tenants |
 | **Use Case** | Sovereign AI, CSP, frontier research |
 
 ## Tenant Onboarding Flow
@@ -100,10 +100,10 @@ When planning GPU capacity, consider:
 
 | Workload Type | Storage Requirement |
 |---------------|---------------------|
-| **Model training** | 10-100 TB per major project |
-| **Checkpoints** | 5-20% of model size × checkpoint frequency |
-| **Datasets** | Varies by domain (TB to PB) |
-| **Experiment logs** | 1-10 GB per experiment |
+| **Model training** | Scales with model size and data volume |
+| **Checkpoints** | Percentage of model size × checkpoint frequency |
+| **Datasets** | Varies by domain and use case |
+| **Experiment logs** | Varies by experiment complexity |
 
 ### Network Capacity Planning
 

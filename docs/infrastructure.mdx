@@ -22,8 +22,8 @@ import networkIsolationStack from '!!raw-loader!./diagrams/network-isolation-sta
 | **GPU Interconnect (Intra-Node)** | Vendor-specific high-bandwidth links (NVLink, Infinity Fabric, etc.) |
 | **InfiniBand Links** | Multiple 400Gbps links per node (configurable per deployment) |
 | **Ethernet** | 25G frontend |
-| **Maximum Nodes** | 1,250+ per deployment |
-| **Maximum GPUs** | 10,000+ accelerators per deployment |
+| **Maximum Nodes** | Scales to deployment requirements |
+| **Maximum GPUs** | Scales to deployment requirements |
 
 ### GPU Support Matrix
 
@@ -110,12 +110,12 @@ The golden OS image includes pre-configured BIOS settings optimized for GPU work
 
 | Dimension | Capacity |
 |-----------|----------|
-| **GPU Nodes** | 1,250+ per deployment |
-| **Accelerators** | 10,000+ GPUs per deployment |
+| **GPU Nodes** | Scales to deployment requirements |
+| **Accelerators** | Scales to deployment requirements |
 | **GPU Vendors** | NVIDIA, AMD, Intel — multi-vendor support |
 | **Tenants** | Multi-tenant with dedicated Keycloak realms per tenant |
 | **Clusters per Tenant** | Configurable via quota system |
-| **Network Isolation** | Pool of 10+ tenant VRFs, 2 VLANs per VRF, expandable |
+| **Network Isolation** | Tenant VRF pool with 2 VLANs per VRF, expandable |
 
 ## Reference Deployment Configurations
 
@@ -123,31 +123,31 @@ The golden OS image includes pre-configured BIOS settings optimized for GPU work
 
 | Component | Specification |
 |-----------|--------------|
-| GPU Nodes | 16-64 nodes |
-| Total GPUs | 128-512 accelerators |
+| GPU Nodes | Entry-level cluster |
+| Total GPUs | Entry-level accelerator count |
 | InfiniBand | Single spine-leaf topology |
 | Storage | Parallel filesystem entry configuration |
-| Tenants | 1-5 tenants |
+| Tenants | Single or few tenants |
 
 ### Medium Deployment
 
 | Component | Specification |
 |-----------|--------------|
-| GPU Nodes | 64-256 nodes |
-| Total GPUs | 512-2,048 accelerators |
+| GPU Nodes | Mid-range cluster |
+| Total GPUs | Mid-range accelerator count |
 | InfiniBand | Multi-spine topology |
 | Storage | Parallel filesystem mid-range configuration |
-| Tenants | 5-20 tenants |
+| Tenants | Multiple tenants |
 
 ### Large Deployment
 
 | Component | Specification |
 |-----------|--------------|
-| GPU Nodes | 256-1,250+ nodes |
-| Total GPUs | 2,048-10,000+ accelerators |
+| GPU Nodes | Enterprise-scale cluster |
+| Total GPUs | Enterprise-scale accelerator count |
 | InfiniBand | Fat-tree topology |
 | Storage | Parallel filesystem enterprise configuration |
-| Tenants | 20+ tenants |
+| Tenants | Many tenants |
 
 ---
 
